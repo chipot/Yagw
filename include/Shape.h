@@ -9,8 +9,8 @@
 
 struct Vertex
 {
-  ssize_t x;
-  ssize_t y;
+  long x;
+  long y;
 };
 
 class Shape

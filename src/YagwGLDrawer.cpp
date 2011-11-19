@@ -35,20 +35,20 @@ void YagwGLDrawer::resizeGL(int w, int h)
 
 void YagwGLDrawer::paintGL()
 {
-  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
 
   // put the eye in the right place.
   glLoadIdentity();
 
-  glTranslatef(0, 0, 2.0f);
+  glTranslatef(0, 0, -6.0f);
   //do nothing ! Fuck yeah !
   Entity *entity;
   foreach(entity, _entities)
   {
     Shape const &shape = entity->getShape();
     Vertex v;
-    glBegin(GL_LINE_STRIP);
-      glColor3b(0, 0, 255);
+    glBegin(GL_LINE_LOOP);
+      glColor3f(1.0, 1.0, 1.0);
       foreach(v, shape._vlist)
       {
         qDebug() << v.x << v.y;
