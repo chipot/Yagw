@@ -12,7 +12,6 @@ int  main(int argc, char *argv[])
 
     YagwScene scene;
     QGraphicsView view(&scene);
-//    YagwView view(&scene);
 
     T.connect(&T, SIGNAL(timeout()), &scene, SLOT(advance()));
     T.start(1000 / 60);
