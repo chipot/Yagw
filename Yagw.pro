@@ -10,5 +10,34 @@ INCLUDEPATH += . include
 QMAKE_CXXFLAGS += -std=c++0x
 
 # Input
-HEADERS += include/Entity.h include/YagwGLDrawer.h include/Shape.h
-SOURCES += src/main.cpp src/YagwGLDrawer.cpp src/Shape.cpp
+HEADERS += \
+    include/YagwScene.h \
+    include/entity.h
+SOURCES += src/main.cpp \
+    include/YagwScene.cpp \
+    include/entity.cpp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
