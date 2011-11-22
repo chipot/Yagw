@@ -13,13 +13,16 @@ QMAKE_CXXFLAGS +=
 HEADERS += \
     include/YagwScene.h \
     include/Entity.h \
-    include/Ship.h
+    include/Ship.h\
+    include/singleton.hpp\
+    include/SoundCenter.h
+
 
 SOURCES += src/main.cpp \
     src/Ship.cpp \
     src/YagwScene.cpp \
     src/Entity.cpp \
-
+    src/SoundCenter.cpp
 
 
 
