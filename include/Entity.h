@@ -5,6 +5,8 @@
 #include <QGraphicsItem>
 #include <QPointF>
 #include <QDebug>
+#include <QPainterPath>
+#include <QGLWidget>
 
 class Entity : public QGraphicsItem
 {
@@ -16,7 +18,10 @@ public:
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
     void advance (int);
 private :
+    QPainterPath path;
     QPointF move;
+    int angle;
+    int direction;
 
 };
 
