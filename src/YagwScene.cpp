@@ -2,7 +2,7 @@
 
 YagwScene::YagwScene(QObject *parent) :
     QGraphicsScene(parent) {
-    ship = new Entity();
+    ship = new Ship();
     ship->setAcceptTouchEvents(true);
     this->addItem(this->ship);
     this->setSceneRect(-100,-100,200,200);

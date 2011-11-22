@@ -7,7 +7,7 @@
 #include <QQueue>
 #include <QRectF>
 #include <QGraphicsItem>
-#include "entity.h"
+#include "Ship.h"
 
 
 class YagwScene : public QGraphicsScene
@@ -23,8 +23,8 @@ public slots:
     void drawBackground(QPainter *painter, const QRectF &rect);
 
 private:
-    QQueue<int>	_keyq;
-    Entity *ship;
+    Entity            *ship;
+    QList<Entity*>   entities;
 };
 
 #endif // YAGWSCENE_H

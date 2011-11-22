@@ -12,10 +12,23 @@ QMAKE_CXXFLAGS += -std=c++0x
 # Input
 HEADERS += \
     include/YagwScene.h \
-    include/entity.h
+    include/entity.h \
+    include/Ship.h
 SOURCES += src/main.cpp \
-    include/YagwScene.cpp \
-    include/entity.cpp
+    src/Ship.cpp \
+    src/YagwScene.cpp \
+    src/entity.cpp
+
+
+
+
+
+
+
+
+
+
+
 
 
 

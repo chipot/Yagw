@@ -1,5 +1,6 @@
 #ifndef ENTITY_H
 #define ENTITY_H
+
 #include <QPainter>
 #include <QKeyEvent>
 #include <QGraphicsItem>
@@ -12,17 +13,24 @@ class Entity : public QGraphicsItem
 {
 public:
     Entity();
-    void keyPressEvent( QKeyEvent * event );
-    void keyReleaseEvent( QKeyEvent * keyEvent );
-    QRectF boundingRect() const;
-    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
-    void advance (int);
-private :
+    virtual QRectF boundingRect() const;
+    virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
+    virtual void advance (int);
+
+protected :
     QPainterPath path;
+    QHash<QPointF, int> directions;
     QPointF move;
     int angle;
-    int direction;
+    int rotationSpeed;
+
+private :
+
+    void initDirections();
+
 
 };
+
+uint qHash(QPointF const &ptr);
 
 #endif // ENTITY_H

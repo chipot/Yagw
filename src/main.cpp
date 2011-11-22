@@ -1,13 +1,11 @@
 #include <QApplication>
 #include <QTimer>
 #include <QGraphicsView>
-#include "YagwGLDrawer.h"
 #include "YagwScene.h"
 
 int  main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-//    YagwGLDrawer gld;
     QTimer T;
 
     YagwScene scene;
