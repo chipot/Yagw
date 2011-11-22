@@ -9,6 +9,7 @@
 class Entity : public QGraphicsItem
 {
 public:
+    Entity();
     void keyPressEvent( QKeyEvent * event );
     void keyReleaseEvent( QKeyEvent * keyEvent );
     QRectF boundingRect() const;

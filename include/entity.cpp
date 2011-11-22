@@ -1,6 +1,9 @@
 #include "entity.h"
 #include <QGLWidget>
 
+Entity::Entity() : QGraphicsItem() {
+    move = QPointF(0,0);
+}
 
 QRectF Entity::boundingRect() const {
     qreal penWidth = 1;
@@ -10,7 +13,7 @@ QRectF Entity::boundingRect() const {
 
 void Entity::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {
     painter->setPen(QColor("blue"));
-    //painter->drawRoundedRect(-10, -10, 20, 20, 5, 5);
+    painter->drawRoundedRect(-10, -10, 20, 20, 5, 5);
 }
 
 void Entity::advance(int phase) {
