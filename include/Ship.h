@@ -10,7 +10,6 @@ private :
     // private methods
     void initPath();
     int calcRotation();
-
     int fireLevel;
 
 public :

@@ -5,7 +5,7 @@ YagwScene::YagwScene(QObject *parent) :
     ship = new Ship();
     ship->setAcceptTouchEvents(true);
     this->addItem(this->ship);
-    this->setSceneRect(-100,-100,200,200);
+    this->setSceneRect(-200,-200,400,400);
 }
 
 void YagwScene::keyReleaseEvent(QKeyEvent *event) {
@@ -43,5 +43,6 @@ void YagwScene::keyPressEvent(QKeyEvent *event) {
 }
 
 void YagwScene::drawBackground(QPainter *painter, const QRectF &rect) {
-    this->setSceneRect(-100,-100,200,200);
+    this->setSceneRect(-200,-200,400,400);
+    this->setBackgroundBrush(Qt::black);
 }

@@ -14,10 +14,12 @@ HEADERS += \
     include/YagwScene.h \
     include/Entity.h \
     include/Ship.h
+
 SOURCES += src/main.cpp \
     src/Ship.cpp \
     src/YagwScene.cpp \
-    src/Entity.cpp
+    src/Entity.cpp \
+
 
 
 
