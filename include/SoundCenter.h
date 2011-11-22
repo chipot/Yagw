@@ -11,7 +11,7 @@ class SoundCenter;
 
 class SoundCenter: public moost::singleton<SoundCenter>
 {
-    friend class singleton<SoundCenter>;
+    friend class moost::singleton<SoundCenter>;
   public:
     void play(const QString &name);
   private:
