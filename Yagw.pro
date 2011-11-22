@@ -4,20 +4,20 @@
 
 TEMPLATE = app
 QT += opengl
-TARGET = 
+TARGET = yagw
 DEPENDPATH += . include src
-INCLUDEPATH += . include
-QMAKE_CXXFLAGS += -std=c++0x
+INCLUDEPATH += . include /usr/X11/include
+QMAKE_CXXFLAGS +=
 
 # Input
 HEADERS += \
     include/YagwScene.h \
-    include/entity.h \
+    include/Entity.h \
     include/Ship.h
 SOURCES += src/main.cpp \
     src/Ship.cpp \
     src/YagwScene.cpp \
-    src/entity.cpp
+    src/Entity.cpp
 
 
 
