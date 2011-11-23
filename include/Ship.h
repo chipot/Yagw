@@ -15,6 +15,6 @@ public :
     Ship();
     QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
-};
+ };
 
 #endif // SHIP_H
