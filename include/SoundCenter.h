@@ -4,6 +4,7 @@
 #include <QString>
 #include <QSound>
 #include <QMap>
+#include <Phonon>
 
 #include "singleton.hpp"
 
@@ -17,7 +18,8 @@ class SoundCenter: public moost::singleton<SoundCenter>
   private:
     SoundCenter();
     QMap<QString, QSound *> data;
-    QSound        background_music;
+    //QSound        background_music;
+    Phonon::MediaObject *music;
 };
 
 #endif /* !SOUNDCENTER_H_ */

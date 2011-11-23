@@ -2,7 +2,6 @@
 #include <QTimer>
 #include <QGraphicsView>
 
-
 #include "GameProcessor.h"
 #include "SoundCenter.h"
 
@@ -12,7 +11,7 @@ int  main(int argc, char *argv[])
     QTimer T;
     YagwScene scene;
 
-    SoundCenter::get_instance(); // init le son et joue un son.
+    SoundCenter::get_instance(); // init le son et lance la musique
 
     QGraphicsView view(&scene);
     GameProcessor game(scene);
