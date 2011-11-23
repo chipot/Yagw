@@ -34,8 +34,6 @@ signals:
    void forwardKeyReleaseEvent(QKeyEvent*);
 public slots:
     void drawBackground(QPainter *painter, const QRectF &rect);
-private:
-    Entity *player;
 };
 
 #endif // YAGWSCENE_H

@@ -1,12 +1,14 @@
 #include "FireBehavior.h"
 
 FireBehavior::FireBehavior() {
-    rotationSpeed = 6;
+    rotationSpeed = 18;
+    moveSpeed = 3;
     direction = QPointF(0,0);
 }
 
 void FireBehavior::behave(Entity *entity) {
-    entity->setMove(direction);
+    QPointF move = direction*moveSpeed;
+    entity->setMove(move);
     entity->setRotation(rotationSpeed);
 }
 

@@ -23,4 +23,4 @@ void Ship::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QW
     painter->drawPath(this->path);
 }
 
-Registry<Entity>::Add<Ship> ship("Ship", "Ship shape entity");
+Registry<Entity>::Add<Ship> ship("ship", "Ship shape entity");

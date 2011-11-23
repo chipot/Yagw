@@ -3,6 +3,7 @@
 
 #include "Ship.h"
 #include "Shuriken.h"
+#include "GreenSquare.h"
 #include "FireBehavior.h"
 #include "Registry.h"
 #include <QMap>
@@ -16,6 +17,7 @@ protected:
 
 public:
     EntityFactory() { init(); }  // Print those already registered.
+    static Entity *getEntity(const char *name);
 };
 
 extern EntityFactory Factory;

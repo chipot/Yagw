@@ -8,6 +8,7 @@ class FireBehavior : public Behavior
 {
 private :
     int rotationSpeed;
+    int moveSpeed;
     QPointF direction;
 public:
     FireBehavior();

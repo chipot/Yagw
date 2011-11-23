@@ -8,7 +8,8 @@ class GameProcessor
 {
 public :
     GameProcessor(YagwScene &ygwscene);
-    void start(void) const;
+    void setPlayer(const char *name);
+    void start(void);
 
 
 private :

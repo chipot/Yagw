@@ -5,18 +5,18 @@
 #include <QTimeLine>
 
 #include "FireBehavior.h"
-#include "Shuriken.h"
-#include "Ship.h"
 
 class PlayerBehavior;
 
 typedef void(PlayerBehavior::*fireLauncher)();
 
-class PlayerBehavior : public Behavior
+class PlayerBehavior : public QObject, public Behavior
 {
+    Q_OBJECT
 private:
     int fireLevel;
     int angle;
+    int moveSpeed;
     int rotationSpeed;
     QPointF move;
     QPointF fireDirection;
@@ -33,6 +33,7 @@ public:
 
 private :
     int  calcRotation();
+    Entity *createFire(QPointF);
     void fire();
     void fireLvl1();
     void fireLvl2();

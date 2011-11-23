@@ -1,12 +1,15 @@
 #include "PlayerBehavior.h"
+#include "EntityFactory.h"
 
 uint qHash(QPointF const &ptr) {
     return (ptr.x() * 1000 + ptr.y());
 }
 
 PlayerBehavior::PlayerBehavior() {
+    qDebug() << "instance playerBehavior";
 
-    rotationSpeed = 4;
+    rotationSpeed = 7;
+    moveSpeed = 2;
     directions[QPointF(0, 0)] = 0;
     directions[QPointF(1, -1)] = 45;
     directions[QPointF(1, 0)] = 90;
@@ -25,25 +28,18 @@ PlayerBehavior::PlayerBehavior() {
     angle = 90;
 }
 
-void    PlayerBehavior::sendEvent(QEvent *event) {
-    if (event->type() == QEvent::KeyPress) {
-        event->accept();
-        qDebug() << "Key press event accepted";
-    }
-    if (event->type() == QEvent::KeyRelease) {
-        event->accept();
-        qDebug() << "Key release event accepted";
-    }
+Entity *PlayerBehavior::createFire(QPointF direction) {
+    FireBehavior *fireBehavior = new FireBehavior();
+    Entity *fire = EntityFactory::getEntity("shuriken");
+    fireBehavior->setDirection(direction);
+    fire->setBehavior(fireBehavior);
+    return fire;
 }
 
-
 void PlayerBehavior::fireLvl1() {
-    FireBehavior *fireBehavior = new FireBehavior();
-    Shuriken *fire = new Shuriken();
-
-    fireBehavior->setDirection(fireDirection);
-    fire->setBehavior(fireBehavior);
+    Entity *fire = createFire(fireDirection);
     this->entityTemp->scene()->addItem(fire);
+    fire->moveBy(entityTemp->pos().x(), entityTemp->pos().y());
 }
 
 void PlayerBehavior::fireLvl2() {
@@ -62,7 +58,6 @@ void PlayerBehavior::fire() {
 }
 
 void PlayerBehavior::keyPressEvent( QKeyEvent * event ) {
-    qDebug() << "keyPressEvent player behavior";
     switch (event->key()) {
         case Qt::Key_W :
             move.setY(-1);
@@ -90,14 +85,21 @@ void PlayerBehavior::keyPressEvent( QKeyEvent * event ) {
 }
 
 void PlayerBehavior::keyReleaseEvent( QKeyEvent * event ) {
-    qDebug() << "keyReleaseEvent player behavior";
     switch (event->key()) {
         case Qt::Key_W :
+            if (move.y() == -1)
+                move.setY(0);
+            break;
         case Qt::Key_S :
+        if (move.y() == 1)
             move.setY(0);
             break;
         case Qt::Key_A :
+        if (move.x() == -1)
+            move.setX(0);
+            break;
         case Qt::Key_D :
+        if (move.x() == 1)
             move.setX(0);
             break;
     case Qt::Key_Up :
@@ -139,7 +141,13 @@ int PlayerBehavior::calcRotation() {
 
 void PlayerBehavior::behave(Entity *entity) {
     this->entityTemp = entity;
-    entity->setMove(move);
+    QPointF _move = move;
+    if (_move.x() != 0 && _move.y() != 0) {
+        _move.setX(_move.x() / 2);
+        _move.setY(_move.y() / 2);
+    }
+    _move *= moveSpeed;
+    entity->setMove(_move);
     this->fire();
     entity->setRotation(this->calcRotation());
 }
