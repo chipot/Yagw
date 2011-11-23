@@ -6,7 +6,7 @@ Shuriken::Shuriken() {
 
 void Shuriken::initPath() {
       for (int i = 1; i < 5; ++i) {
-          path.lineTo(50 + 40 * cos(0.8 * i * PI), 50 + 40 * sin(0.8 * i * PI));
+          path.lineTo(-5 + 8 * cos(0.8 * i * PI), -5 + 8 * sin(0.8 * i * PI));
       }
       path.closeSubpath();
 }

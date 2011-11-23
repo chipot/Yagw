@@ -19,7 +19,10 @@ HEADERS += \
     include/Shuriken.h \
     include/PlayerBehavior.h \
     include/singleton.hpp\
-    include/SoundCenter.h
+    include/SoundCenter.h \
+    include/GameProcessor.h
+
+
 SOURCES += src/main.cpp \
     src/Ship.cpp \
     src/YagwScene.cpp \
@@ -27,7 +30,12 @@ SOURCES += src/main.cpp \
      src/FireBehavior.cpp \
     src/Shuriken.cpp \
     src/PlayerBehavior.cpp \
-    src/Entity.cpp
+    src/Entity.cpp \
+    src/GameProcessor.cpp
+
+
+
+
 
 
 

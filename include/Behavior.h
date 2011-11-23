@@ -4,12 +4,13 @@
 #include "Entity.h"
 #include <QEvent>
 
-class Behavior
+class Behavior : public QObject
 {
+    Q_OBJECT
 public:
+    Behavior(){}
+    virtual ~Behavior(){}
     virtual void behave(Entity*) = 0;
-    virtual void keyPressEvent( QKeyEvent * event ) = 0;
-    virtual void keyReleaseEvent( QKeyEvent * event ) = 0;
 };
 
 #endif // BEHAVIOR_H

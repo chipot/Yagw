@@ -3,7 +3,7 @@
 #include <QGraphicsView>
 
 
-#include "YagwScene.h"
+#include "GameProcessor.h"
 #include "SoundCenter.h"
 
 int  main(int argc, char *argv[])
@@ -12,13 +12,15 @@ int  main(int argc, char *argv[])
     QTimer T;
     YagwScene scene;
 
-    SoundCenter::get_instance()->play("quack"); // init le son et joue un son.
+    SoundCenter::get_instance(); // init le son et joue un son.
 
     QGraphicsView view(&scene);
+    GameProcessor game(scene);
     T.connect(&T, SIGNAL(timeout()), &scene, SLOT(advance()));
     T.start(1000 / 60);
     view.fitInView(view.sceneRect());
     view.show();
+    game.start();
     app.exec();
     return (0);
 }

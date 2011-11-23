@@ -30,12 +30,13 @@ private:
     void keyPressEvent( QKeyEvent * keyEvent );
     void keyReleaseEvent( QKeyEvent * keyEvent );
 signals:
+   void forwardKeyPressEvent(QKeyEvent*);
+   void forwardKeyReleaseEvent(QKeyEvent*);
 public slots:
     void drawBackground(QPainter *painter, const QRectF &rect);
 
 private:
-    Entity            *ship;
-    QList<Entity*>   entities;
+    Entity            *player;
 };
 
 #endif // YAGWSCENE_H

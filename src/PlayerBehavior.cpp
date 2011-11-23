@@ -22,6 +22,7 @@ PlayerBehavior::PlayerBehavior() {
     fl << &PlayerBehavior::fireLvl1;
     fl << &PlayerBehavior::fireLvl2;
     fl << &PlayerBehavior::fireLvl3;
+    angle = 90;
 }
 
 void    PlayerBehavior::sendEvent(QEvent *event) {
@@ -35,33 +36,11 @@ void    PlayerBehavior::sendEvent(QEvent *event) {
     }
 }
 
-void PlayerBehavior::keyReleaseEvent( QKeyEvent * event ) {
-    qDebug() << "keyReleaseEvent player behavior";
-    switch (event->key()) {
-        case Qt::Key_W :
-        case Qt::Key_S :
-            move.setY(0);
-            break;
-        case Qt::Key_A :
-        case Qt::Key_D :
-            move.setX(0);
-            break;
-        case Qt::Key_Up :
-        case Qt::Key_Down :
-            fireDirection.setY(0);
-            break;
-        case Qt::Key_Right :
-        case Qt::Key_Left :
-            fireDirection.setX(0);
-            break;
-        default :
-            break;
-    }
-}
 
 void PlayerBehavior::fireLvl1() {
     FireBehavior *fireBehavior = new FireBehavior();
     Shuriken *fire = new Shuriken();
+
     fireBehavior->setDirection(fireDirection);
     fire->setBehavior(fireBehavior);
     this->entityTemp->scene()->addItem(fire);
@@ -76,8 +55,9 @@ void PlayerBehavior::fireLvl3() {
 }
 
 void PlayerBehavior::fire() {
-    if (fireDirection.x() != 0 && fireDirection.y() != 0) {
+    if (fireDirection.x() != 0 || fireDirection.y() != 0) {
         (this->*fl[fireLevel-1])();
+        fireDirection = QPointF(0, 0);
     }
 }
 
@@ -96,18 +76,42 @@ void PlayerBehavior::keyPressEvent( QKeyEvent * event ) {
         case Qt::Key_D :
             move.setX(1);
             break;
-        case Qt::Key_Up :
-            fireDirection.setY(-1);
+            case Qt::Key_Up :
+            case Qt::Key_Down :
+                fireDirection.setY(0);
+                break;
+            case Qt::Key_Right :
+            case Qt::Key_Left :
+                fireDirection.setX(0);
+        break;
+        default :
             break;
-        case Qt::Key_Left :
-            fireDirection.setX(-1);
+    }
+}
+
+void PlayerBehavior::keyReleaseEvent( QKeyEvent * event ) {
+    qDebug() << "keyReleaseEvent player behavior";
+    switch (event->key()) {
+        case Qt::Key_W :
+        case Qt::Key_S :
+            move.setY(0);
             break;
-        case Qt::Key_Down :
-            fireDirection.setY(1);
+        case Qt::Key_A :
+        case Qt::Key_D :
+            move.setX(0);
             break;
-        case Qt::Key_Right :
-            fireDirection.setX(1);
-            break;
+    case Qt::Key_Up :
+        fireDirection.setY(-1);
+        break;
+    case Qt::Key_Left :
+        fireDirection.setX(-1);
+        break;
+    case Qt::Key_Down :
+        fireDirection.setY(1);
+        break;
+    case Qt::Key_Right :
+        fireDirection.setX(1);
+        break;
         default :
             break;
     }

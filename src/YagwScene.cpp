@@ -2,14 +2,18 @@
 
 YagwScene::YagwScene(QObject *parent) :
     QGraphicsScene(parent) {
-    ship = new Ship();
-    ship->setAcceptTouchEvents(true);
-    ship->setBehavior(new PlayerBehavior());
-    this->addItem(this->ship);
+
+    player = new Ship();
+    player->setAcceptTouchEvents(true);
+    player->setBehavior(new PlayerBehavior());
+
+    this->addItem(this->player);
     this->setSceneRect(-200,-200,400,400);
 }
 
 void YagwScene::keyReleaseEvent(QKeyEvent *event) {
+    emit forwardKeyReleaseEvent(event);
+/*
     switch (event->key()) {
         case Qt::Key_W :
         case Qt::Key_A :
@@ -23,9 +27,12 @@ void YagwScene::keyReleaseEvent(QKeyEvent *event) {
         default :
             break;
     }
+*/
 }
 
 void YagwScene::keyPressEvent(QKeyEvent *event) {
+    emit forwardKeyPressEvent(event);
+/*
     switch (event->key()) {
         case Qt::Key_W :
         case Qt::Key_A :
@@ -40,7 +47,7 @@ void YagwScene::keyPressEvent(QKeyEvent *event) {
         default :
             break;
     }
-
+*/
 }
 
 void YagwScene::drawBackground(QPainter *painter, const QRectF &rect) {

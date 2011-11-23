@@ -10,7 +10,7 @@ Entity::Entity() : QGraphicsItem() {
 Entity::Entity(YagwScene *scene) : QGraphicsItem() {
     move = QPointF(0,0);
     behavior = NULL;
-    parentScene = scene;
+    parentScene = scene;    
 }
 
 
@@ -38,26 +38,6 @@ YagwScene *Entity::getScene() const {
 
 void Entity::setScene(YagwScene *scene) {
     this->parentScene = scene;
-}
-
-/*
-bool Entity::sceneEvent(QEvent *event) {
-    if (behavior != NULL) {
-        behavior->sendEvent(event);
-        qDebug() << event->isAccepted();
-        return event->isAccepted();
-    }
-    return true;
-}
-*/
-
-
-void Entity::keyPressEvent( QKeyEvent * event ) {
-    behavior->keyPressEvent(event);
-}
-
-void Entity::keyReleaseEvent( QKeyEvent * event ) {
-    behavior->keyReleaseEvent(event);
 }
 
 void Entity::setBehavior(Behavior *behavior) {
