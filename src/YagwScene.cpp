@@ -1,9 +1,10 @@
-#include "yagwscene.h"
+#include "YagwScene.h"
 
 YagwScene::YagwScene(QObject *parent) :
     QGraphicsScene(parent) {
     ship = new Ship();
     ship->setAcceptTouchEvents(true);
+    ship->setBehavior(new PlayerBehavior());
     this->addItem(this->ship);
     this->setSceneRect(-200,-200,400,400);
 }
@@ -30,11 +31,11 @@ void YagwScene::keyPressEvent(QKeyEvent *event) {
         case Qt::Key_A :
         case Qt::Key_S :
         case Qt::Key_D :
-            this->sendEvent(ship, event);
         case Qt::Key_Left :
         case Qt::Key_Up :
         case Qt::Key_Right :
         case Qt::Key_Down :
+            this->sendEvent(ship, event);
             // gestion des tirs
         default :
             break;

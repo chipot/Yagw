@@ -12,14 +12,36 @@ QMAKE_CXXFLAGS += -std=c++0x
 # Input
 HEADERS += \
     include/YagwScene.h \
-    include/entity.h \
     include/Ship.h \
-    include/Fire.h
+    include/Behavior.h \
+    include/FireBehavior.h \
+    include/Shuriken.h \
+    include/PlayerBehavior.h \
+    include/Entity.h
 SOURCES += src/main.cpp \
     src/Ship.cpp \
     src/YagwScene.cpp \
-    src/entity.cpp \
-    src/Fire.cpp
+    src/FireBehavior.cpp \
+    src/Shuriken.cpp \
+    src/PlayerBehavior.cpp \
+    src/Entity.cpp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

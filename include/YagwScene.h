@@ -1,5 +1,8 @@
 #ifndef YAGWSCENE_H
 #define YAGWSCENE_H
+
+// include lib
+
 #include <QDebug>
 #include <QKeyEvent>
 #include <QPainter>
@@ -7,7 +10,15 @@
 #include <QQueue>
 #include <QRectF>
 #include <QGraphicsItem>
+
+// include shapes
+
 #include "Ship.h"
+
+// include behaviors
+
+#include "PlayerBehavior.h"
+
 
 
 class YagwScene : public QGraphicsScene
