@@ -1,4 +1,5 @@
 #include "Shuriken.h"
+#include "Registry.h"
 
 Shuriken::Shuriken() {
     initPath();
@@ -21,3 +22,5 @@ void Shuriken::paint(QPainter * painter, const QStyleOptionGraphicsItem * option
     painter->setBrush(QColor(122, 163, 39));
     painter->drawPath(this->path);
 }
+
+Registry<Entity>::Add<Shuriken> shuriken("Shuriken", "Shuriken shape entity");
