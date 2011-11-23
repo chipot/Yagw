@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = app
-QT += opengl
+QT += opengl phonon
 TARGET = yagw
 DEPENDPATH += . include src
 INCLUDEPATH += . include /usr/X11/include
