@@ -6,6 +6,7 @@ SoundCenter::SoundCenter()
   background_music.setLoops(-1);
   background_music.play();
   data["quack"] = new QSound("ressource/quack.wav");
+  data["shoot"] = new QSound("ressource/shoot.wav");
 }
 
 void SoundCenter::play(const QString &name)
