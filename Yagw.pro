@@ -6,8 +6,10 @@ TEMPLATE = app
 QT += opengl phonon
 TARGET = yagw
 DEPENDPATH += . include src
-INCLUDEPATH += . include /usr/X11/include
+INCLUDEPATH += . include /usr/X11/include include/lib
 QMAKE_CXXFLAGS +=
+
+
 
 # Input
 HEADERS += \
