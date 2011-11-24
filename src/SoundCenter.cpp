@@ -1,3 +1,4 @@
+#include <Phonon/MediaSource>
 #include "SoundCenter.h"
 #include <QDebug>
 
@@ -9,12 +10,16 @@ SoundCenter::SoundCenter()
   qDebug() << "valid :" << this->music->isValid();
 
   this->music->play();
-  data["quack"] = new QSound("ressource/quack.wav");
-  data["shoot"] = new QSound("ressource/shoot.wav");
+  Phonon::MediaSource media  = Phonon::MediaSource("ressource/quack.wav");
+  media.setAutoDelete(false);
+  data["quack"] = Phonon::createPlayer(Phonon::MusicCategory,
+                                       media);
+  // data["shoot"] = new QSound("ressource/shoot.wav");
 }
 
 void SoundCenter::play(const QString &name)
 {
+  qDebug() << "playing " << name;
   data[name]->play();
 }
 
