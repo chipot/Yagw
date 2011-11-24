@@ -15,7 +15,6 @@ public:
 protected:
   singleton(){};
   singleton(singleton<T> const &){};
-  singleton(singleton<T>  &){};
 };
 
 }
