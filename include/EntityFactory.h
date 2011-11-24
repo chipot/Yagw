@@ -12,7 +12,7 @@ class EntityFactory : public Registry<Entity>::listener
 {
 protected:
     void registered(const Registry<Entity>::entry &e) {
-        qDebug() << "collector now available: " << e.getName() << "\n";
+        qDebug() << "New entity available: " << e.getName() << "\n";
     }
 
 public:
