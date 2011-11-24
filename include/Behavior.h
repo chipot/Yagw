@@ -4,9 +4,8 @@
 #include "Entity.h"
 #include <QEvent>
 
-class Behavior : public QObject
+class Behavior
 {
-    Q_OBJECT
 public:
     Behavior(){}
     virtual ~Behavior(){}

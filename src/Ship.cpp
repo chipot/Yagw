@@ -1,4 +1,5 @@
 #include "Ship.h"
+#include "Registry.h"
 
 Ship::Ship() {
     initPath();
@@ -22,4 +23,4 @@ void Ship::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QW
     painter->drawPath(this->path);
 }
 
-
+Registry<Entity>::Add<Ship> ship("ship", "Ship shape entity");

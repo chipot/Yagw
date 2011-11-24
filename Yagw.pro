@@ -22,7 +22,10 @@ HEADERS += \
     include/PlayerBehavior.h \
     include/singleton.hpp\
     include/SoundCenter.h \
-    include/GameProcessor.h
+    include/GameProcessor.h \
+    include/EntityFactory.h \
+    include/Registry.h \
+    include/GreenSquare.h
 
 
 SOURCES += src/main.cpp \
@@ -33,7 +36,14 @@ SOURCES += src/main.cpp \
     src/Shuriken.cpp \
     src/PlayerBehavior.cpp \
     src/Entity.cpp \
-    src/GameProcessor.cpp
+    src/GameProcessor.cpp \
+    src/EntityFactory.cpp \
+    src/GreenSquare.cpp
+
+
+
+
+
 
 
 
