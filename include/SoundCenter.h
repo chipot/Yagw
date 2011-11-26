@@ -11,15 +11,16 @@
 
 class SoundCenter;
 
-class SoundCenter: public moost::singleton<SoundCenter>
+class SoundCenter: public QObject, public moost::singleton<SoundCenter>
 {
+    Q_OBJECT
     friend class moost::singleton<SoundCenter>;
   public:
     void play(const QString &name);
+    void loop();
   private:
     SoundCenter();
-    QMap<QString, Phonon::MediaObject *> data;
-    //QSound        background_music;
+    QMap<QString, QSound *> data;
     Phonon::MediaObject *music;
 };
 
