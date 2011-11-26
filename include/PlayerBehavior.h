@@ -43,6 +43,7 @@ private :
 
 signals :
     void playerMoved();
+    void phase0();
 
 public slots:
     void keyPressEvent( QKeyEvent * event );

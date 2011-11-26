@@ -9,6 +9,7 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
 
     playerBehavior = new PlayerBehavior();
+    QObject::connect(playerBehavior, SIGNAL(phase0()), this, SLOT(checkCollidings()));
     QObject::connect(playerBehavior, SIGNAL(playerMoved()), this, SLOT(updatePlayerPosition()));
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
     QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
@@ -54,7 +55,7 @@ QPointF GameProcessor::randomPosition() {
 void GameProcessor::start(void) {
     QTimer *ennemy1Timer = new QTimer();
     ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
-    ennemy1Timer->start(3000);
+    ennemy1Timer->start(1000/3);
 
 }
 
@@ -91,3 +92,16 @@ void GameProcessor::updatePlayerPosition() {
         (*it)->setPlayerPosition(player->pos());
     }
 }
+
+void GameProcessor::checkCollidings() {
+
+    QList<QGraphicsItem*> collidingItems = player->collidingItems();
+
+    QList<QGraphicsItem*>::iterator it = collidingItems.begin();
+    QList<QGraphicsItem*>::iterator ite = collidingItems.end();
+
+    for (;it != ite; ++it) {
+        scene.removeItem((*it));
+    }
+}
+

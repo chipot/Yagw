@@ -17,8 +17,9 @@
 class Behavior;
 class YagwScene;
 
+
 class Entity : public QGraphicsItem
-{
+{        
 protected :
 
     Behavior *behavior;

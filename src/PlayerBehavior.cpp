@@ -134,16 +134,24 @@ int PlayerBehavior::calcRotation() {
     if (direction == angle)
         rotate = 0;
     angle += rotate;
+
     if (angle >= 360) {
         angle -= 360;
     }
     if (angle <= 0) {
         angle+= 360;
     }
+    // retourne l'écart (signé) avec le multiple de 45 le plus proche
+    int gap = abs((angle - (angle / 45 * 45))) < abs(angle - (angle / 45 * 45 + 45)) ? -1*(angle - (angle / 45 * 45)) : (((angle / 45 * 45)+45) - angle);
+    if (abs(gap) < rotationSpeed) {
+        rotate += gap;
+        angle += gap;
+    }
     return rotate;
 }
 
 void PlayerBehavior::behave(Entity *entity) {
+    emit phase0();
     this->entityTemp = entity;
     QPointF _move = move;
 /*
