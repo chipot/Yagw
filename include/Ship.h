@@ -13,7 +13,7 @@ private :
 
 public :
     Ship();
-    QRectF boundingRect() const;
+//    QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
  };
 

@@ -19,9 +19,9 @@ class YagwScene;
 
 
 class Entity : public QGraphicsItem
-{        
-protected :
+{
 
+  protected:
     Behavior *behavior;
 
     QPainterPath path;
@@ -38,7 +38,6 @@ protected :
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
     void advance (int);
-
     const QPointF &getMove() const;
     void setMove(QPointF&);
     int getRotation() const;

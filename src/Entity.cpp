@@ -16,8 +16,12 @@ Entity::Entity(YagwScene *scene) : QGraphicsItem() {
 
 
 QRectF Entity::boundingRect() const {
-    return QRectF(0,0, 10, 10);
+    return this->path.boundingRect();
 }
+
+// QRectF Entity::boundingRect() const {
+//     return QRectF(0,0, 10, 10);
+// }
 
 void Entity::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {
     painter->drawRect(0,0,10,10);

@@ -14,10 +14,6 @@ void Ship::initPath() {
     path.closeSubpath();
 }
 
-QRectF Ship::boundingRect() const {
-    return this->path.boundingRect();
-}
-
 void Ship::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {
     painter->setPen(QColor("blue"));
     painter->drawPath(this->path);
