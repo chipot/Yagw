@@ -28,7 +28,8 @@ HEADERS += \
     include/EntityFactory.h \
     include/Registry.h \
     include/GreenSquare.h \
-    include/SimpleFollowingBehavior.h
+    include/SimpleFollowingBehavior.h \
+    include/EnnemyBehavior.h
 
 
 SOURCES += src/main.cpp \
@@ -42,7 +43,10 @@ SOURCES += src/main.cpp \
     src/GameProcessor.cpp \
     src/EntityFactory.cpp \
     src/GreenSquare.cpp \
-    src/SimpleFollowingBehavior.cpp
+    src/SimpleFollowingBehavior.cpp \
+    src/EnnemyBehavior.cpp
+
+
 
 
 

@@ -18,6 +18,11 @@ int  main(int argc, char *argv[])
     QGraphicsView view(&scene);
     GameProcessor game(scene);
 
+    view.setRenderHint(QPainter::Antialiasing);
+    view.setBackgroundBrush(QColor("black"));
+    view.setCacheMode(QGraphicsView::CacheBackground);
+    view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
+
     T.connect(&T, SIGNAL(timeout()), &scene, SLOT(advance()));
     T.start(1000 / 60);
     view.fitInView(view.sceneRect());

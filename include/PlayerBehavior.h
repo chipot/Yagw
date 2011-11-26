@@ -40,6 +40,7 @@ class PlayerBehavior : public QObject, public Behavior
 
 signals :
     void playerMoved();
+    void phase0();
 
 public slots:
     void keyPressEvent( QKeyEvent * event );

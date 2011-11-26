@@ -19,7 +19,6 @@ private :
     YagwScene       &scene;
     Entity          *player;
     QList<Entity*>  entities;
-    QList<Behavior*> listeners;
 
 public :
     GameProcessor(YagwScene &ygwscene);
@@ -37,6 +36,7 @@ public slots:
     void loadEntity(Entity*);
     void spawnEnnemy1();
     void updatePlayerPosition();
+    void checkCollidings();
 };
 
 

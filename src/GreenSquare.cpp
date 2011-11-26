@@ -15,7 +15,6 @@ QRectF GreenSquare::boundingRect() const {
 
 void GreenSquare::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {
     painter->setPen(QColor("green"));
-    painter->setBrush(QColor("green"));
     painter->drawPath(this->path);
 }
 
