@@ -4,7 +4,7 @@
 
 SoundCenter::SoundCenter()
   :data(),   music(Phonon::createPlayer(Phonon::MusicCategory,
-                                        Phonon::MediaSource("./ressource/background_music.wav")))
+                                        Phonon::MediaSource("ressource/background_music.wav")))
 {
   this->music->play();
   data["shoot"] = new QSound("ressource/shoot.wav");
@@ -15,7 +15,6 @@ SoundCenter::SoundCenter()
 
 void SoundCenter::play(const QString &name)
 {
-  qDebug() << "playing " << name;
   data[name]->play();
 }
 

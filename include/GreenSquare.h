@@ -16,6 +16,7 @@ public :
     GreenSquare();
     QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
+    virtual ~GreenSquare();
 };
 
 #endif // GREENSQUARE_H

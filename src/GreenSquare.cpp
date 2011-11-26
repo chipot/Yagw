@@ -1,3 +1,4 @@
+#include "SoundCenter.h"
 #include "GreenSquare.h"
 #include "Registry.h"
 
@@ -18,4 +19,8 @@ void GreenSquare::paint(QPainter * painter, const QStyleOptionGraphicsItem * opt
     painter->drawPath(this->path);
 }
 
+GreenSquare::~GreenSquare()
+{
+  SoundCenter::get_instance()->play("kill");
+}
 Registry<Entity>::Add<GreenSquare> greenSquare("greensquare", "GreenSquare shape entity");
