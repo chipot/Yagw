@@ -43,27 +43,9 @@ Entity *PlayerBehavior::createFire(QPointF direction) {
 void PlayerBehavior::fireLvl1() {
     Entity *fire = createFire(fireDirection);
     this->entityTemp->scene()->addItem(fire);
-    qreal h = this->entityTemp->boundingRect().height() * 1.5;
-    qreal w = this->entityTemp->boundingRect().width() * 1.5;
     qreal s = std::max(this->entityTemp->boundingRect().height(), this->entityTemp->boundingRect().width()) *1.2;
-    // if (fireDirection.y() == 0 && fireDirection.x() == 1)
-    //   s *=1.3;
-    // if (fireDirection.y() == 1 && fireDirection.x() == 0)
-    //   s *=1.2;
-
-    // if (fireDirection.x() == 1 && fireDirection.y() == 0)
-    //   w *=2;
-//     height  28  width  13.3  dirX  0  dir y  -1
-// position -91 | 157
-// height  28  width  13.3  dirX  -1  dir y  0
-// position 160 | -67
-// position 99 | 78
-// height  28  width  13.3  dirX  0  dir y  1
-// position 16 | -65
-// height  28  width  13.3  dirX  1  dir y  0
     qDebug() << "height " << h << " width " << w << " dirX " << fireDirection.x() << " dir y " << fireDirection.y();
     fire->moveBy(entityTemp->pos().x() + fireDirection.x() * s, entityTemp->pos().y() + fireDirection.y() * s);
-
 }
 
 void PlayerBehavior::fireLvl2() {
