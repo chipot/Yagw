@@ -96,12 +96,14 @@ void GameProcessor::updatePlayerPosition() {
 void GameProcessor::checkCollidings() {
 
     QList<QGraphicsItem*> collidingItems = player->collidingItems();
-
     QList<QGraphicsItem*>::iterator it = collidingItems.begin();
     QList<QGraphicsItem*>::iterator ite = collidingItems.end();
-
+    // inserer le code pour les shuriken
     for (;it != ite; ++it) {
         scene.removeItem((*it));
+        entities.removeOne(static_cast<Entity*>(*it)); // algo ?
+        delete *it;
     }
+
 }
 
