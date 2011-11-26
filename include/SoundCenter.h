@@ -6,6 +6,7 @@
 #include <QMap>
 #include <Phonon>
 #include <Phonon/MediaSource>
+#include <QObject>
 
 #include "singleton.hpp"
 
@@ -17,6 +18,7 @@ class SoundCenter: public QObject, public moost::singleton<SoundCenter>
     friend class moost::singleton<SoundCenter>;
   public:
     void play(const QString &name);
+  public slots:
     void loop();
   private:
     SoundCenter();
