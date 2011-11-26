@@ -17,12 +17,12 @@ int  main(int argc, char *argv[])
     SoundCenter::get_instance(); // init le son et lance la musique
     QGraphicsView view(&scene);
     GameProcessor game(scene);
-    game.setPlayer("greensquare");
-    game.start();
+
     T.connect(&T, SIGNAL(timeout()), &scene, SLOT(advance()));
     T.start(1000 / 60);
     view.fitInView(view.sceneRect());
     view.show();
+    game.start();
     app.exec();
     return (0);
 }

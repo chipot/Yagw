@@ -34,6 +34,7 @@ Entity *PlayerBehavior::createFire(QPointF direction) {
     Entity *fire = EntityFactory::getEntity("shuriken");
     fireBehavior->setDirection(direction);
     fire->setBehavior(fireBehavior);
+    emit entityTemp->getScene()->newEntity(fire);
     return fire;
 }
 
@@ -145,12 +146,17 @@ int PlayerBehavior::calcRotation() {
 void PlayerBehavior::behave(Entity *entity) {
     this->entityTemp = entity;
     QPointF _move = move;
+/*
     if (_move.x() != 0 && _move.y() != 0) {
         _move.setX(_move.x() / 2);
         _move.setY(_move.y() / 2);
     }
+*/
     _move *= moveSpeed;
     entity->setMove(_move);
-    this->fire();
+    if (_move.x() != 0 || _move.y() != 0) {
+        emit playerMoved();
+    }
     entity->setRotation(this->calcRotation());
+    this->fire();
 }

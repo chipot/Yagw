@@ -3,7 +3,9 @@
 
 #include <QGraphicsScene>
 #include <QTimeLine>
+#include <QDebug>
 
+#include "YagwScene.h"
 #include "FireBehavior.h"
 
 class PlayerBehavior;
@@ -38,6 +40,9 @@ private :
     void fireLvl1();
     void fireLvl2();
     void fireLvl3();
+
+signals :
+    void playerMoved();
 
 public slots:
     void keyPressEvent( QKeyEvent * event );
