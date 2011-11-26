@@ -12,14 +12,9 @@
 #include <QGraphicsItem>
 
 // include shapes
-
-#include "Ship.h"
-
 // include behaviors
 
-#include "PlayerBehavior.h"
-
-
+class Entity;
 
 class YagwScene : public QGraphicsScene
 {
@@ -32,8 +27,11 @@ private:
 signals:
    void forwardKeyPressEvent(QKeyEvent*);
    void forwardKeyReleaseEvent(QKeyEvent*);
+   void newEntity(Entity*);
 public slots:
     void drawBackground(QPainter *painter, const QRectF &rect);
+
+    friend class PlayerBehavior;
 };
 
 #endif // YAGWSCENE_H

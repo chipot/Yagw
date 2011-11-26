@@ -12,6 +12,11 @@ void FireBehavior::behave(Entity *entity) {
     entity->setRotation(rotationSpeed);
 }
 
-void FireBehavior::setDirection(QPointF &dir) {
+void FireBehavior::setDirection(QPointF dir) {
     direction = dir;
 }
+
+void FireBehavior::setRotationSpeed(int speed) {
+    rotationSpeed = speed;
+}
+

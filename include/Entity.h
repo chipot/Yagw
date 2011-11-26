@@ -19,28 +19,35 @@ class YagwScene;
 
 class Entity : public QGraphicsItem
 {
-private :
+protected :
+
     Behavior *behavior;
 
+    QPainterPath path;
+    YagwScene *parentScene;
+    QPointF move;
+    int rotation;
+    QPointF playerPosition;
+    bool playerPositionUpdated;
+
 public:
+
     Entity();
     Entity(YagwScene*);
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
     void advance (int);
+
     const QPointF &getMove() const;
     void setMove(QPointF&);
     int getRotation() const;
     void setRotation(int);
     void setScene(YagwScene*);
     YagwScene *getScene() const;
-    void setBehavior(Behavior *behavior);
-
-protected :
-    QPainterPath path;
-    YagwScene *parentScene;
-    QPointF move;
-    int rotation;
+    void setBehavior(Behavior*);
+    void setPlayerPosition(QPointF);
+    QPointF getPlayerPosition() const;
+    bool playerMoved();
 };
 
 

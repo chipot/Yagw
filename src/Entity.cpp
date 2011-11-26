@@ -5,6 +5,7 @@ Entity::Entity() : QGraphicsItem() {
     move = QPointF(0,0);
     behavior = NULL;
     parentScene = NULL;
+    playerPositionUpdated = false;
 }
 
 Entity::Entity(YagwScene *scene) : QGraphicsItem() {
@@ -25,6 +26,7 @@ void Entity::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, 
 void Entity::advance (int phase) {
     if (phase == 0) {
         behavior->behave(this);
+        playerPositionUpdated = false;
     }
     if (phase == 1) {
         this->setPos(pos() + move);
@@ -61,4 +63,17 @@ void Entity::setRotation(int rotate) {
 
 int Entity::getRotation() const {
     return rotation;
+}
+
+void Entity::setPlayerPosition(QPointF position) {
+    playerPosition = position;
+    playerPositionUpdated = true;
+}
+
+QPointF Entity::getPlayerPosition() const {
+    return playerPosition;
+}
+
+bool Entity::playerMoved() {
+    return playerPositionUpdated;
 }

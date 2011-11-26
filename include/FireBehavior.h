@@ -13,8 +13,8 @@ private :
 public:
     FireBehavior();
     void behave(Entity*);
-    void sendEvent(QEvent*);
-    void setDirection(QPointF &dir);
+    void setDirection(QPointF dir);
+    void setRotationSpeed(int);
 };
 
 #endif // FIREBEHAVIOR_H
