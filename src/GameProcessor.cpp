@@ -102,7 +102,6 @@ void GameProcessor::checkCollidings() {
 
     for (;it != ite; ++it) {
         scene.removeItem((*it));
-        delete (*it);
     }
 }
 
