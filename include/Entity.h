@@ -30,8 +30,8 @@ protected :
     int rotation;
     QPointF playerPosition;
     bool playerPositionUpdated;
-
-public:
+    int speed;
+  public:
 
     Entity();
     Entity(YagwScene*);

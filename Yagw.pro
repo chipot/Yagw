@@ -12,6 +12,8 @@ QMAKE_CXXFLAGS +=
 
 
 # Input
+
+
 HEADERS += \
     include/YagwScene.h \
     include/Entity.h \

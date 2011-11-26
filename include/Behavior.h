@@ -6,10 +6,14 @@
 
 class Behavior
 {
-public:
+  public:
     Behavior(){}
     virtual ~Behavior(){}
     virtual void behave(Entity*) = 0;
+  protected:
+    int angle;
+    int rotationSpeed;
+    int moveSpeed;
 };
 
 #endif // BEHAVIOR_H

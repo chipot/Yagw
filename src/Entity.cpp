@@ -1,7 +1,7 @@
 #include "entity.h"
 #include "Behavior.h"
 
-Entity::Entity() : QGraphicsItem() {
+Entity::Entity() : QGraphicsItem(), speed(1) {
     move = QPointF(0,0);
     behavior = NULL;
     parentScene = NULL;
@@ -11,7 +11,7 @@ Entity::Entity() : QGraphicsItem() {
 Entity::Entity(YagwScene *scene) : QGraphicsItem() {
     move = QPointF(0,0);
     behavior = NULL;
-    parentScene = scene;    
+    parentScene = scene;
 }
 
 
@@ -24,14 +24,16 @@ void Entity::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, 
 }
 
 void Entity::advance (int phase) {
-    if (phase == 0) {
+  if (phase == 0)
+    for (int i  = 0; i < this->speed; ++i)
+      {
         behavior->behave(this);
         playerPositionUpdated = false;
-    }
-    if (phase == 1) {
-        this->setPos(pos() + move);
+      }
+  if (phase == 1) {
+    this->setPos(pos() + move);
         this->rotate(rotation);
-    }
+  }
 }
 
 YagwScene *Entity::getScene() const {

@@ -15,11 +15,8 @@ typedef void(PlayerBehavior::*fireLauncher)();
 class PlayerBehavior : public QObject, public Behavior
 {
     Q_OBJECT
-private:
+    private:
     int fireLevel;
-    int angle;
-    int moveSpeed;
-    int rotationSpeed;
     QPointF move;
     QPointF fireDirection;
     QHash<QPointF, int> directions;
@@ -27,13 +24,13 @@ private:
     Entity  *entityTemp;
     QTimeLine timeline;
 
-public:
+  public:
     PlayerBehavior();
     virtual ~PlayerBehavior(){}
     void behave(Entity*);
     void sendEvent(QEvent *);
 
-private :
+  private :
     int  calcRotation();
     Entity *createFire(QPointF);
     void fire();
