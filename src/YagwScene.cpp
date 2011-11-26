@@ -1,3 +1,5 @@
+#include <QGraphicsWidget>
+#include <QGraphicsScene>
 #include "YagwScene.h"
 
 YagwScene::YagwScene(QObject *parent) :

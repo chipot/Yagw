@@ -2,7 +2,7 @@
 
 FireBehavior::FireBehavior() {
     rotationSpeed = 18;
-    moveSpeed = 3;
+    moveSpeed = 8;
     direction = QPointF(0,0);
 }
 

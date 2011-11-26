@@ -10,7 +10,7 @@ PlayerBehavior::PlayerBehavior() {
     qDebug() << "instance playerBehavior";
 
     rotationSpeed = 7;
-    moveSpeed = 2;
+    moveSpeed = 3;
     directions[QPointF(0, 0)] = 0;
     directions[QPointF(1, -1)] = 45;
     directions[QPointF(1, 0)] = 90;
