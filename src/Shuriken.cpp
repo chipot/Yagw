@@ -1,8 +1,11 @@
 #include "Shuriken.h"
 #include "Registry.h"
+#include "SoundCenter.h"
 
-Shuriken::Shuriken() {
+Shuriken::Shuriken():Entity(){
+  speed = 10;
     initPath();
+    SoundCenter::get_instance()->play("shoot");
 }
 
 void Shuriken::initPath() {

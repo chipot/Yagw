@@ -8,8 +8,8 @@
 
 class SimpleFollowingBehavior : public QObject, public Behavior
 {
-Q_OBJECT
-private :
+    Q_OBJECT
+    private:
     Entity *ent;
     int moveSpeed;
     int rotationSpeed;

@@ -1,6 +1,6 @@
 #include "PlayerBehavior.h"
 #include "EntityFactory.h"
-#include "SoundCenter.h"
+
 
 uint qHash(QPointF const &ptr) {
     return (ptr.x() * 1000 + ptr.y());
@@ -57,7 +57,6 @@ void PlayerBehavior::fire() {
     if (fireDirection.x() != 0 || fireDirection.y() != 0) {
         (this->*fl[fireLevel-1])();
         fireDirection = QPointF(0, 0);
-        SoundCenter::get_instance()->play("quack");
     }
 }
 
