@@ -44,7 +44,6 @@ void PlayerBehavior::fireLvl1() {
     Entity *fire = createFire(fireDirection);
     this->entityTemp->scene()->addItem(fire);
     qreal s = std::max(this->entityTemp->boundingRect().height(), this->entityTemp->boundingRect().width()) *1.2;
-    qDebug() << "height " << h << " width " << w << " dirX " << fireDirection.x() << " dir y " << fireDirection.y();
     fire->moveBy(entityTemp->pos().x() + fireDirection.x() * s, entityTemp->pos().y() + fireDirection.y() * s);
 }
 
