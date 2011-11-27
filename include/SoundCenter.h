@@ -3,7 +3,9 @@
 
 #include <QString>
 #include <QMap>
+#include <QList>
 #include <QObject>
+#include <QSignalMapper>
 #include "singleton.hpp"
 
 // forward declarations
@@ -23,11 +25,12 @@ class SoundCenter: public QObject, public moost::singleton<SoundCenter>
     void play(const QString &name);
   public slots:
     void loop();
+    void song_finished(QObject *);
   private:
     SoundCenter();
     SoundRelationMap data;
     Phonon::MediaObject *music;
-    Phonon::MediaObject *sfx;
+    QSignalMapper signal_map;
 };
 
 #endif /* !SOUNDCENTER_H_ */
