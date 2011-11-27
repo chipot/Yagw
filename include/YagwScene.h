@@ -31,7 +31,6 @@ signals:
    void phase2();
 
 public slots:
-    void drawBackground(QPainter *painter, const QRectF &rect);
     void advance();
 
    friend class PlayerBehavior;
