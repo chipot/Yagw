@@ -10,7 +10,6 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
     playerBehavior = NULL;
-    this->setPlayer();
 }
 
 void GameProcessor::setPlayer()
@@ -44,11 +43,19 @@ QPointF GameProcessor::randomPosition() {
     return random;
 }
 
+void GameProcessor::stop()
+{
+  this->player = 0;
+  ennemy1Timer->disconnect();
+  delete ennemy1Timer;
+}
 
-void GameProcessor::start(void) {
-    QTimer *ennemy1Timer = new QTimer();
-    ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
-    ennemy1Timer->start(1000/3);
+void GameProcessor::start(void)
+{
+  ennemy1Timer = new QTimer();
+  this->setPlayer();
+  ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
+  ennemy1Timer->start(1000/3);
 }
 
 void GameProcessor::generateEntity(const char *name) {
@@ -57,7 +64,7 @@ void GameProcessor::generateEntity(const char *name) {
 }
 
 void GameProcessor::spawnEntity(Entity *entity, QPointF position) {
-    scene.addItem(entity);
+  scene.addItem(entity);
     entity->moveBy(position.x(), position.y());
 }
 
@@ -106,15 +113,12 @@ void GameProcessor::playerDead() {
   this->entities.erase(this->entities.begin(), this->entities.end());
 
   playerLifes--;
-  if (playerLifes == 0)
-    qDebug() << "YOU ARE DEAD";
+  scene.removeItem(this->player);
+  delete this->player;
+  if (playerLifes != 0)
+    this->setPlayer();
   else
-    {
-      scene.removeItem(this->player);// olol il est pas dans entites ?
-      delete this->player;
-      this->setPlayer();
-    }
-
+    this->stop();
 }
 
 void GameProcessor::checkCollidings()
@@ -124,8 +128,7 @@ void GameProcessor::checkCollidings()
     QGraphicsItem *item;
     int size = 0;
 
-    // ATTENTION DEUX MUNITION QUI COLLIDE ENTRE ELLES = plantage
-  foreach(item, this->fire)
+    foreach(item, this->fire)
       {
         to_delete << item->collidingItems();
         if (size != to_delete.size())
@@ -148,7 +151,7 @@ void GameProcessor::checkCollidings()
         this->entities.removeOne(static_cast<Entity*>(item));
         delete item;
       }
-    if (this->player->collidingItems().size() != 0)
+    if (this->player && this->player->collidingItems().size() != 0)
       this->playerDead();
 }
 
