@@ -23,10 +23,9 @@ class PlayerBehavior : public QObject, public Behavior
     QList<fireLauncher> fl;
     Entity  *entityTemp;
     QTime   *time;
-
   public:
     PlayerBehavior();
-    virtual ~PlayerBehavior(){}
+    virtual ~PlayerBehavior();
     void behave(Entity*);
     void sendEvent(QEvent *);
 

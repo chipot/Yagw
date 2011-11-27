@@ -38,12 +38,13 @@ SoundCenter::SoundCenter()
 
 void SoundCenter::play(const QString &name)
 {
+  return;
   SoundRelationMap::const_iterator it = data.constFind(name);
   if (it != this->data.constEnd() && current_sounds < MAX_SOUNDS)
   {
     MyPair<Phonon::MediaObject*,Phonon::AudioOutput*> *pair =
         new MyPair<Phonon::MediaObject*,Phonon::AudioOutput*>(
-            new Phonon::MediaObject(), 
+            new Phonon::MediaObject(),
             new Phonon::AudioOutput(Phonon::GameCategory));
 
     Phonon::createPath(pair->first, pair->second);

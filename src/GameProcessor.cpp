@@ -3,37 +3,27 @@
 #include "EntityFactory.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
-    : scene(ygws) {
+  : scene(ygws), player(0), playerLifes(3) {
     qDebug() << "instance gameProcessor";
 
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
-    playerBehavior = new PlayerBehavior();
-    QObject::connect(playerBehavior, SIGNAL(playerMoved()), this, SLOT(updatePlayerPosition()));
-    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
-    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+    this->setPlayer();
+}
 
-    player = EntityFactory::getEntity("spaceship");
-    if (player != NULL) {
+void GameProcessor::setPlayer()
+{
+      playerBehavior = new PlayerBehavior();
+      QObject::connect(playerBehavior, SIGNAL(playerMoved()), this, SLOT(updatePlayerPosition()));
+      QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
+      QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+      player = EntityFactory::getEntity("spaceship");
+      if (player != NULL) {
         player->setBehavior(playerBehavior);
         scene.addItem(player);
         player->setScene(&scene);
-    }
-
-    playerLifes = 3;
-}
-
-void GameProcessor::setPlayer(const char *name) {
-    if (player != NULL) {
-        scene.removeItem(player);
-    }
-    delete player;
-    player = EntityFactory::getEntity(name);
-    if (player != NULL) {
-        player->setBehavior(playerBehavior);
-        scene.addItem(player);
-    }
+      }
 }
 
 QPointF GameProcessor::randomDirection() {
@@ -111,10 +101,17 @@ void GameProcessor::playerDead() {
     }
   this->fire.erase(this->fire.begin(), this->fire.end());
   this->entities.erase(this->entities.begin(), this->entities.end());
-  // playerLifes--;
-  // if (playerLifes == 0) {
-  //   qDebug() << "YOU ARE DEAD";
-  // }
+
+  playerLifes--;
+  if (playerLifes == 0)
+    qDebug() << "YOU ARE DEAD";
+  else
+    {
+      scene.removeItem(this->player);// olol il est pas dans entites ?
+      delete this->player;
+      this->setPlayer();
+    }
+
 }
 
 void GameProcessor::checkCollidings()

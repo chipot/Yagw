@@ -24,7 +24,7 @@ private :
 public :
     GameProcessor(YagwScene &ygwscene);
     ~GameProcessor(){}
-    void setPlayer(const char *name);
+    void setPlayer();
     void start(void);
     void generateEntity(const char *name);
     void spawnEntity(Entity*, QPointF);
