@@ -18,7 +18,7 @@ class EntityFactory : public Registry<Entity>::listener
 {
 protected:
     void registered(const Registry<Entity>::entry &e) {
-        qDebug() << "New entity available: " << e.getName() << "\n";
+        qDebug() << "New entity available: " << e.getName();
     }
 
 public:

@@ -76,7 +76,6 @@ void GameProcessor::loadEntity(Entity *entity) {
 
 void GameProcessor::loadFire(Entity *entity) {
     fire << entity;
-    qDebug() << "lol";
 }
 
 void GameProcessor::spawnEnnemy1() {
