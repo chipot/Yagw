@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "PlayerBehavior.h"
 #include "EntityFactory.h"
-
+#include <QtGlobal>
 
 
 uint qHash(QPointF const &ptr) {
@@ -41,9 +41,12 @@ Entity *PlayerBehavior::createFire(QPointF direction) {
 }
 
 void PlayerBehavior::fireLvl1() {
+    using namespace std;
     Entity *fire = createFire(fireDirection);
     this->entityTemp->scene()->addItem(fire);
-    qreal s = std::max(this->entityTemp->boundingRect().height(), this->entityTemp->boundingRect().width()) *1.2;
+    QRectF brect = this->entityTemp->boundingRect();
+    qreal s = max(brect.height(), brect.width());
+    s *= 1.2;
     fire->moveBy(entityTemp->pos().x() + fireDirection.x() * s, entityTemp->pos().y() + fireDirection.y() * s);
 }
 
