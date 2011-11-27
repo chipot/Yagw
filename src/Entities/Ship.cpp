@@ -1,4 +1,4 @@
-#include "Ship.h"
+#include "Entities/Ship.h"
 #include "Registry.h"
 
 Ship::Ship() {

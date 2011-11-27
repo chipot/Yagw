@@ -17,13 +17,11 @@
 class Behavior;
 class YagwScene;
 
-
 class Entity : public QGraphicsItem
 {
+protected :
 
-  protected:
     Behavior *behavior;
-
     QPainterPath path;
     YagwScene *parentScene;
     QPointF move;
@@ -31,7 +29,8 @@ class Entity : public QGraphicsItem
     QPointF playerPosition;
     bool playerPositionUpdated;
     int speed;
-  public:
+
+public:
 
     Entity();
     Entity(YagwScene*);

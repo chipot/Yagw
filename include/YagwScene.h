@@ -29,10 +29,11 @@ signals:
    void forwardKeyReleaseEvent(QKeyEvent*);
    void newEntity(Entity*);
    void newFire(Entity*);
+   void phase2();
 public slots:
-    void drawBackground(QPainter *painter, const QRectF &rect);
+    void advance();
 
-    friend class PlayerBehavior;
+   friend class PlayerBehavior;
 };
 
 #endif // YAGWSCENE_H

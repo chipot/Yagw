@@ -17,97 +17,43 @@ QMAKE_CXXFLAGS +=
 HEADERS += \
     include/YagwScene.h \
     include/Entity.h \
-    include/Ship.h\
     include/Behavior.h \
     include/FireBehavior.h \
-    include/Shuriken.h \
     include/PlayerBehavior.h \
     include/singleton.hpp\
     include/SoundCenter.h \
     include/GameProcessor.h \
     include/EntityFactory.h \
     include/Registry.h \
-    include/GreenSquare.h \
     include/SimpleFollowingBehavior.h \
-    include/EnnemyBehavior.h
+    include/EnnemyBehavior.h \
+    include/Entities/Ship.h \
+    include/Entities/Shuriken.h \
+    include/Entities/GreenSquare.h \
+    include/Entities/Spaceship.h \
+    include/Entities/Fire01.h \
+    include/Entities/GameDelimiterUp.h \
+    include/Entities/GameDelimiterDown.h \
+    include/Entities/GameDelimiterRight.h \
+    include/Entities/GameDelimiterLeft.h
 
 
 SOURCES += src/main.cpp \
-    src/Ship.cpp \
     src/YagwScene.cpp \
     src/SoundCenter.cpp \
-     src/FireBehavior.cpp \
-    src/Shuriken.cpp \
+    src/FireBehavior.cpp \
     src/PlayerBehavior.cpp \
     src/Entity.cpp \
     src/GameProcessor.cpp \
     src/EntityFactory.cpp \
-    src/GreenSquare.cpp \
     src/SimpleFollowingBehavior.cpp \
-    src/EnnemyBehavior.cpp
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    src/EnnemyBehavior.cpp \
+    src/Entities/Spaceship.cpp \
+    src/Entities/Shuriken.cpp \
+    src/Entities/Ship.cpp \
+    src/Entities/GreenSquare.cpp \
+    src/Entities/GameDelimiterUp.cpp \
+    src/Entities/GameDelimiterRight.cpp \
+    src/Entities/GameDelimiterLeft.cpp \
+    src/Entities/GameDelimiterDown.cpp \
+    src/Entities/Fire01.cpp

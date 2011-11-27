@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "PlayerBehavior.h"
 #include "EntityFactory.h"
-
+#include <QtGlobal>
 
 
 uint qHash(QPointF const &ptr) {
@@ -33,17 +33,22 @@ PlayerBehavior::PlayerBehavior() {
 
 Entity *PlayerBehavior::createFire(QPointF direction) {
     FireBehavior *fireBehavior = new FireBehavior();
-    Entity *fire = EntityFactory::getEntity("shuriken");
     fireBehavior->setDirection(direction);
+
+    Entity *fire = EntityFactory::getEntity("shuriken");
+    fire->setScene(entityTemp->getScene());
     fire->setBehavior(fireBehavior);
     emit entityTemp->getScene()->newFire(fire);
     return fire;
 }
 
 void PlayerBehavior::fireLvl1() {
+    using namespace std;
     Entity *fire = createFire(fireDirection);
     this->entityTemp->scene()->addItem(fire);
-    qreal s = std::max(this->entityTemp->boundingRect().height(), this->entityTemp->boundingRect().width()) *1.2;
+    QRectF brect = this->entityTemp->boundingRect();
+    qreal s = max(brect.height(), brect.width());
+    s *= 1.2;
     fire->moveBy(entityTemp->pos().x() + fireDirection.x() * s, entityTemp->pos().y() + fireDirection.y() * s);
 }
 
@@ -58,7 +63,6 @@ void PlayerBehavior::fireLvl3() {
 void PlayerBehavior::fire() {
     if (fireDirection.x() != 0 || fireDirection.y() != 0) {
         (this->*fl[fireLevel-1])();
-        fireDirection = QPointF(0, 0);
     }
 }
 
@@ -76,14 +80,18 @@ void PlayerBehavior::keyPressEvent( QKeyEvent * event ) {
         case Qt::Key_D :
             move.setX(1);
             break;
-            case Qt::Key_Up :
-            case Qt::Key_Down :
-                fireDirection.setY(0);
-                break;
-            case Qt::Key_Right :
-            case Qt::Key_Left :
-                fireDirection.setX(0);
-        break;
+        case Qt::Key_Up :
+            fireDirection.setY(-1);
+            break;
+        case Qt::Key_Down :
+            fireDirection.setY(1);
+            break;
+        case Qt::Key_Right :
+            fireDirection.setX(1);
+            break;
+        case Qt::Key_Left :
+            fireDirection.setX(-1);
+            break;
         default :
             break;
     }
@@ -96,29 +104,33 @@ void PlayerBehavior::keyReleaseEvent( QKeyEvent * event ) {
                 move.setY(0);
             break;
         case Qt::Key_S :
-        if (move.y() == 1)
-            move.setY(0);
+            if (move.y() == 1)
+                move.setY(0);
             break;
         case Qt::Key_A :
-        if (move.x() == -1)
-            move.setX(0);
+            if (move.x() == -1)
+                move.setX(0);
             break;
         case Qt::Key_D :
-        if (move.x() == 1)
-            move.setX(0);
+            if (move.x() == 1)
+                move.setX(0);
+                break;
+        case Qt::Key_Down :
+        if (fireDirection.y() == 1)
+            fireDirection.setY(0);
             break;
-    case Qt::Key_Up :
-        fireDirection.setY(-1);
-        break;
-    case Qt::Key_Left :
-        fireDirection.setX(-1);
-        break;
-    case Qt::Key_Down :
-        fireDirection.setY(1);
-        break;
-    case Qt::Key_Right :
-        fireDirection.setX(1);
-        break;
+        case Qt::Key_Up :
+        if (fireDirection.y() == -1)
+            fireDirection.setY(0);
+            break;
+        case Qt::Key_Left :
+        if (fireDirection.x() == -1)
+            fireDirection.setX(0);
+            break;
+        case Qt::Key_Right :
+        if (fireDirection.x() == 1)
+            fireDirection.setX(0);
+            break;
         default :
             break;
     }
@@ -152,8 +164,8 @@ int PlayerBehavior::calcRotation() {
 }
 
 void PlayerBehavior::behave(Entity *entity) {
-    emit phase0();
     this->entityTemp = entity;
+    this->fire();
     QPointF _move = move;
 /*
     if (_move.x() != 0 && _move.y() != 0) {
@@ -167,5 +179,4 @@ void PlayerBehavior::behave(Entity *entity) {
         emit playerMoved();
     }
     entity->setRotation(this->calcRotation());
-    this->fire();
 }

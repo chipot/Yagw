@@ -8,19 +8,20 @@ GameProcessor::GameProcessor(YagwScene &ygws)
 
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
-
+    QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
     playerBehavior = new PlayerBehavior();
-    QObject::connect(playerBehavior, SIGNAL(phase0()), this, SLOT(checkCollidings()));
     QObject::connect(playerBehavior, SIGNAL(playerMoved()), this, SLOT(updatePlayerPosition()));
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
     QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
 
-    player = EntityFactory::getEntity("ship");
+    player = EntityFactory::getEntity("spaceship");
     if (player != NULL) {
         player->setBehavior(playerBehavior);
         scene.addItem(player);
         player->setScene(&scene);
     }
+
+    playerLifes = 3;
 }
 
 void GameProcessor::setPlayer(const char *name) {
@@ -83,6 +84,7 @@ void GameProcessor::spawnEnnemy1() {
     SimpleFollowingBehavior *behavior = new SimpleFollowingBehavior();
     QPointF entityPosition = randomPosition();
     Entity *entity = EntityFactory::getEntity("greensquare");
+    entity->setScene(&scene);
     entity->setBehavior(behavior);
     entity->setPlayerPosition(player->pos());
     spawnEntity(entity, entityPosition);
@@ -99,17 +101,24 @@ void GameProcessor::updatePlayerPosition() {
     }
 }
 
-void GameProcessor::checkCollidings() {
+void GameProcessor::playerDead() {
+    scene.removeItem(player);
+    scene.addItem(player);
+    playerLifes--;
+    if (playerLifes == 0) {
+        qDebug() << "YOU ARE DEAD";
+    }
+}
 
-    QList<QGraphicsItem*> collidingItems = player->collidingItems();
-    QList<QGraphicsItem*>::iterator it = collidingItems.begin();
-    QList<QGraphicsItem*>::iterator ite = collidingItems.end();
+void GameProcessor::checkCollidings()
+{
     QList<QGraphicsItem*> to_delete;
     QList<QGraphicsItem*> used_fire;
-
     QGraphicsItem *item;
     int size = 0;
-    foreach(item, this->fire)
+
+    // ATTENTION DEUX MUNITION QUI COLLIDE ENTRE ELLES = plantage
+  foreach(item, this->fire)
       {
         to_delete << item->collidingItems();
         if (size != to_delete.size())
@@ -118,7 +127,6 @@ void GameProcessor::checkCollidings() {
             size = to_delete.size();
           }
       }
-
     foreach(item, used_fire)
       {
         scene.removeItem((item));
