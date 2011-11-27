@@ -33,7 +33,7 @@ protected :
 public:
 
     Entity();
-    ~Entity();
+    virtual ~Entity();
     Entity(YagwScene*);
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
