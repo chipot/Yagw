@@ -13,7 +13,7 @@
 #include <QVector2D>
 #include <math.h>
 
-#define PI 3.14f
+#define PI 3.14159265f
 
 class Behavior;
 class YagwScene;
