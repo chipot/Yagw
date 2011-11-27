@@ -3,7 +3,7 @@
 #include "Registry.h"
 
 GreenSquare::GreenSquare() {
-    speed = 2;
+    speed = 1;
     initPath();
     score = 20;
 }
@@ -21,4 +21,5 @@ GreenSquare::~GreenSquare()
 {
   SoundCenter::get_instance()->play("kill");
 }
+
 Registry<Entity>::Add<GreenSquare> greenSquare("greensquare", "GreenSquare shape entity");

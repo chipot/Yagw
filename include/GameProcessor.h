@@ -22,12 +22,13 @@ private :
     QList<Entity*>  fire;
     int playerLifes;
     QTimer *ennemy1Timer;
+    QTimer *gameTimer;
 
 public :
     GameProcessor(YagwScene &ygwscene);
     ~GameProcessor(){}
     void setPlayer();
-    void start(void);
+    void start(int);
     void generateEntity(const char *name);
     void spawnEntity(Entity*, QPointF);
 

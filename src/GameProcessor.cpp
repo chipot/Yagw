@@ -10,6 +10,7 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
     playerBehavior = NULL;
+    gameTimer = new QTimer();
 }
 
 void GameProcessor::setPlayer()
@@ -45,17 +46,25 @@ QPointF GameProcessor::randomPosition() {
 
 void GameProcessor::stop()
 {
-  this->player = 0;
-  ennemy1Timer->disconnect();
-  delete ennemy1Timer;
+    this->player = 0;
+    ennemy1Timer->disconnect();
+    delete ennemy1Timer;
+
+    gameTimer->stop();
+    gameTimer->disconnect();
+    delete gameTimer;
 }
 
-void GameProcessor::start(void)
+void GameProcessor::start(int framePerSecond)
 {
-  ennemy1Timer = new QTimer();
-  this->setPlayer();
-  ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
-  ennemy1Timer->start(1000/3);
+    gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
+    gameTimer->start(framePerSecond);
+
+    this->setPlayer();
+
+    ennemy1Timer = new QTimer();
+    ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
+    ennemy1Timer->start(1000/3);
 }
 
 void GameProcessor::generateEntity(const char *name) {
@@ -151,7 +160,19 @@ void GameProcessor::checkCollidings()
         this->entities.removeOne(static_cast<Entity*>(item));
         delete item;
       }
-    if (this->player && this->player->collidingItems().size() != 0)
-      this->playerDead();
+    if (player->shielded())
+        return;
+    QList<QGraphicsItem*> collidingItems = this->player->collidingItems();
+    if (this->player && collidingItems.size() != 0) {
+        foreach(item, collidingItems) {
+            if (!static_cast<Entity*>(item)->shielded()) {
+                scene.removeItem((item));
+                this->entities.removeOne(static_cast<Entity*>(item));
+                delete item;
+                this->playerDead();
+                break;
+            }
+        }
+    }
 }
 
