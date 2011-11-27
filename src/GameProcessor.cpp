@@ -109,7 +109,7 @@ void GameProcessor::playerDead() {
   foreach(item, to_delete)
     {
       scene.removeItem(item);
-      //delete item;
+      delete item;
     }
   this->fire.erase(this->fire.begin(), this->fire.end());
   this->entities.erase(this->entities.begin(), this->entities.end());

@@ -14,6 +14,10 @@ Entity::Entity(YagwScene *scene) : QGraphicsItem() {
     parentScene = scene;
 }
 
+Entity::~Entity()
+{
+  delete behavior;
+}
 
 QRectF Entity::boundingRect() const {
     return this->path.boundingRect();
