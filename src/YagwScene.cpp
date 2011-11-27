@@ -18,7 +18,6 @@ void YagwScene::keyPressEvent(QKeyEvent *event) {
     emit forwardKeyPressEvent(event);
 }
 
-
 void YagwScene::advance() {
     QGraphicsScene::advance();
     emit phase2();
