@@ -28,6 +28,7 @@ signals:
    void forwardKeyPressEvent(QKeyEvent*);
    void forwardKeyReleaseEvent(QKeyEvent*);
    void newEntity(Entity*);
+   void newFire(Entity*);
 public slots:
     void drawBackground(QPainter *painter, const QRectF &rect);
 

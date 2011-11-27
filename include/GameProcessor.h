@@ -19,6 +19,7 @@ private :
     YagwScene       &scene;
     Entity          *player;
     QList<Entity*>  entities;
+    QList<Entity*>  fire;
 
 public :
     GameProcessor(YagwScene &ygwscene);
@@ -33,6 +34,7 @@ private :
     QPointF randomPosition();
 
 public slots:
+    void loadFire(Entity*);
     void loadEntity(Entity*);
     void spawnEnnemy1();
     void updatePlayerPosition();

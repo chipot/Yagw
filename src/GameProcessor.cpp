@@ -7,6 +7,7 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     qDebug() << "instance gameProcessor";
 
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
+    QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
 
     playerBehavior = new PlayerBehavior();
     QObject::connect(playerBehavior, SIGNAL(phase0()), this, SLOT(checkCollidings()));
@@ -73,6 +74,11 @@ void GameProcessor::loadEntity(Entity *entity) {
     entities << entity;
 }
 
+void GameProcessor::loadFire(Entity *entity) {
+    fire << entity;
+    qDebug() << "lol";
+}
+
 void GameProcessor::spawnEnnemy1() {
     SimpleFollowingBehavior *behavior = new SimpleFollowingBehavior();
     QPointF entityPosition = randomPosition();
@@ -98,12 +104,34 @@ void GameProcessor::checkCollidings() {
     QList<QGraphicsItem*> collidingItems = player->collidingItems();
     QList<QGraphicsItem*>::iterator it = collidingItems.begin();
     QList<QGraphicsItem*>::iterator ite = collidingItems.end();
-    // inserer le code pour les shuriken
-    for (;it != ite; ++it) {
-        scene.removeItem((*it));
-        entities.removeOne(static_cast<Entity*>(*it)); // algo ?
-        delete *it;
-    }
+    QList<QGraphicsItem*> to_delete;
+    QList<QGraphicsItem*> used_fire;
 
+    QGraphicsItem *item;
+    int size = 0;
+    foreach(item, this->fire)
+      {
+        to_delete << item->collidingItems();
+        if (size != to_delete.size())
+          {
+            used_fire << item;
+            size = to_delete.size();
+          }
+      }
+
+    foreach(item, used_fire)
+      {
+        scene.removeItem((item));
+        this->fire.removeOne(static_cast<Entity*>(item));
+        delete item;
+      }
+    foreach(item, to_delete)
+      {
+        if (static_cast<Entity*>(item) == this->player)
+          continue;
+        scene.removeItem((item));
+        this->entities.removeOne(static_cast<Entity*>(item));
+        delete item;
+      }
 }
 
