@@ -8,7 +8,7 @@ Fire01::Fire01() {
 
 void Fire01::initPath() {
     path.addEllipse(-4, -4, 4, 4);
-    //path.closeSubpath();
+    path.closeSubpath();
 }
 
 QRectF Fire01::boundingRect() const {

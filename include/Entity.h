@@ -32,6 +32,7 @@ protected :
     int rotation;
     float speed;
     int score;
+    int lives;
 
 public:
 
@@ -53,6 +54,8 @@ public:
     void setSpeed(float);
     int timeSinceSpawn() const;
     bool shielded();
+    bool die();
+    void setLives(const int);
 };
 
 

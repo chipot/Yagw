@@ -2,7 +2,8 @@
 #include "Behavior.h"
 #include "Score.h"
 
-Entity::Entity() : score(0), QGraphicsItem(), speed(1) {
+Entity::Entity()
+:score(0), QGraphicsItem(), speed(1), lives(1) {
     move = QPointF(0,0);
     behavior = NULL;
     parentScene = NULL;
@@ -17,12 +18,22 @@ Entity::Entity(YagwScene *scene) : QGraphicsItem() {
     parentScene = scene;
 }
 
+void Entity::setLives(const int l)
+{
+  lives = l;
+}
+
 Entity::~Entity()
 {
   Score::get_instance()->inc(this->score);
   delete behavior;
 }
 
+bool    Entity::die()
+{
+  --lives;
+  return lives == 0;
+}
 QRectF Entity::boundingRect() const {
     return this->path.boundingRect();
 }
@@ -43,7 +54,9 @@ QPointF Entity::calcMove() {
 
 
 void Entity::advance (int phase) {
+    qDebug() << "advance";
   if (phase == 0)
+      qDebug() << "try behave";
         behavior->behave(this);
   if (phase == 1) {
     this->setPos(pos() + this->calcMove());
@@ -91,8 +104,6 @@ float Entity::getSpeed() const {
 }
 
 bool Entity::shielded() {
-    qDebug() << "shield ?";
-    qDebug() << spawnShield;
     if (spawnShield == false)
         return false;
     if (spawnTime->elapsed() >= 2000) {

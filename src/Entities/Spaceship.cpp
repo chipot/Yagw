@@ -7,7 +7,6 @@ Spaceship::Spaceship() {
     initPath();
 }
 
-
 void Spaceship::initPath() {
 
 //    path.moveTo(20, 0);
@@ -23,6 +22,7 @@ void Spaceship::initPath() {
     path.lineTo(-10, 7);
     path.lineTo(-10, -7);
     path.lineTo(10, 0);
+    path.closeSubpath();
 }
 
 QRectF Spaceship::boundingRect() const {
