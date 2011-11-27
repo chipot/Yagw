@@ -21,9 +21,7 @@ SoundCenter::SoundCenter()
   :data(),
     music(Phonon::createPlayer(
             Phonon::MusicCategory,
-            Phonon::MediaSource("ressource/background_music.mp3")
-            )
-         ),
+            Phonon::MediaSource("ressource/background_music.mp3"))),
     signal_map(),
     current_sounds(0)
 {
@@ -69,9 +67,10 @@ void    SoundCenter::song_finished(QObject *obj)
   MyPair<Phonon::MediaObject*,Phonon::AudioOutput*>  *pair =
       static_cast<MyPair<Phonon::MediaObject*,Phonon::AudioOutput*>*>(obj);
   pair->first->clear();
-  pair->first->disconnect(SIGNAL(finished()), &signal_map, SLOT(map()));
-  delete pair->first;
-  delete pair->second;
-  delete pair;
+  signal_map.removeMappings(pair->first);
+  pair->first->disconnect();
+  //delete pair->first;
+  //delete pair->second;
+  //delete pair;
   current_sounds--;
 }

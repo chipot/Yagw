@@ -15,9 +15,8 @@ SimpleFollowingBehavior::SimpleFollowingBehavior() : EnnemyBehavior() {
 
 void SimpleFollowingBehavior::behave(Entity *entity) {
     ent = entity;
-    if (entity->playerMoved()) {
-        updateDirection(entity->pos(), entity->getPlayerPosition());
-    }
+
+    updateDirection(entity->pos(), playerPos());
     QPointF move = direction*moveSpeed;
     entity->setMove(move);
     entity->setRotation(rotationSpeed);

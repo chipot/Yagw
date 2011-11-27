@@ -5,7 +5,7 @@
 YagwScene::YagwScene(QObject *parent) :
     QGraphicsScene(parent) {
     qDebug() << "instance scene";
-    this->setSceneRect(-200,-200,400,400);
+    this->setSceneRect(-500,-500,1000,1000);
     QBrush backgroundColor(Qt::black, Qt::SolidPattern);
     this->setBackgroundBrush(backgroundColor);
 }
@@ -21,4 +21,14 @@ void YagwScene::keyPressEvent(QKeyEvent *event) {
 void YagwScene::advance() {
     QGraphicsScene::advance();
     emit phase2();
+}
+
+void YagwScene::translateViews(QPointF coordinates) {
+    QList<QGraphicsView*> views = this->views();
+    QList<QGraphicsView*>::iterator it = views.begin();
+    QList<QGraphicsView*>::iterator ite = views.end();
+
+    for (; it != ite; ++it) {
+        (*it)->translate(coordinates.x(), coordinates.y());
+    }
 }

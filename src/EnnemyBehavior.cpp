@@ -50,3 +50,15 @@ void EnnemyBehavior::setRotationSpeed(int speed) {
 void EnnemyBehavior::changeSize() {
     growingUp = !growingUp;
 }
+
+QPointF EnnemyBehavior::playerPos() {
+    if (ent) {
+        QGraphicsScene *scene = ent->scene();
+        QGraphicsItem *player = scene->focusItem();
+        if (player) {
+            QPointF pos = player->pos();
+            return (pos);
+        }
+    }
+    return QPointF(0, 0);
+}

@@ -23,9 +23,15 @@ int  main(int argc, char *argv[])
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
 
+    view.setSceneRect(-200, -200, 400, 400);
+/*    QMatrix mat;
+    mat..scale( sx, sy );
+    view->setMatrix( mat );
+    */
+
     T.connect(&T, SIGNAL(timeout()), &scene, SLOT(advance()));
     T.start(1000 / 60);
-    view.fitInView(view.sceneRect());
+//    view.fitInView(view.sceneRect());
     view.show();
     game.start();
     app.exec();

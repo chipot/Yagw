@@ -9,15 +9,27 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
-    playerBehavior = NULL;
+<<<<<<< Updated upstream
     this->setPlayer();
 }
 
 void GameProcessor::setPlayer()
 {
+      playerBehavior = new PlayerBehavior();
+      QObject::connect(playerBehavior, SIGNAL(playerMoved()), this, SLOT(updatePlayerPosition()));
+      QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
+      QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+      player = EntityFactory::getEntity("spaceship");
+      if (player != NULL) {
+        player->setBehavior(playerBehavior);
+        scene.addItem(player);
+        player->setScene(&scene);
+      }
+=======
     playerBehavior = new PlayerBehavior();
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
     QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+
     player = EntityFactory::getEntity("spaceship");
     if (player != NULL) {
         player->setBehavior(playerBehavior);
@@ -26,7 +38,24 @@ void GameProcessor::setPlayer()
         player->setFlag(QGraphicsItem::ItemIsFocusable, true);
         scene.setFocusItem(player);
     }
- }
+    playerLifes = 3;
+}
+
+void GameProcessor::setPlayer(const char *name) {
+    if (player != NULL) {
+        scene.removeItem(player);
+        delete player;
+    }
+    player = EntityFactory::getEntity(name);
+    if (player != NULL) {
+        player->setBehavior(playerBehavior);
+        scene.addItem(player);
+        player->setScene(&scene);
+        player->setFlag(QGraphicsItem::ItemIsFocusable, true);
+        scene.setFocusItem(player);
+    }
+>>>>>>> Stashed changes
+}
 
 QPointF GameProcessor::randomDirection() {
     float x = ((rand()%2000) - 1000);

@@ -5,7 +5,7 @@ Entity::Entity() : QGraphicsItem(), speed(1) {
     move = QPointF(0,0);
     behavior = NULL;
     parentScene = NULL;
-    playerPositionUpdated = false;
+//    playerPositionUpdated = false;
 }
 
 Entity::Entity(YagwScene *scene) : QGraphicsItem() {
@@ -31,16 +31,21 @@ void Entity::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, 
     painter->drawRect(0,0,10,10);
 }
 
+QPointF Entity::calcMove() {
+    QVector2D vector(move);
+    vector.normalize();
+    return (QPointF(vector.x(), vector.y())* speed);
+}
+
+
 void Entity::advance (int phase) {
   if (phase == 0)
-    for (int i  = 0; i < this->speed; ++i)
       {
         behavior->behave(this);
-        playerPositionUpdated = false;
       }
   if (phase == 1) {
-    this->setPos(pos() + move);
-        this->rotate(rotation);
+    this->setPos(pos() + this->calcMove());
+    this->rotate(rotation);
   }
 }
 
@@ -75,15 +80,10 @@ int Entity::getRotation() const {
     return rotation;
 }
 
-void Entity::setPlayerPosition(QPointF position) {
-    playerPosition = position;
-    playerPositionUpdated = true;
+void Entity::setSpeed(float moveSpeed) {
+    speed = moveSpeed;
 }
 
-QPointF Entity::getPlayerPosition() const {
-    return playerPosition;
-}
-
-bool Entity::playerMoved() {
-    return playerPositionUpdated;
+float Entity::getSpeed() const {
+    return speed;
 }

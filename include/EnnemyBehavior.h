@@ -3,6 +3,7 @@
 
 #include <QVector2D>
 #include <QTimer>
+#include <QGraphicsScene>
 #include "Behavior.h"
 
 
@@ -27,6 +28,7 @@ public :
     void setRotationSpeed(int);
     void updateDirection(QPointF, QPointF);
     void startGrowingUpTimer();
+    QPointF playerPos();
 
 protected :
     void growUp();
