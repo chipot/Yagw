@@ -1,3 +1,4 @@
+#include "SoundCenter.h"
 #include "Entities/Ship.h"
 #include "Registry.h"
 
@@ -18,5 +19,12 @@ void Ship::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QW
     painter->setPen(QColor("blue"));
     painter->drawPath(this->path);
 }
+
+Ship::~Ship()
+{
+    SoundCenter::get_instance()->play("quack");
+}
+
+
 
 Registry<Entity>::Add<Ship> ship("ship", "Ship shape entity");
