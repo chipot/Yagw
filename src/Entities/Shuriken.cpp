@@ -1,4 +1,4 @@
-#include "Shuriken.h"
+#include "Entities/Shuriken.h"
 #include "Registry.h"
 #include "SoundCenter.h"
 
