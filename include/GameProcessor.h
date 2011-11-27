@@ -19,6 +19,7 @@ private :
     YagwScene       &scene;
     Entity          *player;
     QList<Entity*>  entities;
+    int playerLifes;
 
 public :
     GameProcessor(YagwScene &ygwscene);
@@ -31,6 +32,7 @@ public :
 private :
     QPointF randomDirection();
     QPointF randomPosition();
+    void playerDead();
 
 public slots:
     void loadEntity(Entity*);

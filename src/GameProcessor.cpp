@@ -7,9 +7,9 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     qDebug() << "instance gameProcessor";
 
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
+    QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
 
     playerBehavior = new PlayerBehavior();
-    QObject::connect(playerBehavior, SIGNAL(phase0()), this, SLOT(checkCollidings()));
     QObject::connect(playerBehavior, SIGNAL(playerMoved()), this, SLOT(updatePlayerPosition()));
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
     QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
@@ -20,6 +20,8 @@ GameProcessor::GameProcessor(YagwScene &ygws)
         scene.addItem(player);
         player->setScene(&scene);
     }
+
+    playerLifes = 3;
 }
 
 void GameProcessor::setPlayer(const char *name) {
@@ -77,6 +79,7 @@ void GameProcessor::spawnEnnemy1() {
     SimpleFollowingBehavior *behavior = new SimpleFollowingBehavior();
     QPointF entityPosition = randomPosition();
     Entity *entity = EntityFactory::getEntity("greensquare");
+    entity->setScene(&scene);
     entity->setBehavior(behavior);
     entity->setPlayerPosition(player->pos());
     spawnEntity(entity, entityPosition);
@@ -93,17 +96,28 @@ void GameProcessor::updatePlayerPosition() {
     }
 }
 
+void GameProcessor::playerDead() {
+    scene.removeItem(player);
+    scene.addItem(player);
+    playerLifes--;
+    if (playerLifes == 0) {
+        qDebug() << "YOU ARE DEAD";
+    }
+}
+
 void GameProcessor::checkCollidings() {
 
     QList<QGraphicsItem*> collidingItems = player->collidingItems();
     QList<QGraphicsItem*>::iterator it = collidingItems.begin();
     QList<QGraphicsItem*>::iterator ite = collidingItems.end();
     // inserer le code pour les shuriken
+    if (it != ite) {
+//        playerDead();
+    }
     for (;it != ite; ++it) {
         scene.removeItem((*it));
         entities.removeOne(static_cast<Entity*>(*it)); // algo ?
         delete *it;
     }
-
 }
 

@@ -28,8 +28,11 @@ signals:
    void forwardKeyPressEvent(QKeyEvent*);
    void forwardKeyReleaseEvent(QKeyEvent*);
    void newEntity(Entity*);
+   void phase2();
+
 public slots:
     void drawBackground(QPainter *painter, const QRectF &rect);
+    void advance();
 
     friend class PlayerBehavior;
 };

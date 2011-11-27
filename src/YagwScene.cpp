@@ -20,3 +20,8 @@ void YagwScene::drawBackground(QPainter *painter, const QRectF &rect) {
     this->setSceneRect(-200,-200,400,400);
     this->setBackgroundBrush(Qt::black);
 }
+
+void YagwScene::advance() {
+    QGraphicsScene::advance();
+    emit phase2();
+}
