@@ -18,6 +18,7 @@ SoundCenter::SoundCenter()
   data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.wav")));
   data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.wav")));
   data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.wav")));
+  data.insert("quack", new SoundPair(Phonon::MediaSource("./ressource/quack.wav")));
   connect(this->music, SIGNAL(aboutToFinish()), this, SLOT(loop()));
 }
 

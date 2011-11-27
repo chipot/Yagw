@@ -11,6 +11,7 @@ private:
 
 public:
     Spaceship();
+    virtual ~Spaceship();
     QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
 };

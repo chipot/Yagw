@@ -1,4 +1,5 @@
 #include "Entities/Spaceship.h"
+#include "SoundCenter.h"
 #include "Registry.h"
 
 Spaceship::Spaceship() {
@@ -36,3 +37,8 @@ void Spaceship::paint(QPainter * painter, const QStyleOptionGraphicsItem * optio
 }
 
 Registry<Entity>::Add<Spaceship> spaceship("spaceship", "Spaceship shape entity");
+
+Spaceship::~Spaceship()
+{
+  SoundCenter::get_instance()->play("quack");
+}
