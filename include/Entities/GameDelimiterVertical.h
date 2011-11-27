@@ -1,18 +1,18 @@
-#ifndef GAMEDELIMITERLEFT_H
-#define GAMEDELIMITERLEFT_H
+#ifndef GAMEDELIMITERVERTICAL_H
+#define GAMEDELIMITERVERTICAL_H
 
 #include "Entity.h"
 
-class GameDelimiterLeft : public Entity
+class GameDelimiterVertical : public Entity
 {
 
 private:
     void initPath();
 
 public:
-    GameDelimiterLeft();
+    GameDelimiterVertical();
     QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
-#endif // GAMEDELIMITERLEFT_H
+#endif // GAMEDELIMITERVERTICAL_H

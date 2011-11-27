@@ -1,6 +1,9 @@
 #include <QGraphicsWidget>
 #include <QGraphicsScene>
 #include "YagwScene.h"
+#include "EntityFactory.h"
+
+#include "FireBehavior.h"
 
 YagwScene::YagwScene(QObject *parent) :
   QGraphicsScene(parent) {

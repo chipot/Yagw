@@ -9,6 +9,8 @@
 #include "SimpleFollowingBehavior.h"
 #include "YagwScene.h"
 
+#define WINSIZE_X 1000
+#define WINSIZE_Y 1000
 
 class GameProcessor : public QObject
 {
@@ -31,10 +33,13 @@ public :
     void start(int);
     void generateEntity(const char *name);
     void spawnEntity(Entity*, QPointF);
+    void affDelimiters();
+    void affGrid();
 
 private :
     QPointF randomDirection();
     QPointF randomPosition();
+    void newGridVertical(char *name, FireBehavior *GridLineBehavior, int i);
     void playerDead();
     void stop();
 public slots:

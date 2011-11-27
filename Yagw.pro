@@ -36,7 +36,10 @@ HEADERS += \
     include/Entities/GameDelimiterUp.h \
     include/Entities/GameDelimiterDown.h \
     include/Entities/GameDelimiterRight.h \
-    include/Entities/GameDelimiterLeft.h
+    include/Entities/GameDelimiterLeft.h \
+    include/Entities/GameDelimiterHorizontal.h \
+    include/Entities/GameDelimiterVertical.h \
+    include/Entities/GridVert1.h
 
 
 SOURCES += src/main.cpp \
@@ -58,4 +61,8 @@ SOURCES += src/main.cpp \
     src/Entities/GameDelimiterRight.cpp \
     src/Entities/GameDelimiterLeft.cpp \
     src/Entities/GameDelimiterDown.cpp \
-    src/Entities/Fire01.cpp
+    src/Entities/Fire01.cpp \
+    src/Entities/GameDelimiterHorizontal.cpp \
+    src/Entities/GameDelimiterVertical.cpp \
+    src/Entities/GridVert1.cpp \
+    src/Entities/GridHor1.cpp

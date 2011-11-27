@@ -43,7 +43,9 @@ QPointF Entity::calcMove() {
 
 
 void Entity::advance (int phase) {
+    qDebug() << "advance";
   if (phase == 0)
+      qDebug() << "try behave";
         behavior->behave(this);
   if (phase == 1) {
     this->setPos(pos() + this->calcMove());
