@@ -101,12 +101,22 @@ void GameProcessor::updatePlayerPosition() {
 }
 
 void GameProcessor::playerDead() {
-    scene.removeItem(player);
-    scene.addItem(player);
-    playerLifes--;
-    if (playerLifes == 0) {
-        qDebug() << "YOU ARE DEAD";
+  QList<Entity*> to_delete;
+  QGraphicsItem *item;
+
+  to_delete << this->fire;
+  to_delete << this->entities;
+  foreach(item, to_delete)
+    {
+      scene.removeItem(item);
+      //delete item;
     }
+  this->fire.erase(this->fire.begin(), this->fire.end());
+  this->entities.erase(this->entities.begin(), this->entities.end());
+  // playerLifes--;
+  // if (playerLifes == 0) {
+  //   qDebug() << "YOU ARE DEAD";
+  // }
 }
 
 void GameProcessor::checkCollidings()
@@ -140,5 +150,7 @@ void GameProcessor::checkCollidings()
         this->entities.removeOne(static_cast<Entity*>(item));
         delete item;
       }
+    if (this->player->collidingItems().size() != 0)
+      this->playerDead();
 }
 
