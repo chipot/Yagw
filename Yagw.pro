@@ -17,6 +17,7 @@ QMAKE_CXXFLAGS +=
 HEADERS += \
     include/YagwScene.h \
     include/Entity.h \
+    include/Score.h\
     include/Behavior.h \
     include/FireBehavior.h \
     include/PlayerBehavior.h \
@@ -39,6 +40,7 @@ HEADERS += \
 
 
 SOURCES += src/main.cpp \
+    src/Score.cpp\
     src/YagwScene.cpp \
     src/SoundCenter.cpp \
     src/FireBehavior.cpp \
