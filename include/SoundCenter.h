@@ -2,28 +2,32 @@
 # define SOUNDCENTER_H_
 
 #include <QString>
-#include <QSound>
 #include <QMap>
-#include <Phonon>
-#include <Phonon/MediaSource>
 #include <QObject>
-
 #include "singleton.hpp"
 
-class SoundCenter;
+// forward declarations
+namespace Phonon {
+class MediaObject;
+class MediaSource;
+}
+class QSound;
+// end of forward declarations
 
 class SoundCenter: public QObject, public moost::singleton<SoundCenter>
 {
     Q_OBJECT
     friend class moost::singleton<SoundCenter>;
+    typedef QMap<QString, Phonon::MediaSource*> SoundRelationMap;
   public:
     void play(const QString &name);
   public slots:
     void loop();
   private:
     SoundCenter();
-    QMap<QString, QSound *> data;
+    SoundRelationMap data;
     Phonon::MediaObject *music;
+    Phonon::MediaObject *sfx;
 };
 
 #endif /* !SOUNDCENTER_H_ */

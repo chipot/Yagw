@@ -1,7 +1,7 @@
 #ifndef FIRE_H
 #define FIRE_H
 
-#include "entity.h"
+#include "Entity.h"
 
 class Shuriken : public Entity
 {
