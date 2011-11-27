@@ -44,7 +44,7 @@ Entity *PlayerBehavior::createFire(QPointF direction) {
     FireBehavior *fireBehavior = new FireBehavior();
     fireBehavior->setDirection(direction);
 
-    Entity *fire = EntityFactory::getEntity("shuriken");
+    Entity *fire = EntityFactory::getEntity("fire01");
     fire->setScene(entityTemp->getScene());
     fire->setBehavior(fireBehavior);
     emit entityTemp->getScene()->newFire(fire);
@@ -143,6 +143,7 @@ void PlayerBehavior::keyReleaseEvent( QKeyEvent * event ) {
         if (fireDirection.x() == 1)
             fireDirection.setX(0);
             break;
+
         default :
             break;
     }
@@ -185,10 +186,10 @@ void PlayerBehavior::behave(Entity *entity) {
         _move.setY(_move.y() / 2);
     }
 */
-    _move *= moveSpeed;
-    entity->setMove(_move);
     if (_move.x() != 0 || _move.y() != 0) {
-        emit playerMoved();
+        _move *= moveSpeed;
     }
+    entity->setMove(_move);
     entity->setRotation(this->calcRotation());
+    entity->scene()->setFocusItem(entity);
 }

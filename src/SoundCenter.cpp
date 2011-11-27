@@ -7,9 +7,7 @@ SoundCenter::SoundCenter()
   :data(),
     music(Phonon::createPlayer(
             Phonon::MusicCategory,
-            Phonon::MediaSource("ressource/background_music.mp3")
-            )
-         )
+            Phonon::MediaSource("ressource/background_music.mp3")))
 {
   this->music->play();
   data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
@@ -53,4 +51,5 @@ void SoundCenter::play(const QString &name)
 void    SoundCenter::loop()
 {
   this->music->enqueue(Phonon::MediaSource("./ressource/background_music.wav"));
+  //delete pair;
 }

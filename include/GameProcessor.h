@@ -40,7 +40,6 @@ public slots:
     void loadFire(Entity*);
     void loadEntity(Entity*);
     void spawnEnnemy1();
-    void updatePlayerPosition();
     void checkCollidings();
 };
 

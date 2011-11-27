@@ -10,6 +10,8 @@
 #include <QQueue>
 #include <QRectF>
 #include <QGraphicsItem>
+#include <QList>
+#include <QGraphicsView>
 
 // include shapes
 // include behaviors
@@ -21,6 +23,7 @@ class YagwScene : public QGraphicsScene
     Q_OBJECT
 public:
     explicit YagwScene(QObject *parent = 0);
+    void translateViews(QPointF);
 private:
     void keyPressEvent( QKeyEvent * keyEvent );
     void keyReleaseEvent( QKeyEvent * keyEvent );

@@ -10,6 +10,7 @@
 #include <QPainterPath>
 #include <QGLWidget>
 #include <QQueue>
+#include <QVector2D>
 #include <math.h>
 
 #define PI 3.14f
@@ -26,9 +27,7 @@ protected :
     YagwScene *parentScene;
     QPointF move;
     int rotation;
-    QPointF playerPosition;
-    bool playerPositionUpdated;
-    int speed;
+    float speed;
 
 public:
 
@@ -45,9 +44,9 @@ public:
     void setScene(YagwScene*);
     YagwScene *getScene() const;
     void setBehavior(Behavior*);
-    void setPlayerPosition(QPointF);
-    QPointF getPlayerPosition() const;
-    bool playerMoved();
+    QPointF calcMove();
+    float getSpeed() const;
+    void setSpeed(float);
 };
 
 

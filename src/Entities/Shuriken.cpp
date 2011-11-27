@@ -3,7 +3,7 @@
 #include "SoundCenter.h"
 
 Shuriken::Shuriken():Entity(){
-  speed = 10;
+  speed = 5;
     initPath();
     SoundCenter::get_instance()->play("shoot");
 }

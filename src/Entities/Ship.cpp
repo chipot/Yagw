@@ -3,6 +3,7 @@
 #include "Registry.h"
 
 Ship::Ship() {
+    speed = 3;
     initPath();
 }
 

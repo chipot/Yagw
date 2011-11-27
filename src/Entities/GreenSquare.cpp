@@ -3,6 +3,7 @@
 #include "Registry.h"
 
 GreenSquare::GreenSquare() {
+    speed = 2;
     initPath();
 }
 
