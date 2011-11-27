@@ -2,7 +2,7 @@
 #define PLAYERBEHAVIOR_H
 
 #include <QGraphicsScene>
-#include <QTimeLine>
+#include <QTime>
 #include <QDebug>
 
 #include "YagwScene.h"
@@ -22,7 +22,7 @@ class PlayerBehavior : public QObject, public Behavior
     QHash<QPointF, int> directions;
     QList<fireLauncher> fl;
     Entity  *entityTemp;
-    QTimeLine timeline;
+    QTime   *time;
 
   public:
     PlayerBehavior();

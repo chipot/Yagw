@@ -29,6 +29,8 @@ PlayerBehavior::PlayerBehavior() {
     fl << &PlayerBehavior::fireLvl2;
     fl << &PlayerBehavior::fireLvl3;
     angle = 90;
+    time = new QTime();
+    time->start();
 }
 
 Entity *PlayerBehavior::createFire(QPointF direction) {
@@ -48,7 +50,7 @@ void PlayerBehavior::fireLvl1() {
     this->entityTemp->scene()->addItem(fire);
     QRectF brect = this->entityTemp->boundingRect();
     qreal s = max(brect.height(), brect.width());
-    s *= 1.2;
+    s *= 1.4;
     fire->moveBy(entityTemp->pos().x() + fireDirection.x() * s, entityTemp->pos().y() + fireDirection.y() * s);
 }
 
@@ -62,7 +64,10 @@ void PlayerBehavior::fireLvl3() {
 
 void PlayerBehavior::fire() {
     if (fireDirection.x() != 0 || fireDirection.y() != 0) {
-        (this->*fl[fireLevel-1])();
+        if (time->elapsed() > 150) {
+            (this->*fl[fireLevel-1])();
+            time->restart();
+        }
     }
 }
 

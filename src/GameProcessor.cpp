@@ -49,7 +49,6 @@ QPointF GameProcessor::randomPosition() {
     int posx = (rand() % (long int)scene.width()) - (long int)scene.width()/2;
     int posy = (rand() % (long int)scene.height()) - (long int)scene.height()/2;
     QPointF random(posx, posy);
-    qDebug() << "position" << random.x() << "|" <<  random.y();
     return random;
 }
 
