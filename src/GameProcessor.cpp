@@ -1,6 +1,7 @@
 #include "GameProcessor.h"
 #include "Registry.h"
 #include "EntityFactory.h"
+#include "Score.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
   : scene(ygws), player(0), playerLifes(3) {
@@ -57,14 +58,15 @@ void GameProcessor::stop()
 
 void GameProcessor::start(int framePerSecond)
 {
-    gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
-    gameTimer->start(framePerSecond);
+  Score::get_instance()->reset();
+  gameTimer = new QTimer();
+  gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
+  gameTimer->start(framePerSecond);
+  this->setPlayer();
 
-    this->setPlayer();
-
-    ennemy1Timer = new QTimer();
-    ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
-    ennemy1Timer->start(1000/3);
+  ennemy1Timer = new QTimer();
+  ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
+  ennemy1Timer->start(1000 / 3);
 }
 
 void GameProcessor::generateEntity(const char *name) {
