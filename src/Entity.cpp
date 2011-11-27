@@ -1,4 +1,4 @@
-#include "entity.h"
+#include "Entity.h"
 #include "Behavior.h"
 
 Entity::Entity() : QGraphicsItem(), speed(1) {

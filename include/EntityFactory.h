@@ -4,7 +4,7 @@
 #include "Entities/Ship.h"
 #include "Entities/Shuriken.h"
 #include "Entities/GreenSquare.h"
-#include "Entities/spaceship.h"
+#include "Entities/Spaceship.h"
 #include "Entities/Fire01.h"
 #include "Entities/GameDelimiterUp.h"
 #include "Entities/GameDelimiterDown.h"
