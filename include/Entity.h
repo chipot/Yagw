@@ -28,6 +28,7 @@ protected :
     QPointF move;
     int rotation;
     float speed;
+    int score;
 
 public:
 

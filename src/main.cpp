@@ -23,7 +23,7 @@ int  main(int argc, char *argv[])
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
 
-    view.setSceneRect(-200, -200, 400, 400);
+    view.setSceneRect(-200, -200, 1200, 700);
 /*    QMatrix mat;
     mat..scale( sx, sy );
     view->setMatrix( mat );

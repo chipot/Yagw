@@ -1,7 +1,8 @@
 #include "Entity.h"
 #include "Behavior.h"
+#include "Score.h"
 
-Entity::Entity() : QGraphicsItem(), speed(1) {
+Entity::Entity() : score(0), QGraphicsItem(), speed(1) {
     move = QPointF(0,0);
     behavior = NULL;
     parentScene = NULL;
@@ -16,6 +17,7 @@ Entity::Entity(YagwScene *scene) : QGraphicsItem() {
 
 Entity::~Entity()
 {
+  Score::get_instance()->inc(this->score);
   delete behavior;
 }
 
