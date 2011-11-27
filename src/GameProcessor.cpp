@@ -14,7 +14,7 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
     QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
 
-    player = EntityFactory::getEntity("ship");
+    player = EntityFactory::getEntity("spaceship");
     if (player != NULL) {
         player->setBehavior(playerBehavior);
         scene.addItem(player);

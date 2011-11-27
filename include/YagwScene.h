@@ -34,7 +34,7 @@ public slots:
     void drawBackground(QPainter *painter, const QRectF &rect);
     void advance();
 
-    friend class PlayerBehavior;
+   friend class PlayerBehavior;
 };
 
 #endif // YAGWSCENE_H

@@ -1,5 +1,5 @@
 #include "SoundCenter.h"
-#include "GreenSquare.h"
+#include "Entities/GreenSquare.h"
 #include "Registry.h"
 
 GreenSquare::GreenSquare() {

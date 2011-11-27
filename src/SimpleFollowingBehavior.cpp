@@ -1,7 +1,7 @@
 #include "SimpleFollowingBehavior.h"
 #include "EntityFactory.h"
 
-SimpleFollowingBehavior::SimpleFollowingBehavior() : EnnemyBehavior::EnnemyBehavior() {
+SimpleFollowingBehavior::SimpleFollowingBehavior() : EnnemyBehavior() {
     rotationSpeed = 0;
     moveSpeed = 1;
     direction = QPointF(0,0);
