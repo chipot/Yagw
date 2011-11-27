@@ -28,8 +28,8 @@ signals:
    void forwardKeyPressEvent(QKeyEvent*);
    void forwardKeyReleaseEvent(QKeyEvent*);
    void newEntity(Entity*);
+   void newFire(Entity*);
    void phase2();
-
 public slots:
     void advance();
 

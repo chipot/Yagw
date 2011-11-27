@@ -19,8 +19,8 @@ private :
     YagwScene       &scene;
     Entity          *player;
     QList<Entity*>  entities;
+    QList<Entity*>  fire;
     int playerLifes;
-
 public :
     GameProcessor(YagwScene &ygwscene);
     ~GameProcessor(){}
@@ -35,6 +35,7 @@ private :
     void playerDead();
 
 public slots:
+    void loadFire(Entity*);
     void loadEntity(Entity*);
     void spawnEnnemy1();
     void updatePlayerPosition();

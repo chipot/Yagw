@@ -40,7 +40,7 @@ Entity *PlayerBehavior::createFire(QPointF direction) {
     Entity *fire = EntityFactory::getEntity("shuriken");
     fire->setScene(entityTemp->getScene());
     fire->setBehavior(fireBehavior);
-    emit entityTemp->getScene()->newEntity(fire);
+    emit entityTemp->getScene()->newFire(fire);
     return fire;
 }
 
