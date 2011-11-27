@@ -8,9 +8,10 @@ uint qHash(QPointF const &ptr) {
     return (ptr.x() * 1000 + ptr.y());
 }
 
-PlayerBehavior::PlayerBehavior() {
-    qDebug() << "instance playerBehavior";
 
+PlayerBehavior::PlayerBehavior()
+{
+    qDebug() << "instance playerBehavior";
     rotationSpeed = 7;
     moveSpeed = 3;
     directions[QPointF(0, 0)] = 0;
@@ -31,6 +32,12 @@ PlayerBehavior::PlayerBehavior() {
     angle = 90;
     time = new QTime();
     time->start();
+}
+
+PlayerBehavior::~PlayerBehavior()
+{
+  delete time;
+  this->disconnect();
 }
 
 Entity *PlayerBehavior::createFire(QPointF direction) {
