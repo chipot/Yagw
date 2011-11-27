@@ -14,6 +14,7 @@ int  main(int argc, char *argv[])
     QTimer T;
     YagwScene scene;
 
+    app.setApplicationName("Yagw: Yet Another Graphic Woobling");
     SoundCenter::get_instance(); // init le son et lance la musique
     QGraphicsView view(&scene);
     GameProcessor game(scene);
