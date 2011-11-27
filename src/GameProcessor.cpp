@@ -103,16 +103,15 @@ void GameProcessor::playerDead() {
   this->fire.erase(this->fire.begin(), this->fire.end());
   this->entities.erase(this->entities.begin(), this->entities.end());
 
-  // playerLifes--;
-  // if (playerLifes == 0)
-  //   qDebug() << "YOU ARE DEAD";
-  // else
-  //   {
-  //     scene.removeItem(this->player);// olol il est pas dans entites ?
-  //     delete this->player;
-  //     this->player = 0;
-  //     this->setPlayer();
-  //   }
+  playerLifes--;
+  if (playerLifes == 0)
+    qDebug() << "YOU ARE DEAD";
+  else
+    {
+      scene.removeItem(this->player);// olol il est pas dans entites ?
+      delete this->player;
+      this->setPlayer();
+    }
 
 }
 
