@@ -21,6 +21,7 @@ class SoundCenter: public QObject, public moost::singleton<SoundCenter>
     Q_OBJECT
     friend class moost::singleton<SoundCenter>;
     typedef QMap<QString, Phonon::MediaSource*> SoundRelationMap;
+    static const int MAX_SOUNDS = 5;
   public:
     void play(const QString &name);
   public slots:
@@ -31,6 +32,7 @@ class SoundCenter: public QObject, public moost::singleton<SoundCenter>
     SoundRelationMap data;
     Phonon::MediaObject *music;
     QSignalMapper signal_map;
+    int current_sounds;
 };
 
 #endif /* !SOUNDCENTER_H_ */
