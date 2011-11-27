@@ -89,8 +89,6 @@ float Entity::getSpeed() const {
 }
 
 bool Entity::shielded() {
-    qDebug() << "shield ?";
-    qDebug() << spawnShield;
     if (spawnShield == false)
         return false;
     if (spawnTime->elapsed() >= 2000) {
