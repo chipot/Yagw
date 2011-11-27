@@ -5,7 +5,9 @@ Entity::Entity() : QGraphicsItem(), speed(1) {
     move = QPointF(0,0);
     behavior = NULL;
     parentScene = NULL;
-//    playerPositionUpdated = false;
+    spawnTime = new QTime();
+    spawnTime->start();
+    spawnShield = true;
 }
 
 Entity::Entity(YagwScene *scene) : QGraphicsItem() {
@@ -16,7 +18,7 @@ Entity::Entity(YagwScene *scene) : QGraphicsItem() {
 
 Entity::~Entity()
 {
-  delete behavior;
+    delete behavior;
 }
 
 QRectF Entity::boundingRect() const {
@@ -40,9 +42,7 @@ QPointF Entity::calcMove() {
 
 void Entity::advance (int phase) {
   if (phase == 0)
-      {
         behavior->behave(this);
-      }
   if (phase == 1) {
     this->setPos(pos() + this->calcMove());
     this->rotate(rotation);
@@ -86,4 +86,18 @@ void Entity::setSpeed(float moveSpeed) {
 
 float Entity::getSpeed() const {
     return speed;
+}
+
+bool Entity::shielded() {
+    qDebug() << "shield ?";
+    qDebug() << spawnShield;
+    if (spawnShield == false)
+        return false;
+    if (spawnTime->elapsed() >= 2000) {
+        spawnShield = false;
+        delete spawnTime;
+        spawnTime = 0;
+        return false;
+    }
+    return true;
 }

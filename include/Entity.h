@@ -11,6 +11,7 @@
 #include <QGLWidget>
 #include <QQueue>
 #include <QVector2D>
+#include <QTime>
 #include <math.h>
 
 #define PI 3.14f
@@ -26,6 +27,8 @@ protected :
     QPainterPath path;
     YagwScene *parentScene;
     QPointF move;
+    QTime *spawnTime;
+    bool spawnShield;
     int rotation;
     float speed;
 
@@ -47,6 +50,8 @@ public:
     QPointF calcMove();
     float getSpeed() const;
     void setSpeed(float);
+    int timeSinceSpawn() const;
+    bool shielded();
 };
 
 

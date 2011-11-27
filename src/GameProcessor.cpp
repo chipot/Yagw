@@ -151,7 +151,20 @@ void GameProcessor::checkCollidings()
         this->entities.removeOne(static_cast<Entity*>(item));
         delete item;
       }
-    if (this->player && this->player->collidingItems().size() != 0)
-      this->playerDead();
+    if (player->shielded())
+        return;
+    QList<QGraphicsItem*> collidingItems = this->player->collidingItems();
+    if (this->player && collidingItems.size() != 0) {
+        foreach(item, collidingItems) {
+            qDebug() << static_cast<Entity*>(item);
+            if (!static_cast<Entity*>(item)->shielded()) {
+                scene.removeItem((item));
+                this->entities.removeOne(static_cast<Entity*>(item));
+                delete item;
+                this->playerDead();
+                break;
+            }
+        }
+    }
 }
 
