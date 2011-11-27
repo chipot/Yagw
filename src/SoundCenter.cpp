@@ -8,15 +8,16 @@
 
 SoundCenter::SoundCenter()
   :data(),
-  music(Phonon::createPlayer(
-          Phonon::MusicCategory,
-          Phonon::MediaSource("ressource/background_music.mp3")
-          )
-      ),
-   signal_map()
-   
+    music(Phonon::createPlayer(
+            Phonon::MusicCategory,
+            Phonon::MediaSource("ressource/background_music.mp3")
+            )
+         ),
+    signal_map(),
+    current_sounds(0)
 {
   this->music->play();
+  current_sounds++;
   data["shoot"] = new Phonon::MediaSource("ressource/shoot.wav");
   data["kill"] = new Phonon::MediaSource("./ressource/kill.wav");
   connect(this->music, SIGNAL(aboutToFinish()), this, SLOT(loop()));
@@ -27,7 +28,7 @@ SoundCenter::SoundCenter()
 void SoundCenter::play(const QString &name)
 {
   SoundRelationMap::const_iterator it = data.constFind(name);
-  if (it != this->data.constEnd())
+  if (it != this->data.constEnd() && current_sounds < MAX_SOUNDS)
   {
     QPair<Phonon::MediaObject*,Phonon::AudioOutput*> *pair =
         new QPair<Phonon::MediaObject*,Phonon::AudioOutput*>(
@@ -41,6 +42,7 @@ void SoundCenter::play(const QString &name)
     signal_map.setMapping(pair->first, reinterpret_cast<QObject*>(pair));
 
     pair->first->play();
+    current_sounds++;
     qDebug() << "[SoundCenter]" << "Play" << name;
   }
 }
@@ -55,7 +57,9 @@ void    SoundCenter::song_finished(QObject *obj)
   QPair<Phonon::MediaObject*,Phonon::AudioOutput*>  *pair =
       reinterpret_cast<QPair<Phonon::MediaObject*,Phonon::AudioOutput*>*>(obj);
   pair->first->clear();
+  pair->first->disconnect(SIGNAL(finished()), &signal_map, SLOT(map()));
   delete pair->first;
   delete pair->second;
   delete pair;
+  current_sounds--;
 }
