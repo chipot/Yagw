@@ -1,9 +1,15 @@
 #ifndef ENTITYFACTORY_H
 #define ENTITYFACTORY_H
 
-#include "Ship.h"
-#include "Shuriken.h"
-#include "GreenSquare.h"
+#include "Entities/Ship.h"
+#include "Entities/Shuriken.h"
+#include "Entities/GreenSquare.h"
+#include "Entities/spaceship.h"
+#include "Entities/Fire01.h"
+#include "Entities/GameDelimiterUp.h"
+#include "Entities/GameDelimiterDown.h"
+#include "Entities/GameDelimiterLeft.h"
+#include "Entities/GameDelimiterRight.h"
 #include "FireBehavior.h"
 #include "Registry.h"
 #include <QMap>

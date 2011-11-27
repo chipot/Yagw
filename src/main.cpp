@@ -19,7 +19,6 @@ int  main(int argc, char *argv[])
     GameProcessor game(scene);
 
     view.setRenderHint(QPainter::Antialiasing);
-    view.setBackgroundBrush(QColor("black"));
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
 

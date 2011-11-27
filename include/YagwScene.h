@@ -28,10 +28,8 @@ signals:
    void forwardKeyPressEvent(QKeyEvent*);
    void forwardKeyReleaseEvent(QKeyEvent*);
    void newEntity(Entity*);
-public slots:
-    void drawBackground(QPainter *painter, const QRectF &rect);
 
-    friend class PlayerBehavior;
+   friend class PlayerBehavior;
 };
 
 #endif // YAGWSCENE_H
