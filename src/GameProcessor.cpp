@@ -57,7 +57,6 @@ void GameProcessor::start(void) {
     QTimer *ennemy1Timer = new QTimer();
     ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
     ennemy1Timer->start(1000/3);
-
 }
 
 void GameProcessor::generateEntity(const char *name) {
