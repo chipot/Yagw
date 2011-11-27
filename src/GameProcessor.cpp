@@ -1,6 +1,7 @@
 #include "GameProcessor.h"
 #include "Registry.h"
 #include "EntityFactory.h"
+#include "Entity.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
   : scene(ygws), player(0), playerLifes(3) {
@@ -11,6 +12,8 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
     playerBehavior = NULL;
     gameTimer = new QTimer();
+    GameProcessor::affDelimiters();
+    //GameProcessor::affGrid();
 }
 
 void GameProcessor::setPlayer()
@@ -176,3 +179,64 @@ void GameProcessor::checkCollidings()
     }
 }
 
+void GameProcessor::affDelimiters() {
+    FireBehavior *delimBehavior = new FireBehavior();
+    delimBehavior->setRotationSpeed(0);
+
+    Entity *delimDown = EntityFactory::getEntity("gamedelimiterhorizontal");
+    delimDown->setBehavior(delimBehavior);
+    this->scene.addItem(delimDown);
+    delimDown->setScene(&(this->scene));
+    delimDown->moveBy(-1 * WINSIZE_X/2, WINSIZE_Y/2);
+
+    Entity *delimUp = EntityFactory::getEntity("gamedelimiterhorizontal");
+    delimUp->setBehavior(delimBehavior);
+    this->scene.addItem(delimUp);
+    delimUp->setScene(&(this->scene));
+    delimUp->moveBy(-1 * WINSIZE_X/2, -1 * WINSIZE_Y/2);
+
+    Entity *delimLeft = EntityFactory::getEntity("gamedelimitervertical");
+    delimLeft->setBehavior(delimBehavior);
+    this->scene.addItem(delimLeft);
+    delimLeft->setScene(&(this->scene));
+    delimLeft->moveBy(-1 * WINSIZE_X/2, -1 * WINSIZE_Y/2);
+
+    Entity *delimRight = EntityFactory::getEntity("gamedelimitervertical");
+    delimRight->setBehavior(delimBehavior);
+    this->scene.addItem(delimRight);
+    delimRight->setScene(&(this->scene));
+    delimRight->moveBy(WINSIZE_X/2, -1 * WINSIZE_Y/2);
+}
+
+void GameProcessor::newGridVertical(char *name, FireBehavior *GridLineBehavior, int i)
+{
+    Entity *delimUp = EntityFactory::getEntity(name);
+    delimUp->setBehavior(GridLineBehavior);
+    this->scene.addItem(delimUp);
+    delimUp->setScene(&(this->scene));
+    delimUp->moveBy(i, -1 * WINSIZE_Y/2);
+}
+
+void GameProcessor::affGrid()
+{
+    FireBehavior *GridLineBehavior = new FireBehavior();
+    GridLineBehavior->setRotationSpeed(0);
+    
+    /* Toutes les verticales */
+    int i;
+    i = -1 * WINSIZE_X/2;
+    while(i < WINSIZE_X/2)
+    {
+        if (i != 0) //A SUPPRIMER sert à éviter le segfault des collisions
+        newGridVertical((char *)"gridvert1", GridLineBehavior, i);
+        i += 50;
+    }
+    i = -1 * WINSIZE_Y/2;
+    while(i < WINSIZE_Y/2)
+    {
+        if (i != 0) //A SUPPRIMER sert à éviter le segfault des collisions
+        newGridVertical((char *)"gridvert1", GridLineBehavior, i);
+        i += 50;
+    }
+
+}

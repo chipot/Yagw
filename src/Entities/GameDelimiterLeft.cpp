@@ -8,7 +8,7 @@ GameDelimiterLeft::GameDelimiterLeft() {
 
 void GameDelimiterLeft::initPath() {
     path.moveTo(-100, -100);
-    path.addRect(-300, -300, 300, 300);
+    path.lineTo(-100, 100);
 }
 
 QRectF GameDelimiterLeft::boundingRect() const {

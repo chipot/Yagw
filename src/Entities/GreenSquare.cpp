@@ -5,6 +5,7 @@
 GreenSquare::GreenSquare() {
     speed = 1;
     initPath();
+    score = 20;
 }
 
 void GreenSquare::initPath() {
@@ -20,4 +21,5 @@ GreenSquare::~GreenSquare()
 {
   SoundCenter::get_instance()->play("kill");
 }
+
 Registry<Entity>::Add<GreenSquare> greenSquare("greensquare", "GreenSquare shape entity");

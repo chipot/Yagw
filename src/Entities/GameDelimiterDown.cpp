@@ -5,10 +5,9 @@ GameDelimiterDown::GameDelimiterDown() {
     initPath();
 }
 
-
 void GameDelimiterDown::initPath() {
-    path.moveTo(-100, -100);
-    path.addRect(-300, -300, 300, 300);
+    path.lineTo(1000, 0);
+    path.closeSubpath();
 }
 
 QRectF GameDelimiterDown::boundingRect() const {

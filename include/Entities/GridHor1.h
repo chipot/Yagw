@@ -1,18 +1,18 @@
-#ifndef GAMEDELIMITERLEFT_H
-#define GAMEDELIMITERLEFT_H
+#ifndef GRIDHOR1_H
+#define GRIDHOR1_H
 
 #include "Entity.h"
 
-class GameDelimiterLeft : public Entity
+class GridHor1 : public Entity
 {
 
 private:
     void initPath();
 
 public:
-    GameDelimiterLeft();
+    GridHor1();
     QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
-#endif // GAMEDELIMITERLEFT_H
+#endif // GRIDHOR1_H

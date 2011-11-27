@@ -1,7 +1,8 @@
 #include "Entity.h"
 #include "Behavior.h"
+#include "Score.h"
 
-Entity::Entity() : QGraphicsItem(), speed(1) {
+Entity::Entity() : score(0), QGraphicsItem(), speed(1) {
     move = QPointF(0,0);
     behavior = NULL;
     parentScene = NULL;
@@ -18,7 +19,8 @@ Entity::Entity(YagwScene *scene) : QGraphicsItem() {
 
 Entity::~Entity()
 {
-    delete behavior;
+  Score::get_instance()->inc(this->score);
+  delete behavior;
 }
 
 QRectF Entity::boundingRect() const {
@@ -41,7 +43,9 @@ QPointF Entity::calcMove() {
 
 
 void Entity::advance (int phase) {
+    qDebug() << "advance";
   if (phase == 0)
+      qDebug() << "try behave";
         behavior->behave(this);
   if (phase == 1) {
     this->setPos(pos() + this->calcMove());

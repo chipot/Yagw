@@ -27,6 +27,7 @@ public:
 private:
     void keyPressEvent( QKeyEvent * keyEvent );
     void keyReleaseEvent( QKeyEvent * keyEvent );
+    QGraphicsSimpleTextItem * score;
 signals:
    void forwardKeyPressEvent(QKeyEvent*);
    void forwardKeyReleaseEvent(QKeyEvent*);
