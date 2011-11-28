@@ -12,7 +12,6 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
     playerBehavior = NULL;
-    gameTimer = new QTimer();
     GameProcessor::affDelimiters();
     //GameProcessor::affGrid();
 }
