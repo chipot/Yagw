@@ -39,7 +39,14 @@ HEADERS += \
     include/Entities/GameDelimiterLeft.h \
     include/Entities/GameDelimiterHorizontal.h \
     include/Entities/GameDelimiterVertical.h \
-    include/Entities/GridVert1.h
+    include/Entities/GridVert1.h \
+    include/Profile.h \
+    include/Behaviors.h \
+    include/Behaviors/KeyboardMoveBehavior.h \
+    include/Behaviors/KeyboardRotationBehavior.h \
+    include/Behaviors/KeyboardFireBehavior.h \
+    include/Behaviors/SimpleMoveBehavior.h \
+    include/Behaviors/BasicFollowingBehavior.h
 
 
 SOURCES += src/main.cpp \
@@ -65,4 +72,37 @@ SOURCES += src/main.cpp \
     src/Entities/GameDelimiterHorizontal.cpp \
     src/Entities/GameDelimiterVertical.cpp \
     src/Entities/GridVert1.cpp \
-    src/Entities/GridHor1.cpp
+    src/Entities/GridHor1.cpp \
+    src/Profile.cpp \
+    src/Behaviors/KeyboardMoveBehavior.cpp \
+    src/Behaviors/KeyboardRotationBehavior.cpp \
+    src/Behaviors/KeyboardFireBehavior.cpp \
+    src/Behaviors/SimpleMoveBehavior.cpp \
+    src/Behaviors/BasicFollowingBehavior.cpp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

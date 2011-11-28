@@ -37,7 +37,7 @@ signals:
 public slots:
     void advance();
 
-   friend class PlayerBehavior;
+    friend class PlayerBehavior;
 };
 
 #endif // YAGWSCENE_H

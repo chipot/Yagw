@@ -3,7 +3,7 @@
 #include "Registry.h"
 
 Spaceship::Spaceship() {
-    speed = 3;
+    speed = 200;
     initPath();
 }
 

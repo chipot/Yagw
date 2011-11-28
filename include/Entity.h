@@ -13,6 +13,7 @@
 #include <QVector2D>
 #include <QTime>
 #include <math.h>
+#include "Profile.h"
 
 #define PI 3.14159265f
 
@@ -24,6 +25,7 @@ class Entity : public QGraphicsItem
 protected :
 
     Behavior *behavior;
+    Profile *profile;
     QPainterPath path;
     YagwScene *parentScene;
     QPointF move;
@@ -32,25 +34,33 @@ protected :
     int rotation;
     float speed;
     int score;
+    int rotationSpeed;
+    QTime time;
 
 public:
 
-    Entity();
+    Entity(Profile *profile = 0);
     virtual ~Entity();
     Entity(YagwScene*);
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
     void advance (int);
+
     const QPointF &getMove() const;
-    void setMove(QPointF&);
     int getRotation() const;
+    YagwScene *getScene() const;
+    float getSpeed() const;
+    int getRotationSpeed() const;
+
+    void setMove(QPointF);
     void setRotation(int);
     void setScene(YagwScene*);
-    YagwScene *getScene() const;
     void setBehavior(Behavior*);
-    QPointF calcMove();
-    float getSpeed() const;
     void setSpeed(float);
+    void setProfile(Profile*);
+    void setRotationSpeed(int speed);
+
+    QPointF calcMove();
     int timeSinceSpawn() const;
     bool shielded();
 };

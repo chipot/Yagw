@@ -7,12 +7,9 @@ FireBehavior::FireBehavior() {
 }
 
 void FireBehavior::behave(Entity *entity) {
-qDebug() << "behave";
     QPointF move = direction*moveSpeed;
     entity->setMove(move);
     entity->setRotation(rotationSpeed);
-    qDebug() << "end behave";
-
 }
 
 void FireBehavior::setDirection(QPointF dir) {

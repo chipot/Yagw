@@ -1,0 +1,39 @@
+#ifndef PROFILE_H
+#define PROFILE_H
+
+class MoveBehavior;
+class ShootBehavior;
+class RotationBehavior;
+class TransformationBehavior;
+class Entity;
+
+
+class Profile {
+
+    MoveBehavior            *moveBehavior;
+    RotationBehavior        *rotationBehavior;
+    ShootBehavior           *shootBehavior;
+    TransformationBehavior  *transformationBehavior;
+    Entity                  *entity;
+
+public:
+    Profile();
+    Profile(MoveBehavior *move = 0, RotationBehavior *rotate = 0, ShootBehavior *shoot = 0, TransformationBehavior *transform = 0);
+    ~Profile();
+
+    void setMoveBehavior(MoveBehavior*);
+    void setRotationBehavior(RotationBehavior*);
+    void setShootBehavior(ShootBehavior*);
+    void setTransformationBehavior(TransformationBehavior*);
+    void setEntity(Entity*);
+
+    void move();
+    void rotate();
+    void shoot();
+    void transform();
+    void process();
+
+};
+
+
+#endif // PROFILE_H

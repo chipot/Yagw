@@ -2,19 +2,24 @@
 #include "Behavior.h"
 #include "Score.h"
 
-Entity::Entity() : score(0), QGraphicsItem(), speed(1) {
-    move = QPointF(0,0);
+Entity::Entity(Profile *_profile) : profile(_profile), score(0), QGraphicsItem(), speed(100), move(QPointF(0,0)), rotationSpeed(0) {
     behavior = NULL;
     parentScene = NULL;
     spawnTime = new QTime();
     spawnTime->start();
     spawnShield = true;
+    time.start();
 }
 
 Entity::Entity(YagwScene *scene) : QGraphicsItem() {
     move = QPointF(0,0);
     behavior = NULL;
     parentScene = scene;
+    spawnTime = new QTime();
+    spawnTime->start();
+    spawnShield = true;
+    speed = 100;
+    time.start();
 }
 
 Entity::~Entity()
@@ -27,25 +32,21 @@ QRectF Entity::boundingRect() const {
     return this->path.boundingRect();
 }
 
-// QRectF Entity::boundingRect() const {
-//     return QRectF(0,0, 10, 10);
-// }
-
 void Entity::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {
     painter->drawRect(0,0,10,10);
 }
 
 QPointF Entity::calcMove() {
+    float dist = speed * (float)(time.elapsed()/1000.0);
     QVector2D vector(move);
     vector.normalize();
-    return (QPointF(vector.x(), vector.y())* speed);
+    time.restart();
+    return (QPointF(vector.x(), vector.y())* dist);
 }
 
 
 void Entity::advance (int phase) {
-    qDebug() << "advance";
   if (phase == 0)
-      qDebug() << "try behave";
         behavior->behave(this);
   if (phase == 1) {
     this->setPos(pos() + this->calcMove());
@@ -68,12 +69,20 @@ void Entity::setBehavior(Behavior *behavior) {
     this->behavior = behavior;
 }
 
-void Entity::setMove(QPointF &move) {
+void Entity::setMove(QPointF move) {
     this->move = move;
 }
 
 const QPointF &Entity::getMove() const {
     return move;
+}
+
+int Entity::getRotationSpeed() const {
+    return rotationSpeed;
+}
+
+void Entity::setRotationSpeed(int speed) {
+    rotationSpeed = speed;
 }
 
 void Entity::setRotation(int rotate) {
@@ -86,6 +95,10 @@ int Entity::getRotation() const {
 
 void Entity::setSpeed(float moveSpeed) {
     speed = moveSpeed;
+}
+
+void Entity::setProfile(Profile *_profile) {
+    this->profile = _profile;
 }
 
 float Entity::getSpeed() const {

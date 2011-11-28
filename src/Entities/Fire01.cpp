@@ -2,7 +2,7 @@
 #include "Registry.h"
 
 Fire01::Fire01() {
-    speed = 5;
+    speed = 300;
     initPath();
 }
 
