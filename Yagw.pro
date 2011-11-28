@@ -20,6 +20,7 @@ HEADERS += \
     include/Score.h\
     include/Behavior.h \
     include/FireBehavior.h \
+    include/WallBehavior.h \
     include/PlayerBehavior.h \
     include/singleton.hpp\
     include/SoundCenter.h \
@@ -50,6 +51,7 @@ SOURCES += src/main.cpp \
     src/YagwScene.cpp \
     src/SoundCenter.cpp \
     src/FireBehavior.cpp \
+    src/WallBehavior.cpp \
     src/PlayerBehavior.cpp \
     src/Entity.cpp \
     src/GameProcessor.cpp \
