@@ -3,6 +3,8 @@
 
 #include <QTimer>
 #include <QVector2D>
+#include <QVector>
+#include <QPair>
 
 #include "PlayerBehavior.h"
 #include "FireBehavior.h"
@@ -17,11 +19,13 @@ class GameProcessor : public QObject
     Q_OBJECT
 
 private :
+    enum _dir{R,L,T,B};
     PlayerBehavior  *playerBehavior;
     YagwScene       &scene;
     Entity          *player;
     QList<Entity*>  entities;
     QList<Entity*>  fire;
+    QVector<QPair<GameProcessor::_dir, Entity*> *>  walls;
     int playerLifes;
     QTimer *ennemy1Timer;
     QTimer *gameTimer;
@@ -41,6 +45,7 @@ private :
     QPointF randomPosition();
     void newGridVertical(char *name, FireBehavior *GridLineBehavior, int i);
     void playerDead();
+    bool isWall(const Entity *);
     void stop();
 public slots:
     void keyPressEvent( QKeyEvent * );

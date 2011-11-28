@@ -1,3 +1,4 @@
+#include <complex>
 #include "GameProcessor.h"
 #include "Registry.h"
 #include "EntityFactory.h"
@@ -146,7 +147,7 @@ void GameProcessor::checkCollidings()
     QList<QGraphicsItem*> to_delete;
     QList<QGraphicsItem*> used_fire;
     QGraphicsItem *item;
-    int size = 0;
+        int size = 0;
 
     foreach(item, this->fire)
       {
@@ -171,6 +172,21 @@ void GameProcessor::checkCollidings()
         this->entities.removeOne(static_cast<Entity*>(item));
         delete item;
       }
+        QPair<GameProcessor::_dir, Entity*> * pair;
+    foreach(pair, walls)
+      foreach(item, pair->second->collidingItems())
+          {
+            if (isWall(static_cast<Entity*>(item)))
+              continue;
+            if (pair->first == GameProcessor::L)
+              item->moveBy(std::abs(static_cast<Entity*>(item)->getMove().x()) + 1, 0);
+            else if (pair->first == GameProcessor::R)
+              item->moveBy(-(std::abs(static_cast<Entity*>(item)->getMove().x()) + 1), 0);
+            else if (pair->first == GameProcessor::B)
+              item->moveBy(0, -(std::abs(static_cast<Entity*>(item)->getMove().y()) + 1));
+            else if (pair->first == GameProcessor::T)
+              item->moveBy(0, (std::abs(static_cast<Entity*>(item)->getMove().y()) + 1));
+          }
     if (player->shielded())
         return;
     QList<QGraphicsItem*> collidingItems = this->player->collidingItems();
@@ -186,6 +202,16 @@ void GameProcessor::checkCollidings()
         }
     }
 }
+
+bool    GameProcessor::isWall(const Entity *e)
+{
+  QPair<GameProcessor::_dir, Entity*> * pair;
+  foreach(pair, walls)
+    if (pair->second == e)
+      return true;
+  return false;
+}
+
 
 void GameProcessor::affDelimiters() {
     FireBehavior *delimBehavior = new FireBehavior();
@@ -215,6 +241,10 @@ void GameProcessor::affDelimiters() {
     delimRight->setScene(&(this->scene));
     delimRight->moveBy(WINSIZE_X/2, -1 * WINSIZE_Y/2);
     delimRight->setLives(-1);
+    walls.append(new QPair<GameProcessor::_dir, Entity*>(GameProcessor::R, delimRight));
+    walls.append(new QPair<GameProcessor::_dir, Entity*>(GameProcessor::L, delimLeft));
+    walls.append(new QPair<GameProcessor::_dir, Entity*>(GameProcessor::T, delimUp));
+    walls.append(new QPair<GameProcessor::_dir, Entity*>(GameProcessor::B, delimDown));
 }
 
 void GameProcessor::newGridVertical(char *name, FireBehavior *GridLineBehavior, int i)
