@@ -35,6 +35,7 @@ protected :
     float speed;
     int score;
     int rotationSpeed;
+    int lives;
     QTime time;
 
 public:
@@ -63,6 +64,8 @@ public:
     QPointF calcMove();
     int timeSinceSpawn() const;
     bool shielded();
+    bool die();
+    void setLives(const int);
 };
 
 

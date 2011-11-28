@@ -2,7 +2,9 @@
 #include "Behavior.h"
 #include "Score.h"
 
-Entity::Entity(Profile *_profile) : profile(_profile), score(0), QGraphicsItem(), speed(100), move(QPointF(0,0)), rotationSpeed(0) {
+Entity::Entity(Profile *_profile) : score(0), QGraphicsItem(), speed(100), lives(1),
+profile(_profile), move(QPointF(0,0)), rotationSpeed(0)
+{
     behavior = NULL;
     parentScene = NULL;
     spawnTime = new QTime();
@@ -22,12 +24,22 @@ Entity::Entity(YagwScene *scene) : QGraphicsItem() {
     time.start();
 }
 
+void Entity::setLives(const int l)
+{
+  lives = l;
+}
+
 Entity::~Entity()
 {
   Score::get_instance()->inc(this->score);
   delete behavior;
 }
 
+bool    Entity::die()
+{
+  --lives;
+  return lives == 0;
+}
 QRectF Entity::boundingRect() const {
     return this->path.boundingRect();
 }

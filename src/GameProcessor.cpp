@@ -1,6 +1,8 @@
+#include <complex>
 #include "GameProcessor.h"
 #include "Registry.h"
 #include "EntityFactory.h"
+#include "Score.h"
 #include "Entity.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
@@ -11,9 +13,15 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
     playerBehavior = NULL;
-    gameTimer = new QTimer();
     GameProcessor::affDelimiters();
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
     //GameProcessor::affGrid();
+}
+
+void GameProcessor::keyPressEvent( QKeyEvent * )
+{
+  QObject::disconnect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
+  this->start();
 }
 
 void GameProcessor::setPlayer()
@@ -52,21 +60,22 @@ void GameProcessor::stop()
     this->player = 0;
     ennemy1Timer->disconnect();
     delete ennemy1Timer;
-
     gameTimer->stop();
     gameTimer->disconnect();
     delete gameTimer;
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
 }
 
 void GameProcessor::start(int framePerSecond)
 {
-    gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
-    gameTimer->start(framePerSecond);
+  Score::get_instance()->reset();
+  gameTimer = new QTimer();
+  gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
+  gameTimer->start(framePerSecond);
+  this->setPlayer();
 
-    this->setPlayer();
-
-    ennemy1Timer = new QTimer();
-    ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
+  ennemy1Timer = new QTimer();
+  ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
     ennemy1Timer->start(2000);
 }
 
@@ -138,7 +147,7 @@ void GameProcessor::checkCollidings()
     QList<QGraphicsItem*> to_delete;
     QList<QGraphicsItem*> used_fire;
     QGraphicsItem *item;
-    int size = 0;
+        int size = 0;
 
     foreach(item, this->fire)
       {
@@ -157,12 +166,27 @@ void GameProcessor::checkCollidings()
       }
     foreach(item, to_delete)
       {
-        if (static_cast<Entity*>(item) == this->player)
+        if (static_cast<Entity*>(item) == this->player || !static_cast<Entity*>(item)->die())
           continue;
         scene.removeItem((item));
         this->entities.removeOne(static_cast<Entity*>(item));
         delete item;
       }
+        QPair<GameProcessor::_dir, Entity*> * pair;
+    foreach(pair, walls)
+      foreach(item, pair->second->collidingItems())
+          {
+            if (isWall(static_cast<Entity*>(item)))
+              continue;
+            if (pair->first == GameProcessor::L)
+              item->moveBy(std::abs(static_cast<Entity*>(item)->getMove().x()) + 1, 0);
+            else if (pair->first == GameProcessor::R)
+              item->moveBy(-(std::abs(static_cast<Entity*>(item)->getMove().x()) + 1), 0);
+            else if (pair->first == GameProcessor::B)
+              item->moveBy(0, -(std::abs(static_cast<Entity*>(item)->getMove().y()) + 1));
+            else if (pair->first == GameProcessor::T)
+              item->moveBy(0, (std::abs(static_cast<Entity*>(item)->getMove().y()) + 1));
+          }
     if (player->shielded())
         return;
     QList<QGraphicsItem*> collidingItems = this->player->collidingItems();
@@ -179,6 +203,16 @@ void GameProcessor::checkCollidings()
     }
 }
 
+bool    GameProcessor::isWall(const Entity *e)
+{
+  QPair<GameProcessor::_dir, Entity*> * pair;
+  foreach(pair, walls)
+    if (pair->second == e)
+      return true;
+  return false;
+}
+
+
 void GameProcessor::affDelimiters() {
     FireBehavior *delimBehavior = new FireBehavior();
     delimBehavior->setRotationSpeed(0);
@@ -188,24 +222,29 @@ void GameProcessor::affDelimiters() {
     this->scene.addItem(delimDown);
     delimDown->setScene(&(this->scene));
     delimDown->moveBy(-1 * WINSIZE_X/2, WINSIZE_Y/2);
-
+    delimDown->setLives(-1);
     Entity *delimUp = EntityFactory::getEntity("gamedelimiterhorizontal");
     delimUp->setBehavior(delimBehavior);
     this->scene.addItem(delimUp);
     delimUp->setScene(&(this->scene));
     delimUp->moveBy(-1 * WINSIZE_X/2, -1 * WINSIZE_Y/2);
-
+    delimUp->setLives(-1);
     Entity *delimLeft = EntityFactory::getEntity("gamedelimitervertical");
     delimLeft->setBehavior(delimBehavior);
     this->scene.addItem(delimLeft);
     delimLeft->setScene(&(this->scene));
     delimLeft->moveBy(-1 * WINSIZE_X/2, -1 * WINSIZE_Y/2);
-
+    delimLeft->setLives(-1);
     Entity *delimRight = EntityFactory::getEntity("gamedelimitervertical");
     delimRight->setBehavior(delimBehavior);
     this->scene.addItem(delimRight);
     delimRight->setScene(&(this->scene));
     delimRight->moveBy(WINSIZE_X/2, -1 * WINSIZE_Y/2);
+    delimRight->setLives(-1);
+    walls.append(new QPair<GameProcessor::_dir, Entity*>(GameProcessor::R, delimRight));
+    walls.append(new QPair<GameProcessor::_dir, Entity*>(GameProcessor::L, delimLeft));
+    walls.append(new QPair<GameProcessor::_dir, Entity*>(GameProcessor::T, delimUp));
+    walls.append(new QPair<GameProcessor::_dir, Entity*>(GameProcessor::B, delimDown));
 }
 
 void GameProcessor::newGridVertical(char *name, FireBehavior *GridLineBehavior, int i)
@@ -221,7 +260,7 @@ void GameProcessor::affGrid()
 {
     FireBehavior *GridLineBehavior = new FireBehavior();
     GridLineBehavior->setRotationSpeed(0);
-    
+
     /* Toutes les verticales */
     int i;
     i = -1 * WINSIZE_X/2;

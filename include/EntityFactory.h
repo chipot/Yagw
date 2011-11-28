@@ -24,6 +24,7 @@ protected:
 public:
     EntityFactory() { init(); }  // Print those already registered.
     static Entity *getEntity(const char *name);
+    static Entity *getRandom();
 };
 
 extern EntityFactory Factory;
