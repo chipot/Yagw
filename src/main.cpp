@@ -12,7 +12,6 @@
 int  main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QTimer T;
     YagwScene scene;
 
     qsrand(0xDEADBEEF * QTime::currentTime().msec());
@@ -24,18 +23,8 @@ int  main(int argc, char *argv[])
     view.setRenderHint(QPainter::Antialiasing);
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-
-    view.setSceneRect(-200, -200, 400, 400);
-/*    QMatrix mat;
-    mat..scale( sx, sy );
-    view->setMatrix( mat );
-    */
-
-    T.connect(&T, SIGNAL(timeout()), &scene, SLOT(advance()));
-    T.start(1000 / 60);
-//    view.fitInView(view.sceneRect());
     view.show();
-    game.start();
+    game.start(1000/60);
     app.exec();
     return (0);
 }

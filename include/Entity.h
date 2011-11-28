@@ -11,9 +11,10 @@
 #include <QGLWidget>
 #include <QQueue>
 #include <QVector2D>
+#include <QTime>
 #include <math.h>
 
-#define PI 3.14f
+#define PI 3.14159265f
 
 class Behavior;
 class YagwScene;
@@ -26,13 +27,17 @@ protected :
     QPainterPath path;
     YagwScene *parentScene;
     QPointF move;
+    QTime *spawnTime;
+    bool spawnShield;
     int rotation;
     float speed;
+    int score;
+    int lives;
 
 public:
 
     Entity();
-    ~Entity();
+    virtual ~Entity();
     Entity(YagwScene*);
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
@@ -47,6 +52,10 @@ public:
     QPointF calcMove();
     float getSpeed() const;
     void setSpeed(float);
+    int timeSinceSpawn() const;
+    bool shielded();
+    bool die();
+    void setLives(const int);
 };
 
 

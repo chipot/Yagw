@@ -23,7 +23,7 @@ void Ship::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QW
 
 Ship::~Ship()
 {
-    SoundCenter::get_instance()->play("quack");
+
 }
 
 

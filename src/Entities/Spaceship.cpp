@@ -1,11 +1,11 @@
 #include "Entities/Spaceship.h"
+#include "SoundCenter.h"
 #include "Registry.h"
 
 Spaceship::Spaceship() {
     speed = 3;
     initPath();
 }
-
 
 void Spaceship::initPath() {
 
@@ -22,6 +22,7 @@ void Spaceship::initPath() {
     path.lineTo(-10, 7);
     path.lineTo(-10, -7);
     path.lineTo(10, 0);
+    path.closeSubpath();
 }
 
 QRectF Spaceship::boundingRect() const {
@@ -36,3 +37,8 @@ void Spaceship::paint(QPainter * painter, const QStyleOptionGraphicsItem * optio
 }
 
 Registry<Entity>::Add<Spaceship> spaceship("spaceship", "Spaceship shape entity");
+
+Spaceship::~Spaceship()
+{
+  SoundCenter::get_instance()->play("quack");
+}
