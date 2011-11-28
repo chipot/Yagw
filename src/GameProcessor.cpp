@@ -13,7 +13,14 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
     playerBehavior = NULL;
     GameProcessor::affDelimiters();
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
     //GameProcessor::affGrid();
+}
+
+void GameProcessor::keyPressEvent( QKeyEvent * )
+{
+  QObject::disconnect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
+  this->start();
 }
 
 void GameProcessor::setPlayer()
@@ -52,10 +59,10 @@ void GameProcessor::stop()
     this->player = 0;
     ennemy1Timer->disconnect();
     delete ennemy1Timer;
-
     gameTimer->stop();
     gameTimer->disconnect();
     delete gameTimer;
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
 }
 
 void GameProcessor::start(int framePerSecond)

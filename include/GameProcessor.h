@@ -30,7 +30,7 @@ public :
     GameProcessor(YagwScene &ygwscene);
     ~GameProcessor(){}
     void setPlayer();
-    void start(int);
+    void start(int = 1000 / 60);
     void generateEntity(const char *name);
     void spawnEntity(Entity*, QPointF);
     void affDelimiters();
@@ -43,6 +43,7 @@ private :
     void playerDead();
     void stop();
 public slots:
+    void keyPressEvent( QKeyEvent * );
     void loadFire(Entity*);
     void loadEntity(Entity*);
     void spawnEnnemy1();

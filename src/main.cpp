@@ -22,7 +22,6 @@ int  main(int argc, char *argv[])
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     view.show();
-    game.start(1000/60);
     app.exec();
     return (0);
 }
