@@ -31,6 +31,9 @@ HEADERS += \
     include/Entities/Ship.h \
     include/Entities/Shuriken.h \
     include/Entities/GreenSquare.h \
+    include/Entities/GreenCrossSquare.h \
+    include/Entities/Star.h \
+    include/Entities/Pacman.h \
     include/Entities/Spaceship.h \
     include/Entities/Fire01.h \
     include/Entities/GameDelimiterUp.h \
@@ -57,6 +60,9 @@ SOURCES += src/main.cpp \
     src/Entities/Shuriken.cpp \
     src/Entities/Ship.cpp \
     src/Entities/GreenSquare.cpp \
+    src/Entities/GreenCrossSquare.cpp \
+    src/Entities/Star.cpp \
+    src/Entities/Pacman.cpp \
     src/Entities/GameDelimiterUp.cpp \
     src/Entities/GameDelimiterRight.cpp \
     src/Entities/GameDelimiterLeft.cpp \

@@ -11,4 +11,12 @@ public :
     void behave(Entity *entity);
 };
 
+class FollowingPacmanBehavior : public SimpleFollowingBehavior
+{
+public :
+    FollowingPacmanBehavior();
+    virtual ~FollowingPacmanBehavior(){}
+    void behave(Entity *entity);
+};
+
 #endif // SIMPLEFOLLOWINGBEHAVIOR_H
