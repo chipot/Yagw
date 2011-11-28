@@ -4,6 +4,7 @@
 #include "EntityFactory.h"
 #include "Score.h"
 #include "Entity.h"
+#include "WallBehavior.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
   : scene(ygws), player(0), playerLifes(3) {
@@ -214,29 +215,27 @@ bool    GameProcessor::isWall(const Entity *e)
 
 
 void GameProcessor::affDelimiters() {
-    FireBehavior *delimBehavior = new FireBehavior();
-    delimBehavior->setRotationSpeed(0);
 
     Entity *delimDown = EntityFactory::getEntity("gamedelimiterhorizontal");
-    delimDown->setBehavior(delimBehavior);
+    delimDown->setBehavior(new WallBehavior());
     this->scene.addItem(delimDown);
     delimDown->setScene(&(this->scene));
     delimDown->moveBy(-1 * WINSIZE_X/2, WINSIZE_Y/2);
     delimDown->setLives(-1);
     Entity *delimUp = EntityFactory::getEntity("gamedelimiterhorizontal");
-    delimUp->setBehavior(delimBehavior);
+    delimUp->setBehavior(new WallBehavior());
     this->scene.addItem(delimUp);
     delimUp->setScene(&(this->scene));
     delimUp->moveBy(-1 * WINSIZE_X/2, -1 * WINSIZE_Y/2);
     delimUp->setLives(-1);
     Entity *delimLeft = EntityFactory::getEntity("gamedelimitervertical");
-    delimLeft->setBehavior(delimBehavior);
+    delimLeft->setBehavior(new WallBehavior());
     this->scene.addItem(delimLeft);
     delimLeft->setScene(&(this->scene));
     delimLeft->moveBy(-1 * WINSIZE_X/2, -1 * WINSIZE_Y/2);
     delimLeft->setLives(-1);
     Entity *delimRight = EntityFactory::getEntity("gamedelimitervertical");
-    delimRight->setBehavior(delimBehavior);
+    delimRight->setBehavior(new WallBehavior());
     this->scene.addItem(delimRight);
     delimRight->setScene(&(this->scene));
     delimRight->moveBy(WINSIZE_X/2, -1 * WINSIZE_Y/2);
