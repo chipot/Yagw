@@ -1,5 +1,6 @@
 #include <QApplication>
 #include <QTimer>
+#include <QTime>
 #include <QGraphicsView>
 
 #include "GameProcessor.h"
@@ -14,6 +15,7 @@ int  main(int argc, char *argv[])
     QTimer T;
     YagwScene scene;
 
+    qsrand(0xDEADBEEF * QTime::currentTime().msec());
     app.setApplicationName("Yagw: Yet Another Graphic Woobling");
     SoundCenter::get_instance(); // init le son et lance la musique
     QGraphicsView view(&scene);
