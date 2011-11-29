@@ -20,7 +20,7 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     playerBehavior = NULL;
     GameProcessor::affDelimiters();
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
-    GameProcessor::createDisclaimer("Press any Key to start");
+    GameProcessor::createDisclaimer("Press RETURN to start");
 
 
     QGraphicsSimpleTextItem *txt = this->scene.addSimpleText("Lives:");
@@ -44,10 +44,13 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     //GameProcessor::affGrid();
 }
 
-void GameProcessor::keyPressEvent( QKeyEvent * )
+void GameProcessor::keyPressEvent( QKeyEvent * e)
 {
-  QObject::disconnect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
-  this->start();
+  if (e->key() == Qt::Key_Return)
+    {
+      QObject::disconnect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
+      this->start();
+    }
 }
 
 
@@ -130,7 +133,7 @@ void GameProcessor::stop()
   gameTimer->disconnect();
   delete gameTimer;
   QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
-  this->createDisclaimer("        Game Over\nPress any key to start");
+  this->createDisclaimer("        Game Over\nPress RETURN to start");
 }
 
 void GameProcessor::displayLifes()
