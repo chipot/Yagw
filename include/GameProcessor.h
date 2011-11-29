@@ -29,6 +29,7 @@ private :
     int playerLifes;
     QTimer *ennemy1Timer;
     QTimer *gameTimer;
+    QGraphicsSimpleTextItem * disclaimer;
 
 public :
     GameProcessor(YagwScene &ygwscene);
@@ -41,6 +42,7 @@ public :
     void affGrid();
 
 private :
+    void createDisclaimer(const QString &);
     QPointF randomDirection();
     QPointF randomPosition();
     void newGridVertical(char *name, FireBehavior *GridLineBehavior, int i);

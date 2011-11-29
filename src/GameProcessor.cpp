@@ -7,15 +7,14 @@
 #include "WallBehavior.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
-  : scene(ygws), player(0), playerLifes(3) {
-    qDebug() << "instance gameProcessor";
-
+  : scene(ygws), player(0), disclaimer(0) {
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
     playerBehavior = NULL;
     GameProcessor::affDelimiters();
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
+    GameProcessor::createDisclaimer("Press any Key to start");
     //GameProcessor::affGrid();
 }
 
@@ -24,6 +23,20 @@ void GameProcessor::keyPressEvent( QKeyEvent * )
   QObject::disconnect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
   this->start();
 }
+
+
+void GameProcessor::createDisclaimer(const QString &s)
+ {
+   QFont font;
+   font.setBold(true);
+   font.setPointSize(42);
+   delete this->disclaimer;
+   this->disclaimer = scene.addSimpleText(s, font);
+   this->disclaimer->setBrush(Qt::white);
+   QPen pen(Qt::white, 3, Qt::DashLine, Qt::RoundCap, Qt::RoundJoin);
+   this->disclaimer->setPen(pen);
+   this->disclaimer->setPos(-WINSIZE_X / 4, 0);
+ }
 
 void GameProcessor::setPlayer()
 {
@@ -65,10 +78,15 @@ void GameProcessor::stop()
     gameTimer->disconnect();
     delete gameTimer;
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
+    this->createDisclaimer("        Game Over\nPress any key to start");
 }
 
 void GameProcessor::start(int framePerSecond)
 {
+  this->playerLifes = 3;
+  scene.removeItem(disclaimer);
+  delete this->disclaimer;
+  this->disclaimer = 0;
   Score::get_instance()->reset();
   gameTimer = new QTimer();
   gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
@@ -134,10 +152,9 @@ void GameProcessor::playerDead() {
   this->fire.erase(this->fire.begin(), this->fire.end());
   this->entities.erase(this->entities.begin(), this->entities.end());
 
-  playerLifes--;
   scene.removeItem(this->player);
   delete this->player;
-  if (playerLifes != 0)
+  if (--playerLifes > 0)
     this->setPlayer();
   else
     this->stop();
