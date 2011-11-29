@@ -50,7 +50,8 @@ HEADERS += \
     include/Behaviors/KeyboardRotationBehavior.h \
     include/Behaviors/KeyboardFireBehavior.h \
     include/Behaviors/SimpleMoveBehavior.h \
-    include/Behaviors/BasicFollowingBehavior.h
+    include/Behaviors/BasicFollowingBehavior.h \
+    include/Behaviors/FollowingRotationBehavior.h
 
 
 SOURCES += src/main.cpp \
@@ -86,7 +87,10 @@ SOURCES += src/main.cpp \
     src/Behaviors/KeyboardRotationBehavior.cpp \
     src/Behaviors/KeyboardFireBehavior.cpp \
     src/Behaviors/SimpleMoveBehavior.cpp \
-    src/Behaviors/BasicFollowingBehavior.cpp
+    src/Behaviors/BasicFollowingBehavior.cpp \
+    src/Behaviors/FollowingRotationBehavior.cpp
+
+
 
 
 
