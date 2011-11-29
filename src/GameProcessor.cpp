@@ -13,7 +13,11 @@
 #include "Profile.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
-  : playerBehavior(0), scene(ygws), player(0), disclaimer(0)
+  : playerBehavior(0),
+    scene(ygws),
+    player(0),
+    disclaimer(0),
+    gia(*this, ygws.width(), ygws.height(), player)
 {
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
@@ -69,6 +73,7 @@ void GameProcessor::createDisclaimer(const QString &s)
 
 void GameProcessor::advance()
 {
+  this->gia.advance(++(this->turn), Score::get_instance()->getScore());
   this->checkCollidings();
   this->displayLifes();
   QString str("Score:\n");
@@ -108,26 +113,11 @@ void GameProcessor::setPlayer()
     qDebug() << "player set";
  }
 
-QPointF GameProcessor::randomDirection() {
-    float x = ((rand()%2000) - 1000);
-    float y = ((rand()%2000) - 1000);
-    x /= 1000.0;
-    y /= 1000.0;
-    QPointF random(x, y);
-    return random;
-}
-
-QPointF GameProcessor::randomPosition() {
-    int posx = (rand() % (long int)scene.width()) - (long int)scene.width()/2;
-    int posy = (rand() % (long int)scene.height()) - (long int)scene.height()/2;
-    QPointF random(posx, posy);
-    return random;
-}
 
 void GameProcessor::stop()
 {
   this->player = 0;
-   gameTimer->stop();
+  gameTimer->stop();
   gameTimer->disconnect();
   delete gameTimer;
   QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
@@ -163,6 +153,7 @@ void GameProcessor::displayLifes()
 
 void GameProcessor::start(int framePerSecond)
 {
+  this->turn = 0;
   this->playerLifes = 3;
   this->displayLifes();
   scene.removeItem(disclaimer);
@@ -175,15 +166,11 @@ void GameProcessor::start(int framePerSecond)
   this->setPlayer();
 }
 
-void GameProcessor::generateEntity(const char *name) {
-    qDebug() << "generate Entity";
-    Entity *entity = EntityFactory::getEntity(name);
-    entities << entity;
-}
-
 void GameProcessor::spawnEntity(Entity *entity, QPointF position) {
   scene.addItem(entity);
-    entity->moveBy(position.x(), position.y());
+  entity->moveBy(position.x(), position.y());
+  entities << entity;
+  entity->setScene(&scene);
 }
 
 void GameProcessor::loadEntity(Entity *entity) {
@@ -194,20 +181,6 @@ void GameProcessor::loadFire(Entity *entity) {
     fire << entity;
 }
 
-void GameProcessor::spawnEnnemy1() {
-    Entity *entity = EntityFactory::getEntity("greensquare");
-
-    SimpleFollowingBehavior *behavior = new SimpleFollowingBehavior();
-    BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
-
-    Profile *profile = new Profile(moveBehavior);
-    QPointF entityPosition = randomPosition();
-    entity->setScene(&scene);
-    entity->setBehavior(behavior);
-    entity->setProfile(profile);
-    spawnEntity(entity, entityPosition);
-    entities << entity;
-}
 
 /*
 void GameProcessor::updatePlayerPosition() {

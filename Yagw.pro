@@ -15,6 +15,7 @@ QMAKE_CXXFLAGS +=
 
 
 HEADERS += \
+    include/GameIA.h \
     include/YagwScene.h \
     include/Entity.h \
     include/Score.h\
@@ -54,6 +55,7 @@ HEADERS += \
 
 
 SOURCES += src/main.cpp \
+    src/GameIA.cpp \
     src/Score.cpp\
     src/YagwScene.cpp \
     src/SoundCenter.cpp \
