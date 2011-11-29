@@ -15,6 +15,18 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     GameProcessor::affDelimiters();
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
     GameProcessor::createDisclaimer("Press any Key to start");
+
+
+    QGraphicsSimpleTextItem *txt = this->scene.addSimpleText("Lives:");
+// attention on perd le pointeur. a changer.
+    QFont font;
+    font.setBold(true);
+    font.setPointSize(20);
+    txt->setFont(font);
+    txt->setBrush(Qt::red);
+    QPen pen(Qt::red, 1, Qt::DashLine, Qt::RoundCap, Qt::RoundJoin);
+    txt->setPen(pen);
+    txt->setPos(WINSIZE_X / 2  + 5,- WINSIZE_Y / 2 + 10);
     //GameProcessor::affGrid();
 }
 
@@ -94,7 +106,7 @@ void GameProcessor::displayLifes()
           this->lives[i]->setLives(-1);
           this->lives[i]->setBehavior(new WallBehavior());
           this->lives[i]->setPos(WINSIZE_X / 2  + this->lives[i]->boundingRect().width(),
-                                 - WINSIZE_Y / 2 + 80 - (5 + this->lives[i]->boundingRect().height()) * i);
+                                 - WINSIZE_Y / 2 + 90 - (5 + this->lives[i]->boundingRect().height()) * i);
           this->scene.addItem(this->lives[i]);
         }
     }
