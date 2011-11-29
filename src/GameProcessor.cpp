@@ -220,7 +220,9 @@ void GameProcessor::checkCollidings()
     foreach(item, this->fire)
       {
         to_delete << item->collidingItems();
-        if (size != to_delete.size())
+        if (size != to_delete.size() ||
+            std::abs(item->x()) > WINSIZE_X / 2 ||
+            std::abs(item->y()) > WINSIZE_Y / 2)
           {
             used_fire << item;
             size = to_delete.size();
