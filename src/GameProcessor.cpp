@@ -1,3 +1,4 @@
+#include <QString>
 #include <complex>
 #include "GameProcessor.h"
 #include "Registry.h"
@@ -20,13 +21,21 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     QGraphicsSimpleTextItem *txt = this->scene.addSimpleText("Lives:");
 // attention on perd le pointeur. a changer.
     QFont font;
+    QPen pen(Qt::red, 1, Qt::DashLine, Qt::RoundCap, Qt::RoundJoin);
     font.setBold(true);
     font.setPointSize(20);
     txt->setFont(font);
     txt->setBrush(Qt::red);
-    QPen pen(Qt::red, 1, Qt::DashLine, Qt::RoundCap, Qt::RoundJoin);
     txt->setPen(pen);
     txt->setPos(WINSIZE_X / 2  + 5,- WINSIZE_Y / 2 + 10);
+    QString str("Score:\n");
+    str += QString::number(Score::get_instance()->getScore()) + QString::fromAscii("\nMax:\n") + QString::number(Score::get_instance()->getMax());
+    txt = this->scene.addSimpleText(str);
+    txt->setFont(font);
+    txt->setBrush(Qt::red);
+    txt->setPen(pen);
+    txt->setPos(WINSIZE_X / 2  + 5,- WINSIZE_Y / 2 + 200);
+    this->score = txt;
     //GameProcessor::affGrid();
 }
 
@@ -135,7 +144,7 @@ void GameProcessor::start(int framePerSecond)
 
   ennemy1Timer = new QTimer();
   ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
-  ennemy1Timer->start(2000);
+  ennemy1Timer->start(2500);
 }
 
 void GameProcessor::generateEntity(const char *name) {
@@ -260,6 +269,9 @@ void GameProcessor::checkCollidings()
             }
         }
     }
+    QString str("Score:\n");
+    str += QString::number(Score::get_instance()->getScore()) + QString::fromAscii("\nMax:\n") + QString::number(Score::get_instance()->getMax());
+    this->score->setText(str);
 }
 
 bool    GameProcessor::isWall(const Entity *e)

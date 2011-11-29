@@ -31,6 +31,7 @@ private :
     QTimer *ennemy1Timer;
     QTimer *gameTimer;
     QGraphicsSimpleTextItem * disclaimer;
+    QGraphicsSimpleTextItem * score;
 
 public :
     GameProcessor(YagwScene &ygwscene);
