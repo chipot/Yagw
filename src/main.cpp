@@ -19,11 +19,13 @@ int  main(int argc, char *argv[])
     SoundCenter::get_instance(); // init le son et lance la musique
     QGraphicsView view(&scene);
     GameProcessor game(scene);
-
+    view.showFullScreen();
     view.setRenderHint(QPainter::Antialiasing);
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     view.show();
+    view.setMouseTracking(false);
+    app.setOverrideCursor( QCursor( Qt::BlankCursor ) );
     app.exec();
     return (0);
 }

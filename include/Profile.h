@@ -14,12 +14,12 @@ class Profile {
     RotationBehavior        *rotationBehavior;
     ShootBehavior           *shootBehavior;
     TransformationBehavior  *transformationBehavior;
-    Entity                  *entity;
+    Entity                  *entity; // ne pas delete;
 
 public:
     Profile();
     Profile(MoveBehavior *move = 0, RotationBehavior *rotate = 0, ShootBehavior *shoot = 0, TransformationBehavior *transform = 0);
-    ~Profile();
+    virtual ~Profile();
 
     void setMoveBehavior(MoveBehavior*);
     void setRotationBehavior(RotationBehavior*);

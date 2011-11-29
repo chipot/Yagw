@@ -17,14 +17,10 @@ Profile::Profile(MoveBehavior *move, RotationBehavior *rotate,
 }
 
 Profile::~Profile() {
-    if (moveBehavior)
-        delete moveBehavior;
-    if (rotationBehavior)
-        delete rotationBehavior;
-    if (shootBehavior)
-        delete shootBehavior;
-    if (transformationBehavior)
-        delete transformationBehavior;
+  delete moveBehavior;
+  delete rotationBehavior;
+  delete shootBehavior;
+  delete transformationBehavior;
 }
 
 void Profile::setMoveBehavior(MoveBehavior *move) {

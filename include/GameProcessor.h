@@ -43,7 +43,7 @@ public :
     void affDelimiters();
     void affGrid();
 
-private :
+  private :
     void displayLifes();
     void createDisclaimer(const QString &);
     QPointF randomDirection();
@@ -52,6 +52,7 @@ private :
     void playerDead();
     bool isWall(const Entity *);
     void stop();
+    void checkCollidings();
 
 public slots:
     void keyPressEvent( QKeyEvent * );
@@ -59,7 +60,7 @@ public slots:
     void loadEntity(Entity*);
     void spawnEnnemy1();
     void spawnEnnemy2();
-    void checkCollidings();
+    void advance();
 };
 
 
