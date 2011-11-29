@@ -24,6 +24,7 @@ int  main(int argc, char *argv[])
     view.setCacheMode(QGraphicsView::CacheBackground);
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     view.show();
+    view.setMouseTracking(false);
     app.exec();
     return (0);
 }
