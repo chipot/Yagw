@@ -6,11 +6,10 @@
 #include <QVector>
 #include <QPair>
 
-#include "PlayerBehavior.h"
-#include "FireBehavior.h"
-#include "SimpleFollowingBehavior.h"
-
 #include "YagwScene.h"
+#include "FireBehavior.h"
+
+#include "Entities/Pacman.h"
 
 #define WINSIZE_X 1000
 #define WINSIZE_Y 1000
@@ -24,9 +23,6 @@ class GameProcessor : public QObject
 
 private :
     enum _dir{R,L,T,B};
-
-
-    PlayerBehavior  *playerBehavior;
     YagwScene       &scene;
     Entity          *player;
     QList<Entity*>  entities;

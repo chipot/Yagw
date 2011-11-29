@@ -10,16 +10,14 @@ class BasicFollowingBehavior : public MoveBehavior
 private :
 
 public :
-    BasicFollowingBehavior(Entity *ent = 0, Entity *entToFollow = 0) : entity(ent), target(entToFollow){}
+    BasicFollowingBehavior(Entity *ent = 0, Entity *entToFollow = 0) : target(entToFollow){ entity = ent;}
     void move();
-    static QPointF calcDirection(QPointF, QPointF);
     void setTarget(Entity*);
     void init();
+    static QPointF calcDirection(QPointF, QPointF);
 
 protected :
-    Entity *entity;
     Entity *target;
-
 };
 
 #endif // BASICFOLLOWINGBEHAVIOR_H

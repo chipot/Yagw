@@ -11,8 +11,9 @@ Pacman::Pacman() {
 
 void Pacman::initPath() {
   //this->setTransformOriginPoint(50.0, 50.0);
-  path.moveTo(50.0, 50.0);
-  path.arcTo(20.0, 30.0, 60.0, 40.0, 30.0, 270.0);
+ // path.moveTo(50.0, 50.0);
+
+    path.arcTo(QRectF(-30, -30, 60, 60), 30, 270);
   path.closeSubpath();
 }
 

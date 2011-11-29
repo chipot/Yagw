@@ -22,7 +22,6 @@ public :
     }
 protected :
     QTime time;
-
 };
 
 class ShootBehavior : public Behavior {
@@ -40,7 +39,6 @@ public :
     virtual ~RotationBehavior(){}
     virtual void rotate() = 0;
     virtual void behave(Entity*){}
-
 };
 
 class TransformationBehavior : public Behavior {

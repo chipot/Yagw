@@ -7,14 +7,14 @@
 #include "Entity.h"
 #include "WallBehavior.h"
 #include "Behaviors/BasicFollowingBehavior.h"
+#include "Behaviors/FollowingRotationBehavior.h"
 #include "Behaviors/KeyboardFireBehavior.h"
 #include "Behaviors/KeyboardMoveBehavior.h"
 #include "Behaviors/KeyboardRotationBehavior.h"
 #include "Profile.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
-  : playerBehavior(0),
-    scene(ygws),
+  : scene(ygws),
     player(0),
     disclaimer(0),
     gia(*this, ygws.width(), ygws.height(), player)
@@ -96,14 +96,9 @@ void GameProcessor::setPlayer()
 
     Profile *playerProfile = new Profile(playerMoveBehavior, playerRotationBehavior, playerShootBehavior);
 
-    playerBehavior = new PlayerBehavior();
-    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
-    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
-
     player = EntityFactory::getEntity("spaceship");
     qDebug() << "player set";
     if (player != NULL) {
-        player->setBehavior(playerBehavior);
         player->setProfile(playerProfile);
         scene.addItem(player);
         player->setScene(&scene);
@@ -135,7 +130,7 @@ void GameProcessor::displayLifes()
         {
           this->lives[i] = EntityFactory::getEntity("spaceship");
           this->lives[i]->setLives(-1);
-          this->lives[i]->setBehavior(new WallBehavior());
+          this->lives[i]->setProfile(new Profile(0,0,0,0));
           this->lives[i]->setPos(WINSIZE_X / 2  + this->lives[i]->boundingRect().width(),
                                  - WINSIZE_Y / 2 + 90 - (5 + this->lives[i]->boundingRect().height()) * i);
           this->scene.addItem(this->lives[i]);
@@ -181,18 +176,6 @@ void GameProcessor::loadFire(Entity *entity) {
     fire << entity;
 }
 
-
-/*
-void GameProcessor::updatePlayerPosition() {
-
-    QList<Entity*>::iterator it = entities.begin();
-    QList<Entity*>::iterator ite = entities.end();
-
-    for (;it != ite; ++it) {
-        (*it)->setPlayerPosition(player->pos());
-    }
-}
-*/
 
 void GameProcessor::playerDead() {
   QList<Entity*> to_delete;
@@ -293,25 +276,25 @@ bool    GameProcessor::isWall(const Entity *e)
 void GameProcessor::affDelimiters() {
 
     Entity *delimDown = EntityFactory::getEntity("gamedelimiterhorizontal");
-    delimDown->setBehavior(new WallBehavior());
+    delimDown->setProfile(new Profile(0,0,0,0));
     this->scene.addItem(delimDown);
     delimDown->setScene(&(this->scene));
     delimDown->moveBy(-1 * WINSIZE_X/2, WINSIZE_Y/2);
     delimDown->setLives(-1);
     Entity *delimUp = EntityFactory::getEntity("gamedelimiterhorizontal");
-    delimUp->setBehavior(new WallBehavior());
+    delimUp->setProfile(new Profile(0,0,0,0));
     this->scene.addItem(delimUp);
     delimUp->setScene(&(this->scene));
     delimUp->moveBy(-1 * WINSIZE_X/2, -1 * WINSIZE_Y/2);
     delimUp->setLives(-1);
     Entity *delimLeft = EntityFactory::getEntity("gamedelimitervertical");
-    delimLeft->setBehavior(new WallBehavior());
+    delimLeft->setProfile(new Profile(0,0,0,0));
     this->scene.addItem(delimLeft);
     delimLeft->setScene(&(this->scene));
     delimLeft->moveBy(-1 * WINSIZE_X/2, -1 * WINSIZE_Y/2);
     delimLeft->setLives(-1);
     Entity *delimRight = EntityFactory::getEntity("gamedelimitervertical");
-    delimRight->setBehavior(new WallBehavior());
+    delimRight->setProfile(new Profile(0,0,0,0));
     this->scene.addItem(delimRight);
     delimRight->setScene(&(this->scene));
     delimRight->moveBy(WINSIZE_X/2, -1 * WINSIZE_Y/2);

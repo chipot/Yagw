@@ -10,9 +10,10 @@ QPointF BasicFollowingBehavior::calcDirection(QPointF firstPoint, QPointF second
 
 void BasicFollowingBehavior::move()
 {
+    qDebug() << entity->getMove();
     if (entity) {
         entity->setMove(
-                    calcMove(calcDirection(entity->pos(),
+                    calcMove(BasicFollowingBehavior::calcDirection(entity->pos(),
                                            target->pos()),
                              entity->getSpeed()));
     }
@@ -24,6 +25,7 @@ void BasicFollowingBehavior::setTarget(Entity *entity) {
 }
 
 void BasicFollowingBehavior::init() {
+    qDebug() << "following move init";
     if (entity)
-        entity->setRotationSpeed(0);
+        entity->setSpeed(100);
 }

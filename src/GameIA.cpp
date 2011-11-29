@@ -47,11 +47,23 @@ void GameIA::advance(const  int turn, const  int score)
   if (!(turn % level))
     {
       Entity *entity = EntityFactory::getEntity("greensquare");
-      SimpleFollowingBehavior *behavior = new SimpleFollowingBehavior();
       BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
       Profile *profile = new Profile(moveBehavior);
-      entity->setBehavior(behavior);
       entity->setProfile(profile);
       game.spawnEntity(entity, randomPosition());
     }
 }
+
+
+
+    // Entity *entity = EntityFactory::getEntity("pacman");
+
+    // FollowingRotationBehavior *rotationBehavior = new FollowingRotationBehavior(entity, player, 270);
+    // BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
+
+    // Profile *profile = new Profile(moveBehavior, rotationBehavior);
+    // QPointF entityPosition = randomPosition();
+    // entity->setScene(&scene);
+    // entity->setProfile(profile);
+    // spawnEntity(entity, entityPosition);
+    // entities << entity;
