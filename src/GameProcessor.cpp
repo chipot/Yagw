@@ -16,7 +16,7 @@ GameProcessor::GameProcessor(YagwScene &ygws)
   : scene(ygws), player(0), disclaimer(0) {
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
-    QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
+    QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(advance()));
     playerBehavior = NULL;
     GameProcessor::affDelimiters();
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
@@ -63,6 +63,15 @@ void GameProcessor::createDisclaimer(const QString &s)
    this->disclaimer->setPen(pen);
    this->disclaimer->setPos(-WINSIZE_X / 4, 0);
  }
+
+void GameProcessor::advance()
+{
+  this->checkCollidings();
+  this->displayLifes();
+  QString str("Score:\n");
+    str += QString::number(Score::get_instance()->getScore()) + QString::fromAscii("\nMax:\n") + QString::number(Score::get_instance()->getMax());
+    this->score->setText(str);
+}
 
 void GameProcessor::setPlayer()
 {
@@ -163,7 +172,6 @@ void GameProcessor::start(int framePerSecond)
   gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
   gameTimer->start(framePerSecond);
   this->setPlayer();
-
   ennemy1Timer = new QTimer();
   ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
   ennemy1Timer->start(2500);
@@ -243,7 +251,7 @@ void GameProcessor::checkCollidings()
     QSet<QGraphicsItem*> to_delete;
     QList<QGraphicsItem*> used_fire;
     QGraphicsItem *item;
-        int size = 0;
+    int size = 0;
 
     foreach(item, this->fire)
       {
@@ -299,9 +307,6 @@ void GameProcessor::checkCollidings()
             }
         }
     }
-    QString str("Score:\n");
-    str += QString::number(Score::get_instance()->getScore()) + QString::fromAscii("\nMax:\n") + QString::number(Score::get_instance()->getMax());
-    this->score->setText(str);
 }
 
 bool    GameProcessor::isWall(const Entity *e)
