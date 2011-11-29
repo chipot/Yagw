@@ -27,6 +27,7 @@ HEADERS += \
     include/SoundCenter.h \
     include/GameProcessor.h \
     include/EntityFactory.h \
+    include/ProfileFactory.h \
     include/Registry.h \
     include/SimpleFollowingBehavior.h \
     include/EnnemyBehavior.h \
@@ -66,6 +67,7 @@ SOURCES += src/main.cpp \
     src/Entity.cpp \
     src/GameProcessor.cpp \
     src/EntityFactory.cpp \
+    src/ProfileFactory.cpp \
     src/SimpleFollowingBehavior.cpp \
     src/EnnemyBehavior.cpp \
     src/Entities/Spaceship.cpp \

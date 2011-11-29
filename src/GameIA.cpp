@@ -37,7 +37,7 @@ QPointF GameIA::randomPosition() {
 
 int  GameIA::calcLevel(const  int i)
 {
-  return 120 - (i / 40) + 1;
+  return (120 - (i / 40) + 1 <= 0 ? 1 : 120 - (i / 40) + 1);
 }
 
 void GameIA::advance(const  int turn, const  int score)
@@ -51,19 +51,22 @@ void GameIA::advance(const  int turn, const  int score)
       Profile *profile = new Profile(moveBehavior);
       entity->setProfile(profile);
       game.spawnEntity(entity, randomPosition());
+      if (score > 100)
+        {
+          // Entity *entity = EntityFactory::getEntity("pacman");
+
+          // FollowingRotationBehavior *rotationBehavior = new FollowingRotationBehavior(entity, player, 270);
+          // BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
+
+          // Profile *profile = new Profile(moveBehavior, rotationBehavior);
+          // QPointF entityPosition = randomPosition();
+          // entity->setScene(&scene);
+          // entity->setProfile(profile);
+          // game.spawnEntity(entity, entityPosition);
+        }
     }
 }
 
 
 
-    // Entity *entity = EntityFactory::getEntity("pacman");
 
-    // FollowingRotationBehavior *rotationBehavior = new FollowingRotationBehavior(entity, player, 270);
-    // BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
-
-    // Profile *profile = new Profile(moveBehavior, rotationBehavior);
-    // QPointF entityPosition = randomPosition();
-    // entity->setScene(&scene);
-    // entity->setProfile(profile);
-    // spawnEntity(entity, entityPosition);
-    // entities << entity;
