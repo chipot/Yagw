@@ -1,13 +1,28 @@
 #include "Behaviors/KeyboardMoveBehavior.h"
+#include "YagwScene.h"
 
-KeyboardMoveBehavior::KeyboardMoveBehavior() : displacement(QPointF(0,0)), time(QTime())
+
+KeyboardMoveBehavior::KeyboardMoveBehavior() : displacement(QPointF(0,0)), time(QTime()), maxSpeed(200)
 {
     time.start();
+
+}
+
+KeyboardMoveBehavior::~KeyboardMoveBehavior() {
+    if (entity)
+        entity->getScene()->disconnect(this);
 }
 
 void KeyboardMoveBehavior::move() {
-    if (entity && (displacement.x() != 0 || displacement.y() != 0))
-        entity->setMove(calcMove(displacement, entity->getSpeed()));
+    if (entity) {
+        int speed = entity->getSpeed();
+        if (speed-3 >= 0 && displacement == QPointF(0, 0))
+            entity->setSpeed(speed-3);
+        if (speed+3 <= maxSpeed && displacement != QPointF(0, 0))
+            entity->setSpeed(speed+3);
+        QPointF move = calcMove((displacement != QPointF(0, 0) ? displacement : entity->getMove()), entity->getSpeed());
+        entity->setMove(move);
+    }
 }
 
 void KeyboardMoveBehavior::keyPressEvent( QKeyEvent * event ) {
@@ -50,4 +65,9 @@ void KeyboardMoveBehavior::keyReleaseEvent( QKeyEvent * event ) {
         default :
             break;
     }
+}
+
+void KeyboardMoveBehavior::init() {
+    if (entity)
+        entity->setSpeed(maxSpeed);
 }

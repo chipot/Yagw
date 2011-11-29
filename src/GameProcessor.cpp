@@ -6,6 +6,11 @@
 #include "Score.h"
 #include "Entity.h"
 #include "WallBehavior.h"
+#include "Behaviors/BasicFollowingBehavior.h"
+#include "Behaviors/KeyboardFireBehavior.h"
+#include "Behaviors/KeyboardMoveBehavior.h"
+#include "Behaviors/KeyboardRotationBehavior.h"
+#include "Profile.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
   : scene(ygws), player(0), disclaimer(0) {
@@ -61,17 +66,34 @@ void GameProcessor::createDisclaimer(const QString &s)
 
 void GameProcessor::setPlayer()
 {
+    KeyboardMoveBehavior *playerMoveBehavior = new KeyboardMoveBehavior();
+    KeyboardFireBehavior *playerShootBehavior = new KeyboardFireBehavior();
+    KeyboardRotationBehavior *playerRotationBehavior = new KeyboardRotationBehavior();
+
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerMoveBehavior, SLOT(keyPressEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerMoveBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerRotationBehavior, SLOT(keyPressEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerRotationBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerShootBehavior, SLOT(keyPressEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerShootBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+
+    Profile *playerProfile = new Profile(playerMoveBehavior, playerRotationBehavior, playerShootBehavior);
+
     playerBehavior = new PlayerBehavior();
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerBehavior, SLOT(keyPressEvent(QKeyEvent*)));
     QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+
     player = EntityFactory::getEntity("spaceship");
+    qDebug() << "player set";
     if (player != NULL) {
         player->setBehavior(playerBehavior);
+        player->setProfile(playerProfile);
         scene.addItem(player);
         player->setScene(&scene);
         player->setFlag(QGraphicsItem::ItemIsFocusable, true);
         scene.setFocusItem(player);
     }
+    qDebug() << "player set";
  }
 
 QPointF GameProcessor::randomDirection() {
@@ -148,6 +170,7 @@ void GameProcessor::start(int framePerSecond)
 }
 
 void GameProcessor::generateEntity(const char *name) {
+    qDebug() << "generate Entity";
     Entity *entity = EntityFactory::getEntity(name);
     entities << entity;
 }
@@ -166,11 +189,16 @@ void GameProcessor::loadFire(Entity *entity) {
 }
 
 void GameProcessor::spawnEnnemy1() {
-    SimpleFollowingBehavior *behavior = new SimpleFollowingBehavior();
-    QPointF entityPosition = randomPosition();
     Entity *entity = EntityFactory::getEntity("greensquare");
+
+    SimpleFollowingBehavior *behavior = new SimpleFollowingBehavior();
+    BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
+
+    Profile *profile = new Profile(moveBehavior);
+    QPointF entityPosition = randomPosition();
     entity->setScene(&scene);
     entity->setBehavior(behavior);
+    entity->setProfile(profile);
     spawnEntity(entity, entityPosition);
     entities << entity;
 }

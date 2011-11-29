@@ -1,5 +1,5 @@
-#ifndef SIMPLEFOLLOWINGBEHAVIOR_H
-#define SIMPLEFOLLOWINGBEHAVIOR_H
+#ifndef BASICFOLLOWINGBEHAVIOR_H
+#define BASICFOLLOWINGBEHAVIOR_H
 
 
 #include <QVector2D>
@@ -10,14 +10,16 @@ class BasicFollowingBehavior : public MoveBehavior
 private :
 
 public :
-    BasicFollowingBehavior(Entity *ent, Entity *entToFollow = 0) : entity(ent), entityToFollow(entToFollow){}
+    BasicFollowingBehavior(Entity *ent = 0, Entity *entToFollow = 0) : entity(ent), target(entToFollow){}
     void move();
     static QPointF calcDirection(QPointF, QPointF);
+    void setTarget(Entity*);
+    void init();
 
 protected :
-    Entity *entityToFollow;
     Entity *entity;
+    Entity *target;
 
 };
 
-#endif // SIMPLEFOLLOWINGBEHAVIOR_H
+#endif // BASICFOLLOWINGBEHAVIOR_H

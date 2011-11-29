@@ -15,9 +15,10 @@ private :
 
 public :
     KeyboardRotationBehavior();
-    virtual ~KeyboardRotationBehavior(){}
+    virtual ~KeyboardRotationBehavior();
     void rotate();
-
+    void setEntity(Entity*);
+    void init();
 private :
     int calcRotation();
 

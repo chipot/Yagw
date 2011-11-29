@@ -5,6 +5,7 @@ Profile::Profile() : moveBehavior(0), rotationBehavior(0),
     shootBehavior(0), transformationBehavior(0),
     entity(0)
 {
+    qDebug() << "instance profile";
 
 }
 
@@ -13,7 +14,17 @@ Profile::Profile(MoveBehavior *move, RotationBehavior *rotate,
     : moveBehavior(move), rotationBehavior(rotate),
       shootBehavior(shoot), transformationBehavior(transform)
 {
+}
 
+Profile::~Profile() {
+    if (moveBehavior)
+        delete moveBehavior;
+    if (rotationBehavior)
+        delete rotationBehavior;
+    if (shootBehavior)
+        delete shootBehavior;
+    if (transformationBehavior)
+        delete transformationBehavior;
 }
 
 void Profile::setMoveBehavior(MoveBehavior *move) {
@@ -34,14 +45,22 @@ void Profile::setTransformationBehavior(TransformationBehavior *transform) {
 
 void Profile::setEntity(Entity *ent) {
     entity = ent;
-    if (moveBehavior)
+    if (moveBehavior) {
         moveBehavior->setEntity(ent);
-    if (rotationBehavior)
+        moveBehavior->init();
+    }
+    if (rotationBehavior) {
         rotationBehavior->setEntity(ent);
-    if (shootBehavior)
+        rotationBehavior->init();
+    }
+    if (shootBehavior) {
         shootBehavior->setEntity(ent);
-    if (transformationBehavior)
+        shootBehavior->init();
+    }
+    if (transformationBehavior) {
         transformationBehavior->setEntity(ent);
+        transformationBehavior->init();
+    }
 }
 
 void Profile::move() {
@@ -70,3 +89,4 @@ void Profile::process() {
     shoot();
     transform();
 }
+

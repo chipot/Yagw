@@ -13,6 +13,7 @@ class Behavior
     virtual ~Behavior(){}
     virtual void behave(Entity*) = 0;
     void setEntity(Entity *ent) {this->entity = ent;}
+    virtual void init(){}
   protected:
     Entity *entity;
     int angle;

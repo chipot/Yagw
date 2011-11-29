@@ -13,8 +13,17 @@ void BasicFollowingBehavior::move()
     if (entity) {
         entity->setMove(
                     calcMove(calcDirection(entity->pos(),
-                                           entityToFollow->pos()),
+                                           target->pos()),
                              entity->getSpeed()));
     }
 
+}
+
+void BasicFollowingBehavior::setTarget(Entity *entity) {
+    target = entity;
+}
+
+void BasicFollowingBehavior::init() {
+    if (entity)
+        entity->setRotationSpeed(0);
 }

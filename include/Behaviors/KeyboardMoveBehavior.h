@@ -13,12 +13,14 @@ class KeyboardMoveBehavior : public QObject, public MoveBehavior
 Q_OBJECT
 private :
     QPointF displacement;
+    int maxSpeed;
     QTime time;
 
 public :
     KeyboardMoveBehavior();
-    virtual ~KeyboardMoveBehavior(){}
+    virtual ~KeyboardMoveBehavior();
     void move();
+    void init();
 
 public slots:
     void keyPressEvent( QKeyEvent * event );

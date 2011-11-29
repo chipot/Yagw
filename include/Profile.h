@@ -32,7 +32,6 @@ public:
     void shoot();
     void transform();
     void process();
-
 };
 
 

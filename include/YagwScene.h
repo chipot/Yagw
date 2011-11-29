@@ -24,6 +24,7 @@ class YagwScene : public QGraphicsScene
 public:
     explicit YagwScene(QObject *parent = 0);
     void translateViews(QPointF);
+    void createFire(Entity*);
 private:
     void keyPressEvent( QKeyEvent * keyEvent );
     void keyReleaseEvent( QKeyEvent * keyEvent );

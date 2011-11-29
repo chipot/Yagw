@@ -16,7 +16,7 @@ QRectF GameDelimiterVertical::boundingRect() const {
 
 void GameDelimiterVertical::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0) {
     QPen pen(QColor("red"));
-    pen.setWidth(3);
+    pen.setWidth(1);
     painter->setPen(pen);
     painter->drawPath(this->path);
 }
