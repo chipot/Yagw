@@ -71,19 +71,47 @@ QPointF GameProcessor::randomPosition() {
 
 void GameProcessor::stop()
 {
-    this->player = 0;
-    ennemy1Timer->disconnect();
-    delete ennemy1Timer;
-    gameTimer->stop();
-    gameTimer->disconnect();
-    delete gameTimer;
-    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
-    this->createDisclaimer("        Game Over\nPress any key to start");
+  this->player = 0;
+  ennemy1Timer->disconnect();
+  delete ennemy1Timer;
+  gameTimer->stop();
+  gameTimer->disconnect();
+  delete gameTimer;
+  QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
+  this->createDisclaimer("        Game Over\nPress any key to start");
 }
+
+void GameProcessor::displayLifes()
+{
+  int i = 0;
+  if (this->lives.size() < this->playerLifes + 1)
+    this->lives.resize(this->playerLifes + 1);
+  for (; i < this->playerLifes; ++i)
+    {
+      if (!this->lives[i])
+        {
+          this->lives[i] = EntityFactory::getEntity("spaceship");
+          this->lives[i]->setLives(-1);
+          this->lives[i]->setBehavior(new WallBehavior());
+          this->lives[i]->setPos(WINSIZE_X / 2  + this->lives[i]->boundingRect().width(),
+                                 - WINSIZE_Y / 2 + 80 - (5 + this->lives[i]->boundingRect().height()) * i);
+          this->scene.addItem(this->lives[i]);
+        }
+    }
+  while (this->lives[i])
+    {
+      this->scene.removeItem(lives[i]);
+      delete this->lives[i];
+      this->lives[i] = 0;
+      ++i;
+    }
+}
+
 
 void GameProcessor::start(int framePerSecond)
 {
   this->playerLifes = 3;
+  this->displayLifes();
   scene.removeItem(disclaimer);
   delete this->disclaimer;
   this->disclaimer = 0;
@@ -95,7 +123,7 @@ void GameProcessor::start(int framePerSecond)
 
   ennemy1Timer = new QTimer();
   ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
-    ennemy1Timer->start(2000);
+  ennemy1Timer->start(2000);
 }
 
 void GameProcessor::generateEntity(const char *name) {
@@ -158,6 +186,7 @@ void GameProcessor::playerDead() {
     this->setPlayer();
   else
     this->stop();
+  this->displayLifes();
 }
 
 void GameProcessor::checkCollidings()
@@ -186,7 +215,7 @@ void GameProcessor::checkCollidings()
       {
         if (static_cast<Entity*>(item) == this->player || !static_cast<Entity*>(item)->die())
           continue;
-        scene.removeItem((item));
+        scene.removeItem(item);
         this->entities.removeOne(static_cast<Entity*>(item));
         delete item;
       }

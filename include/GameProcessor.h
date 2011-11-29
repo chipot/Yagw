@@ -26,6 +26,7 @@ private :
     QList<Entity*>  entities;
     QList<Entity*>  fire;
     QVector<QPair<GameProcessor::_dir, Entity*> *>  walls;
+    QVector<Entity*> lives;
     int playerLifes;
     QTimer *ennemy1Timer;
     QTimer *gameTimer;
@@ -42,6 +43,7 @@ public :
     void affGrid();
 
 private :
+    void displayLifes();
     void createDisclaimer(const QString &);
     QPointF randomDirection();
     QPointF randomPosition();
