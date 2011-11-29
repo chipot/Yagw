@@ -28,9 +28,12 @@ private :
     QList<Entity*>  entities;
     QList<Entity*>  fire;
     QVector<QPair<GameProcessor::_dir, Entity*> *>  walls;
+    QVector<Entity*> lives;
     int playerLifes;
     QTimer *ennemy1Timer;
     QTimer *gameTimer;
+    QGraphicsSimpleTextItem * disclaimer;
+    QGraphicsSimpleTextItem * score;
 
 public :
     GameProcessor(YagwScene &ygwscene);
@@ -43,6 +46,8 @@ public :
     void affGrid();
 
 private :
+    void displayLifes();
+    void createDisclaimer(const QString &);
     QPointF randomDirection();
     QPointF randomPosition();
     void newGridVertical(char *name, FireBehavior *GridLineBehavior, int i);

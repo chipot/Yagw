@@ -16,12 +16,12 @@ void Score::reset()
   current = 0;
 }
 
-inline unsigned int Score::getScore() const
+unsigned int Score::getScore() const
 {
   return current;
 }
 
-inline unsigned int Score::getMax() const
+ unsigned int Score::getMax() const
 {
   return max;
 }

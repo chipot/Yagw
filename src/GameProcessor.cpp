@@ -1,3 +1,4 @@
+#include <QString>
 #include <complex>
 #include "GameProcessor.h"
 #include "Registry.h"
@@ -12,15 +13,34 @@
 #include "Profile.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
-  : scene(ygws), player(0), playerLifes(3) {
-    qDebug() << "instance gameProcessor";
-
+  : scene(ygws), player(0), disclaimer(0) {
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(checkCollidings()));
     playerBehavior = NULL;
     GameProcessor::affDelimiters();
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
+    GameProcessor::createDisclaimer("Press any Key to start");
+
+
+    QGraphicsSimpleTextItem *txt = this->scene.addSimpleText("Lives:");
+// attention on perd le pointeur. a changer.
+    QFont font;
+    QPen pen(Qt::red, 1, Qt::DashLine, Qt::RoundCap, Qt::RoundJoin);
+    font.setBold(true);
+    font.setPointSize(20);
+    txt->setFont(font);
+    txt->setBrush(Qt::red);
+    txt->setPen(pen);
+    txt->setPos(WINSIZE_X / 2  + 5,- WINSIZE_Y / 2 + 10);
+    QString str("Score:\n");
+    str += QString::number(Score::get_instance()->getScore()) + QString::fromAscii("\nMax:\n") + QString::number(Score::get_instance()->getMax());
+    txt = this->scene.addSimpleText(str);
+    txt->setFont(font);
+    txt->setBrush(Qt::red);
+    txt->setPen(pen);
+    txt->setPos(WINSIZE_X / 2  + 5,- WINSIZE_Y / 2 + 200);
+    this->score = txt;
     //GameProcessor::affGrid();
 }
 
@@ -29,6 +49,20 @@ void GameProcessor::keyPressEvent( QKeyEvent * )
   QObject::disconnect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
   this->start();
 }
+
+
+void GameProcessor::createDisclaimer(const QString &s)
+ {
+   QFont font;
+   font.setBold(true);
+   font.setPointSize(42);
+   delete this->disclaimer;
+   this->disclaimer = scene.addSimpleText(s, font);
+   this->disclaimer->setBrush(Qt::white);
+   QPen pen(Qt::white, 3, Qt::DashLine, Qt::RoundCap, Qt::RoundJoin);
+   this->disclaimer->setPen(pen);
+   this->disclaimer->setPos(-WINSIZE_X / 4, 0);
+ }
 
 void GameProcessor::setPlayer()
 {
@@ -80,17 +114,50 @@ QPointF GameProcessor::randomPosition() {
 
 void GameProcessor::stop()
 {
-    this->player = 0;
-    ennemy1Timer->disconnect();
-    delete ennemy1Timer;
-    gameTimer->stop();
-    gameTimer->disconnect();
-    delete gameTimer;
-    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
+  this->player = 0;
+  ennemy1Timer->disconnect();
+  delete ennemy1Timer;
+  gameTimer->stop();
+  gameTimer->disconnect();
+  delete gameTimer;
+  QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
+  this->createDisclaimer("        Game Over\nPress any key to start");
 }
+
+void GameProcessor::displayLifes()
+{
+  int i = 0;
+  if (this->lives.size() < this->playerLifes + 1)
+    this->lives.resize(this->playerLifes + 1);
+  for (; i < this->playerLifes; ++i)
+    {
+      if (!this->lives[i])
+        {
+          this->lives[i] = EntityFactory::getEntity("spaceship");
+          this->lives[i]->setLives(-1);
+          this->lives[i]->setBehavior(new WallBehavior());
+          this->lives[i]->setPos(WINSIZE_X / 2  + this->lives[i]->boundingRect().width(),
+                                 - WINSIZE_Y / 2 + 90 - (5 + this->lives[i]->boundingRect().height()) * i);
+          this->scene.addItem(this->lives[i]);
+        }
+    }
+  while (this->lives[i])
+    {
+      this->scene.removeItem(lives[i]);
+      delete this->lives[i];
+      this->lives[i] = 0;
+      ++i;
+    }
+}
+
 
 void GameProcessor::start(int framePerSecond)
 {
+  this->playerLifes = 3;
+  this->displayLifes();
+  scene.removeItem(disclaimer);
+  delete this->disclaimer;
+  this->disclaimer = 0;
   Score::get_instance()->reset();
   gameTimer = new QTimer();
   gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
@@ -99,7 +166,7 @@ void GameProcessor::start(int framePerSecond)
 
   ennemy1Timer = new QTimer();
   ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
-    ennemy1Timer->start(2000);
+  ennemy1Timer->start(2500);
 }
 
 void GameProcessor::generateEntity(const char *name) {
@@ -162,13 +229,13 @@ void GameProcessor::playerDead() {
   this->fire.erase(this->fire.begin(), this->fire.end());
   this->entities.erase(this->entities.begin(), this->entities.end());
 
-  playerLifes--;
   scene.removeItem(this->player);
   delete this->player;
-  if (playerLifes != 0)
+  if (--playerLifes > 0)
     this->setPlayer();
   else
     this->stop();
+  this->displayLifes();
 }
 
 void GameProcessor::checkCollidings()
@@ -197,7 +264,7 @@ void GameProcessor::checkCollidings()
       {
         if (static_cast<Entity*>(item) == this->player || !static_cast<Entity*>(item)->die())
           continue;
-        scene.removeItem((item));
+        scene.removeItem(item);
         this->entities.removeOne(static_cast<Entity*>(item));
         delete item;
       }
@@ -230,6 +297,9 @@ void GameProcessor::checkCollidings()
             }
         }
     }
+    QString str("Score:\n");
+    str += QString::number(Score::get_instance()->getScore()) + QString::fromAscii("\nMax:\n") + QString::number(Score::get_instance()->getMax());
+    this->score->setText(str);
 }
 
 bool    GameProcessor::isWall(const Entity *e)
