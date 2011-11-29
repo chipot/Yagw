@@ -30,7 +30,6 @@ private :
     QVector<QPair<GameProcessor::_dir, Entity*> *>  walls;
     QVector<Entity*> lives;
     int playerLifes;
-    QTimer *ennemy1Timer;
     QTimer *gameTimer;
     QGraphicsSimpleTextItem * disclaimer;
     QGraphicsSimpleTextItem * score;

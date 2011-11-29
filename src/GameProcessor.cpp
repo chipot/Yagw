@@ -127,9 +127,7 @@ QPointF GameProcessor::randomPosition() {
 void GameProcessor::stop()
 {
   this->player = 0;
-  ennemy1Timer->disconnect();
-  delete ennemy1Timer;
-  gameTimer->stop();
+   gameTimer->stop();
   gameTimer->disconnect();
   delete gameTimer;
   QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
@@ -175,9 +173,6 @@ void GameProcessor::start(int framePerSecond)
   gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
   gameTimer->start(framePerSecond);
   this->setPlayer();
-  ennemy1Timer = new QTimer();
-  ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
-  ennemy1Timer->start(2500);
 }
 
 void GameProcessor::generateEntity(const char *name) {
