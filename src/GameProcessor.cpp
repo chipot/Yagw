@@ -13,11 +13,11 @@
 #include "Profile.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
-  : scene(ygws), player(0), disclaimer(0) {
+  : playerBehavior(0), scene(ygws), player(0), disclaimer(0)
+{
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(advance()));
-    playerBehavior = NULL;
     GameProcessor::affDelimiters();
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), this, SLOT(keyPressEvent(QKeyEvent*)));
     GameProcessor::createDisclaimer("Press RETURN to start");
