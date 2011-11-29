@@ -31,12 +31,8 @@ void Entity::setLives(const int l)
 Entity::~Entity()
 {
   Score::get_instance()->inc(this->score);
-  if (behavior)
-      delete behavior;
-  if (profile) {
-      delete profile;
-  }
-  qDebug() << "delete entity";
+  delete behavior;
+  delete profile;
 }
 
 bool    Entity::die()

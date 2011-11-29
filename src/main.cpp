@@ -25,6 +25,7 @@ int  main(int argc, char *argv[])
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     view.show();
     view.setMouseTracking(false);
+    app.setOverrideCursor( QCursor( Qt::BlankCursor ) );
     app.exec();
     return (0);
 }
