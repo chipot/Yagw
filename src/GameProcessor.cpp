@@ -212,14 +212,14 @@ void GameProcessor::playerDead() {
 
 void GameProcessor::checkCollidings()
 {
-    QList<QGraphicsItem*> to_delete;
+    QSet<QGraphicsItem*> to_delete;
     QList<QGraphicsItem*> used_fire;
     QGraphicsItem *item;
         int size = 0;
 
     foreach(item, this->fire)
       {
-        to_delete << item->collidingItems();
+        to_delete += QSet<QGraphicsItem*>::fromList(item->collidingItems());
         if (size != to_delete.size() ||
             std::abs(item->x()) > WINSIZE_X / 2 ||
             std::abs(item->y()) > WINSIZE_Y / 2)
