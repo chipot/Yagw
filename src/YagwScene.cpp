@@ -25,7 +25,12 @@ void YagwScene::keyPressEvent(QKeyEvent *event) {
 void YagwScene::advance() {
     QGraphicsScene::advance();
     emit phase2();
+}
 
+void YagwScene::createFire(Entity *fire) {
+    fire->setScene(this);
+    this->addItem(fire);
+    emit this->newFire(fire);
 }
 
 void YagwScene::translateViews(QPointF coordinates) {

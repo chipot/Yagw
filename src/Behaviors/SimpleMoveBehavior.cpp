@@ -1,7 +1,7 @@
 #include "Behaviors/SimpleMoveBehavior.h"
 
-SimpleMoveBehavior::SimpleMoveBehavior(QPointF dir) :
-    direction(dir)
+SimpleMoveBehavior::SimpleMoveBehavior(QPointF dir, int s) :
+    direction(dir), speed(s)
 {
 
 }
@@ -16,4 +16,9 @@ void SimpleMoveBehavior::move()
 void SimpleMoveBehavior::setDirection(QPointF dir)
 {
     direction = dir;
+}
+
+void SimpleMoveBehavior::init() {
+    if (entity)
+        entity->setSpeed(speed);
 }

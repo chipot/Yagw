@@ -9,27 +9,33 @@
 KeyboardFireBehavior::KeyboardFireBehavior() : fireDirection(QPointF(0,0)), time(QTime()), fireFrequency(1000/6)
 {
     time.start();
+    qDebug() << "instance fireBehavior";
+
+}
+
+KeyboardFireBehavior::~KeyboardFireBehavior(){
+    if (entity)
+        entity->getScene()->disconnect(this);
 }
 
 Entity *KeyboardFireBehavior::createFire(QPointF direction) {
-    Entity *fire = EntityFactory::getEntity("fire01");
-    SimpleMoveBehavior *moveBehavior = new SimpleMoveBehavior(direction);
-    Profile *profile = new Profile(moveBehavior);
 
+    Entity *fire = EntityFactory::getEntity("fire01");
+
+    SimpleMoveBehavior *moveBehavior = new SimpleMoveBehavior(direction, 300);
+    Profile *profile = new Profile(moveBehavior);
     fire->setProfile(profile);
-    fire->setScene(entity->getScene());
-    emit this->fireLaunched(fire);
-//    emit entity->getScene()->newFire(fire);
+     entity->getScene()->createFire(fire);
+
     return fire;
 }
 
 
-void KeyboardFireBehavior::fire() {
+void KeyboardFireBehavior::shoot() {
     if (fireDirection.x() != 0 || fireDirection.y() != 0) {
         if (time.elapsed() > fireFrequency) {
             using namespace std;
             Entity *fire = createFire(fireDirection);
-            this->entity->scene()->addItem(fire);
             QRectF brect = this->entity->boundingRect();
             qreal s = max(brect.height(), brect.width());
             s *= 1.4;

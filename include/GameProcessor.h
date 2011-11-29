@@ -9,10 +9,12 @@
 #include "PlayerBehavior.h"
 #include "FireBehavior.h"
 #include "SimpleFollowingBehavior.h"
+
 #include "YagwScene.h"
 
 #define WINSIZE_X 1000
 #define WINSIZE_Y 1000
+
 
 class GameProcessor : public QObject
 {
@@ -47,6 +49,7 @@ private :
     void playerDead();
     bool isWall(const Entity *);
     void stop();
+
 public slots:
     void keyPressEvent( QKeyEvent * );
     void loadFire(Entity*);

@@ -1,4 +1,6 @@
 #include "Behaviors/KeyboardRotationBehavior.h"
+#include "YagwScene.h"
+
 
 /*
 uint qHash(QPointF const &ptr) {
@@ -18,6 +20,12 @@ KeyboardRotationBehavior::KeyboardRotationBehavior() :
     directions[QPointF(-1, 0)] = 270;
     directions[QPointF(-1, -1)] = 315;
     directions[QPointF(0, -1)] = 360;
+}
+
+KeyboardRotationBehavior::~KeyboardRotationBehavior() {
+    if (entity) {
+        entity->getScene()->disconnect(this);
+    }
 }
 
 int KeyboardRotationBehavior::calcRotation() {
@@ -49,8 +57,9 @@ int KeyboardRotationBehavior::calcRotation() {
 }
 
 void KeyboardRotationBehavior::rotate() {
-    if (entity)
+        if (entity) {
         entity->setRotation(this->calcRotation());
+        }
 }
 
 void KeyboardRotationBehavior::keyPressEvent( QKeyEvent * event ) {
@@ -95,3 +104,8 @@ void KeyboardRotationBehavior::keyReleaseEvent( QKeyEvent * event ) {
     }
 }
 
+void KeyboardRotationBehavior::init() {
+    if (!entity)
+        return;
+    entity->setRotationSpeed(7);
+}

@@ -18,9 +18,9 @@ private :
 
 public :
     KeyboardFireBehavior();
-    virtual ~KeyboardFireBehavior(){}
+    virtual ~KeyboardFireBehavior();
     void setFireFrequency(int frequency);
-    void fire();
+    void shoot();
 
 private:
     Entity *createFire(QPointF);

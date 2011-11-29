@@ -7,6 +7,7 @@ GameDelimiterDown::GameDelimiterDown() {
 
 void GameDelimiterDown::initPath() {
     path.lineTo(1000, 0);
+    path.moveTo(1000, 15);
     path.closeSubpath();
 }
 
