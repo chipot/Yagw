@@ -9,7 +9,7 @@
 class MoveBehavior : public Behavior
 {
 public :
-    MoveBehavior() : time(QTime()) {time.start();}
+    MoveBehavior() : time(QTime()), target(0) {time.start();}
     virtual ~MoveBehavior(){}
     virtual void move() = 0;
     virtual void behave(Entity*){}
@@ -20,8 +20,11 @@ public :
             time.restart();
             return (QPointF(vector.x(), vector.y())* dist);
     }
+    void setTarget(Entity*e){target = e;}
 protected :
     QTime time;
+    Entity *target;
+
 };
 
 class ShootBehavior : public Behavior {
@@ -35,10 +38,13 @@ public :
 
 class RotationBehavior : public Behavior {
 public :
-    RotationBehavior(){}
+    RotationBehavior():target(0){}
     virtual ~RotationBehavior(){}
     virtual void rotate() = 0;
     virtual void behave(Entity*){}
+    void setTarget(Entity*e){target = e;}
+  protected:
+    Entity *target;
 };
 
 class TransformationBehavior : public Behavior {
@@ -47,7 +53,6 @@ public :
     virtual ~TransformationBehavior(){}
     virtual void transform() = 0;
     virtual void behave(Entity*){}
-
 };
 
 #endif // BEHAVIORS_H

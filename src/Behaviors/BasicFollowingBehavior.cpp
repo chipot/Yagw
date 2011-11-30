@@ -22,9 +22,6 @@ void BasicFollowingBehavior::move()
 
 }
 
-void BasicFollowingBehavior::setTarget(Entity *entity) {
-    target = entity;
-}
 
 void BasicFollowingBehavior::init() {
     qDebug() << "following move init";

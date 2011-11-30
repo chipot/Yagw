@@ -29,9 +29,7 @@ qreal FollowingRotationBehavior::calcAngle(QVector2D u, QVector2D v) {
     return alpha;
 }
 
-void FollowingRotationBehavior::setTarget(Entity *entity) {
-    target = entity;
-}
+
 
 void FollowingRotationBehavior::init() {
     if (entity)

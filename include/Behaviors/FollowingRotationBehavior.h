@@ -7,14 +7,12 @@
 class FollowingRotationBehavior : public RotationBehavior
 {
 public :
-    FollowingRotationBehavior(Entity *ent = 0, Entity *entToFollow = 0, int angle = 0) : target(entToFollow), angle(angle) {entity = ent;}
+    FollowingRotationBehavior(Entity *ent = 0, int angle = 0) : angle(angle) {entity = ent;}
     void rotate();
-    void setTarget(Entity*);
     void init();
     static qreal calcAngle(QVector2D, QVector2D);
 
 protected :
-    Entity *target;
     int angle;
 
 };
