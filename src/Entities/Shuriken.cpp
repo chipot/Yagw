@@ -26,4 +26,4 @@ void Shuriken::paint(QPainter * painter, const QStyleOptionGraphicsItem * option
     painter->drawPath(this->path);
 }
 
-Registry<Entity>::Add<Shuriken> shuriken("shuriken", "Shuriken shape entity");
+Registry<Entity>::Add<Shuriken> shuriken("shuriken", "3:Shuriken shape entity");
