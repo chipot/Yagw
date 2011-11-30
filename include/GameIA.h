@@ -5,7 +5,7 @@
 // Login   <Antoine@MBP-Antoine.local>
 //
 // Started on Tue Nov 29 20:09:16 2011 Antoine Marandon
-// Last update Tue Nov 29 21:08:34 2011 Antoine Marandon
+// Last update Wed Nov 30 20:27:06 2011 Antoine Marandon
 //
 
 #ifndef GAMEIA_H_
@@ -22,11 +22,12 @@ class GameIA
   private:
     QPointF randomDirection();
     QPointF randomPosition();
-    int calcLevel(const  int);
+    void calcLevel(const  int);
     GameProcessor &game;
     int width;
     int height;
     Entity  *&player;
+    int level;
 };
 
 #endif /* !GAMEIA_H_ */

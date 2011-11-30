@@ -1,5 +1,5 @@
-#ifndef ENTITYFACTORY_H
-#define ENTITYFACTORY_H
+#ifndef PROFILFACTORY_H
+#define PROFILFACTORY_H
 
 #include "Entities/Ship.h"
 #include "Entities/Shuriken.h"
@@ -29,7 +29,7 @@ protected:
 public:
     RotationBehaviorFactory() { init(); }  // Print those already registered.
     static RotationBehavior *getRotationBehavior(const char *name);
-    static RotationBehavior *getRandom();
+    static RotationBehavior *getRandom(int);
 };
 
 extern RotationBehaviorFactory rotationBehaviorFactory;
@@ -46,7 +46,7 @@ protected:
 public:
     ShootBehaviorFactory() { init(); }  // Print those already registered.
     static ShootBehavior *getShootBehavior(const char *name);
-    static ShootBehavior *getRandom();
+    static ShootBehavior *getRandom(int);
 };
 
 extern ShootBehaviorFactory shootBehaviorFactory;
@@ -63,7 +63,7 @@ protected:
 public:
     TransformationBehaviorFactory() { init(); }  // Print those already registered.
     static TransformationBehavior *getTransformationBehavior(const char *name);
-    static TransformationBehavior *getRandom();
+    static TransformationBehavior *getRandom(int);
 };
 
 extern TransformationBehaviorFactory transformationBehaviorFactory;
@@ -80,7 +80,7 @@ protected:
 public:
     MoveBehaviorFactory() { init(); }  // Print those already registered.
     static MoveBehavior *getMoveBehavior(const char *name);
-    static MoveBehavior *getRandom();
+    static MoveBehavior *getRandom(int);
 };
 
 extern MoveBehaviorFactory moveBehaviorFactory;

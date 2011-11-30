@@ -1,3 +1,4 @@
+#include "ProfileFactory.h"
 #include "EntityFactory.h"
 #include "Registry.h"
 #include "GameIA.h"
@@ -12,8 +13,9 @@
 #include "SimpleFollowingBehavior.h"
 #include "GameProcessor.h"
 
+
 GameIA::GameIA(GameProcessor &g, int w, int h, Entity *&p)
-  :game(g), width(w), height(h), player(p)
+  :game(g), width(w), height(h), player(p), level(0)
 {
 
 }
@@ -35,38 +37,25 @@ QPointF GameIA::randomPosition() {
 }
 
 
-int  GameIA::calcLevel(const  int i)
+void  GameIA::calcLevel(const  int i)
 {
-  return (120 - (i / 40) + 1 <= 0 ? 1 : 120 - (i / 40) + 1);
+  this->level = (120 - (i / 40) + 1 <= 0 ? 1 : 120 - (i / 40) + 1);
 }
 
 void GameIA::advance(const  int turn, const  int score)
 {
-  int level = this->calcLevel(score);
+  this->calcLevel(score);
 
   if (!(turn % level))
     {
-      Entity *entity = EntityFactory::getEntity("greensquare");
-      BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
-      Profile *profile = new Profile(moveBehavior);
-      entity->setProfile(profile);
-      game.spawnEntity(entity, randomPosition());
-      if (score > 100)
-        {
-          // Entity *entity = EntityFactory::getEntity("pacman");
-
-          // FollowingRotationBehavior *rotationBehavior = new FollowingRotationBehavior(entity, player, 270);
-          // BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
-
-          // Profile *profile = new Profile(moveBehavior, rotationBehavior);
-          // QPointF entityPosition = randomPosition();
-          // entity->setScene(&scene);
-          // entity->setProfile(profile);
-          // game.spawnEntity(entity, entityPosition);
-        }
+      Entity *entity = EntityFactory::getRandom(this->level);
+      if (!entity)
+        return;
+      entity->setProfile(
+        new Profile(MoveBehaviorFactory::getRandom(this->level),
+                    RotationBehaviorFactory::getRandom(this->level),
+                    ShootBehaviorFactory::getRandom(this->level),
+                    TransformationBehaviorFactory::getRandom(this->level)));
+      this->game.spawnEntity(entity, randomPosition());
     }
 }
-
-
-
-
