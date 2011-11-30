@@ -39,14 +39,15 @@ QPointF GameIA::randomPosition() {
 
 void  GameIA::calcLevel(const  int i)
 {
-  this->level = (120 - (i / 40) + 1 <= 0 ? 1 : 120 - (i / 40) + 1);
+  this->level = (i / 100 > 10 ? 10 : i / 100);
 }
 
 void GameIA::advance(const  int turn, const  int score)
 {
+  int freq = (120 - (score / 40) + 1 <= 0 ? 1 : 120 - (score / 40) + 1);
   this->calcLevel(score);
 
-  if (!(turn % level))
+  if (!(turn % freq))
     {
       Entity *entity = EntityFactory::getRandom(this->level);
       if (!entity)
