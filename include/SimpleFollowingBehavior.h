@@ -11,6 +11,7 @@ public :
     void behave(Entity *entity);
 };
 
+
 class FollowingPacmanBehavior : public SimpleFollowingBehavior
 {
 public :

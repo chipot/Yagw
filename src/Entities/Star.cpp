@@ -18,8 +18,8 @@ void Star::initPath() {
   path.closeSubpath();
 }
 
-void Star::paint(QPainter *painter, 
-                        QStyleOptionGraphicsItem const * option, 
+void Star::paint(QPainter *painter,
+                        QStyleOptionGraphicsItem const * option,
                         QWidget *widget = 0)
 {
     painter->setPen(QColor("yellow"));
@@ -32,4 +32,4 @@ Star::~Star()
 }
 
 Registry<Entity>::Add<Star>
-Star("star", "Star shape entity");
+Star("star", "5:Star shape entity");

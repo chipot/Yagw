@@ -60,3 +60,4 @@ void GameIA::advance(const  int turn, const  int score)
       this->game.spawnEntity(entity, randomPosition());
     }
 }
+

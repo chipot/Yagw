@@ -1,3 +1,5 @@
+#include "Registry.h"
+
 #include <algorithm>
 #include "Behaviors/KeyboardFireBehavior.h"
 #include "EntityFactory.h"
@@ -92,3 +94,4 @@ void KeyboardFireBehavior::keyReleaseEvent( QKeyEvent * event ) {
 }
 
 
+Registry<ShootBehavior>::Add<KeyboardFireBehavior> KeyboardFireBehavior("KeyboardFireBehavior", "une meilleur expliquation est bienvenue");

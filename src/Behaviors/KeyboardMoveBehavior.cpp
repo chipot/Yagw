@@ -1,8 +1,9 @@
+#include "Registry.h"
 #include "Behaviors/KeyboardMoveBehavior.h"
 #include "YagwScene.h"
 
 
-KeyboardMoveBehavior::KeyboardMoveBehavior() : displacement(QPointF(0,0)), time(QTime()), maxSpeed(200)
+KeyboardMoveBehavior::KeyboardMoveBehavior() : displacement(QPointF(0,0)), maxSpeed(200), time(QTime())
 {
     time.start();
 
@@ -71,3 +72,4 @@ void KeyboardMoveBehavior::init() {
     if (entity)
         entity->setSpeed(maxSpeed);
 }
+Registry<MoveBehavior>::Add<KeyboardMoveBehavior> KeyboardMoveBehavior("SimpleMoveBehavior", "une meilleur expliquation est bienvenue");

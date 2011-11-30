@@ -1,3 +1,5 @@
+#include "Registry.h"
+
 #include "Behaviors/BasicFollowingBehavior.h"
 
 QPointF BasicFollowingBehavior::calcDirection(QPointF firstPoint, QPointF secondPoint)
@@ -29,3 +31,6 @@ void BasicFollowingBehavior::init() {
     if (entity)
         entity->setSpeed(100);
 }
+
+
+Registry<MoveBehavior>::Add<BasicFollowingBehavior> BasicFollowingBehavior("BasicFollowingBehavior", "1: une meilleur expliquation est bienvenue");

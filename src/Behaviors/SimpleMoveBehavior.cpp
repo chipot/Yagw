@@ -1,3 +1,4 @@
+#include "Registry.h"
 #include "Behaviors/SimpleMoveBehavior.h"
 
 SimpleMoveBehavior::SimpleMoveBehavior(QPointF dir, int s) :
@@ -22,3 +23,5 @@ void SimpleMoveBehavior::init() {
     if (entity)
         entity->setSpeed(speed);
 }
+
+Registry<MoveBehavior>::Add<SimpleMoveBehavior> SimpleMoveBehavior("SimpleMoveBehavior", "0: une meilleur expliquation est bienvenue");

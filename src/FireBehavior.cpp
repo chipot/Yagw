@@ -1,3 +1,4 @@
+#include "Registry.h"
 #include "FireBehavior.h"
 
 FireBehavior::FireBehavior() {
