@@ -28,12 +28,12 @@ Entity *EntityFactory::getRandom(int level) {
       }
     if (!count)
       return (NULL);
-    val %= count;
+    val = val % count + 1;
     count = 0;
     it = Registry<Entity>::begin();
     ite = Registry<Entity>::end();
 
-    for (;it != ite; ++it, ++count) {
+    for (;it != ite; ++it) {
       Registry<Entity>::entry e = *it;
       if (e.getDesc() && e.getDesc()[0] - '0' <= level)
         ++count;

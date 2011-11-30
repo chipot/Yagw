@@ -28,7 +28,7 @@ MoveBehavior *MoveBehaviorFactory::getRandom(int level) {
       }
     if (!count)
       return (NULL);
-    val %= count;
+    val = val % count + 1;
     count = 0;
     it = Registry<MoveBehavior>::begin();
     ite = Registry<MoveBehavior>::end();
@@ -71,7 +71,7 @@ ShootBehavior *ShootBehaviorFactory::getRandom(int level) {
       }
     if (!count)
       return (NULL);
-    val %= count;
+    val = val % count + 1;
     count = 0;
     it = Registry<ShootBehavior>::begin();
     ite = Registry<ShootBehavior>::end();
@@ -115,7 +115,7 @@ TransformationBehavior *TransformationBehaviorFactory::getRandom(int level) {
       }
     if (!count)
       return (NULL);
-    val %= count;
+    val = val % count + 1;
     count = 0;
     it = Registry<TransformationBehavior>::begin();
     ite = Registry<TransformationBehavior>::end();
@@ -158,7 +158,7 @@ RotationBehavior *RotationBehaviorFactory::getRandom(int level) {
       }
     if (!count)
       return (NULL);
-    val %= count;
+    val = val % count + 1;
     count = 0;
     it = Registry<RotationBehavior>::begin();
     ite = Registry<RotationBehavior>::end();
