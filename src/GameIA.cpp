@@ -53,8 +53,8 @@ void GameIA::advance(const  int turn, const  int score)
       if (!entity)
         return;
       entity->setProfile(
-        new Profile(MoveBehaviorFactory::getRandom(this->level),
-                    RotationBehaviorFactory::getRandom(this->level),
+        new Profile(MoveBehaviorFactory::getRandom(this->level, this->player),
+                    RotationBehaviorFactory::getRandom(this->level, this->player),
                     ShootBehaviorFactory::getRandom(this->level),
                     TransformationBehaviorFactory::getRandom(this->level)));
       this->game.spawnEntity(entity, randomPosition());

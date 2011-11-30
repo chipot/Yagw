@@ -29,7 +29,7 @@ protected:
 public:
     RotationBehaviorFactory() { init(); }  // Print those already registered.
     static RotationBehavior *getRotationBehavior(const char *name);
-    static RotationBehavior *getRandom(int);
+    static RotationBehavior *getRandom(int, Entity *);
 };
 
 extern RotationBehaviorFactory rotationBehaviorFactory;
@@ -80,7 +80,7 @@ protected:
 public:
     MoveBehaviorFactory() { init(); }  // Print those already registered.
     static MoveBehavior *getMoveBehavior(const char *name);
-    static MoveBehavior *getRandom(int);
+    static MoveBehavior *getRandom(int, Entity *);
 };
 
 extern MoveBehaviorFactory moveBehaviorFactory;

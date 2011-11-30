@@ -1,4 +1,5 @@
 #include "ProfileFactory.h"
+#include "Behaviors.h"
 
 MoveBehaviorFactory moveBehaviorFactory;
 
@@ -14,7 +15,7 @@ MoveBehavior *MoveBehaviorFactory::getMoveBehavior(const char *name) {
     return NULL;
 }
 
-MoveBehavior *MoveBehaviorFactory::getRandom(int level) {
+MoveBehavior *MoveBehaviorFactory::getRandom(int level, Entity *player) {
     Registry<MoveBehavior>::iterator it = Registry<MoveBehavior>::begin();
     Registry<MoveBehavior>::iterator ite = Registry<MoveBehavior>::end();
     int val = qrand();
@@ -38,8 +39,12 @@ MoveBehavior *MoveBehaviorFactory::getRandom(int level) {
       if (e.getDesc() && e.getDesc()[0] - '0' <= level)
         ++count;
       if (count == val)
-        return e.instantiate();
-            }
+        {
+          MoveBehavior *be = e.instantiate();
+          be->setTarget(player);
+          return be;
+        }
+    }
     return NULL;
 }
 
@@ -144,7 +149,7 @@ RotationBehavior *RotationBehaviorFactory::getRotationBehavior(const char *name)
     return NULL;
 }
 
-RotationBehavior *RotationBehaviorFactory::getRandom(int level) {
+RotationBehavior *RotationBehaviorFactory::getRandom(int level, Entity *player) {
     Registry<RotationBehavior>::iterator it = Registry<RotationBehavior>::begin();
     Registry<RotationBehavior>::iterator ite = Registry<RotationBehavior>::end();
     int val = qrand();
@@ -168,7 +173,11 @@ RotationBehavior *RotationBehaviorFactory::getRandom(int level) {
       if (e.getDesc() && e.getDesc()[0] - '0' <= level)
         ++count;
       if (count == val)
-        return e.instantiate();
+        {
+          RotationBehavior *re = e.instantiate();
+          re->setTarget(player);
+          return re;
+        }
     }
     return NULL;
 }
