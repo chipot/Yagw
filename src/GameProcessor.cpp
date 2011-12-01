@@ -80,6 +80,12 @@ void GameProcessor::advance()
   QString str("Score:\n");
     str += QString::number(Score::get_instance()->getScore()) + QString::fromAscii("\nMax:\n") + QString::number(Score::get_instance()->getMax());
     this->score->setText(str);
+  QList<QGraphicsView*> views = this->scene.views();
+  QGraphicsView *ptr = 0x0;
+  foreach(ptr, views)
+  {
+    ptr->centerOn(this->player);
+  }
 }
 
 void GameProcessor::setPlayer()
@@ -89,12 +95,18 @@ void GameProcessor::setPlayer()
     KeyboardMultipleFireBehavior *playerShootBehavior = new KeyboardMultipleFireBehavior(150, 3, 7);
     KeyboardRotationBehavior *playerRotationBehavior = new KeyboardRotationBehavior();
 
-    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerMoveBehavior, SLOT(keyPressEvent(QKeyEvent*)));
-    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerMoveBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
-    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerRotationBehavior, SLOT(keyPressEvent(QKeyEvent*)));
-    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerRotationBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
-    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerShootBehavior, SLOT(keyPressEvent(QKeyEvent*)));
-    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)), playerShootBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)),
+                     playerMoveBehavior, SLOT(keyPressEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)),
+                     playerMoveBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)),
+                     playerRotationBehavior, SLOT(keyPressEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)),
+                     playerRotationBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)),
+                     playerShootBehavior, SLOT(keyPressEvent(QKeyEvent*)));
+    QObject::connect(&scene, SIGNAL(forwardKeyReleaseEvent(QKeyEvent*)),
+                     playerShootBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
 
     Profile *playerProfile = new Profile(playerMoveBehavior, playerRotationBehavior, playerShootBehavior);
 
@@ -107,6 +119,7 @@ void GameProcessor::setPlayer()
         player->setFlag(QGraphicsItem::ItemIsFocusable, true);
         scene.setFocusItem(player);
     }
+
     qDebug() << "player set";
  }
 
