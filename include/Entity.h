@@ -45,6 +45,8 @@ class Entity : public QGraphicsItem
     QString index;
     kind type;
     QRectF _boundindrect;
+    QPen _pen;
+    QBrush _brush;
 
  public:
     Entity(Profile *profile = 0, const char* name="");

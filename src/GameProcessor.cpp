@@ -169,6 +169,7 @@ void GameProcessor::displayLifes()
 
 void GameProcessor::start(int framePerSecond)
 {
+  cfg.parseFile();
   this->turn = 0;
   this->playerLifes = 3;
   this->displayLifes();

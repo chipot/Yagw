@@ -10,6 +10,7 @@
 #include "Behaviors/FollowingRotationBehavior.h"
 #include "Behaviors/SimpleMoveBehavior.h"
 #include "Behaviors/ChargingBehavior.h"
+#include "Behaviors/BasicRotationBehavior.h"
 #include "Profile.h"
 #include "GameProcessor.h"
 
@@ -42,7 +43,7 @@ void  GameIA::calcLevel(const  int i)
 
 void GameIA::advance(const  int turn, const  int score)
 {
-  int freq = (10 - (score / 40) + 1 <= 0 ? 1 : 10 - (score / 40) + 1);
+  int freq = (120 - (score / 40) + 1 <= 0 ? 1 : 120 - (score / 40) + 1);
   this->calcLevel(score);
 
   if (!(turn % freq))
@@ -87,5 +88,8 @@ void GameIA::designProfiles() {
 
     // Profile : "charging"
     setProfile(QString("charging"), new Profile(new ChargingBehavior(0, this->player, 400)));
+
+    // Profile : "followingGrowing2"
+    setProfile(QString("followingGrowing2"), new Profile(new BasicFollowingBehavior(0, this->player, 180), new BasicRotationBehavior(0, 10), 0, new GrowingBehavior(1000, 1.5)));
 }
 

@@ -31,14 +31,12 @@ public :
 class RotationBehavior : public Behavior {
 protected :
     Entity *target;
-
 public :
     RotationBehavior(Entity *ent = 0, Entity *t = 0) : Behavior(ent), target(t) {}
     virtual ~RotationBehavior(){}
     virtual void rotate() = 0;
     void setTarget(Entity *t) {target = t;}
-    virtual RotationBehavior *copy() {    qDebug() << "rotation behavior";
-return 0;}
+    virtual RotationBehavior *copy() {return 0;}
 };
 
 class TransformationBehavior : public Behavior {

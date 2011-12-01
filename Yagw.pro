@@ -55,7 +55,9 @@ HEADERS += \
     include/Behaviors/FireCollisionBehavior.h \
     include/Behaviors/GrowingBehavior.h \
     include/ConfManager.h \
-    include/Behaviors/ChargingBehavior.h
+    include/Behaviors/ChargingBehavior.h \
+    include/Behaviors/FiringBehavior.h \
+    include/Behaviors/BasicRotationBehavior.h
 
 
 SOURCES += src/main.cpp \
@@ -90,7 +92,11 @@ SOURCES += src/main.cpp \
     src/Behaviors/KeyboardMultipleFireBehavior.cpp \
     src/Behaviors/GrowingBehavior.cpp \
     src/ConfManager.cpp \
-    src/Behaviors/ChargingBehavior.cpp
+    src/Behaviors/ChargingBehavior.cpp \
+    src/Behaviors/BasicRotationBehavior.cpp
+
+
+
 
 
 
