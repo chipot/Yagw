@@ -5,6 +5,7 @@
 GreenCrossSquare::GreenCrossSquare() {
     speed = 2;
     initPath();
+    score = 22;
 }
 
 void GreenCrossSquare::initPath() {

@@ -11,6 +11,7 @@ void Shuriken::initPath() {
           path.lineTo(-5 + 8 * cos(0.8 * i * PI), -5 + 8 * sin(0.8 * i * PI));
       }
       path.closeSubpath();
+      score = 13;
 }
 
 QRectF Shuriken::boundingRect() const {

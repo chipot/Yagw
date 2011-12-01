@@ -3,6 +3,7 @@
 
 GridHor1::GridHor1() {
     initPath();
+    score = 15;
 }
 
 void GridHor1::initPath() {
