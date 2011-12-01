@@ -84,7 +84,7 @@ void GameIA::designProfiles() {
     setProfile(QString("followingGrowing"), new Profile(following->copy(), 0, 0, new GrowingBehavior()));
 
     // Profile : "followingRotating"
-    setProfile(QString("followingRotating"), new Profile(new BasicFollowingBehavior(0, this->player, 200), new FollowingRotationBehavior(0, this->player, 270)));
+    setProfile(QString("followingRotating"), new Profile(new BasicFollowingBehavior(0, this->player, 110), new FollowingRotationBehavior(0, this->player, 270)));
 
     // Profile : "immobileFiring"
     setProfile(QString("immobileFiring"), new Profile(0, 0, 0, 0));
@@ -93,7 +93,7 @@ void GameIA::designProfiles() {
     setProfile(QString("charging"), new Profile(new ChargingBehavior(0, this->player, 400)));
 
     // Profile : "followingGrowing2"
-    setProfile(QString("followingGrowing2"), new Profile(new BasicFollowingBehavior(0, this->player, 130), new BasicRotationBehavior(0, 10), 0, new GrowingBehavior(1000, 0.6)));
+    setProfile(QString("followingGrowing2"), new Profile(new BasicFollowingBehavior(0, this->player, 110), new BasicRotationBehavior(0, 10), 0, new GrowingBehavior(1000, 0.6)));
 
     // Profile : "expanding"
     setProfile(QString("expanding"), new Profile(0, 0, 0, new GrowingBehavior(2500, 10)));

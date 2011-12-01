@@ -12,7 +12,7 @@ GreenSquare::GreenSquare() {
 }
 
 void GreenSquare::initPath() {
-    path.addRect(0, 0, 10, 10);
+    path.addRect(0, 0, 20, 20);
 }
 
 void GreenSquare::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {
