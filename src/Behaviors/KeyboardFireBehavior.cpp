@@ -7,6 +7,7 @@
 #include "Profile.h"
 #include "Behaviors/SimpleMoveBehavior.h"
 #include "YagwScene.h"
+#include "SoundCenter.h"
 
 KeyboardFireBehavior::KeyboardFireBehavior(int frequency) : fireDirection(QPointF(0,0)), time(QTime()), fireFrequency(frequency)
 {
@@ -36,6 +37,7 @@ void KeyboardFireBehavior::fire() {
     QRectF brect = this->entity->boundingRect();
     qreal s = max(brect.height(), brect.width());
     s *= 1.4;
+
     fire->moveBy(entity->pos().x() + fireDirection.x() * s, entity->pos().y() + fireDirection.y() * s);
 }
 
