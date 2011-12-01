@@ -28,6 +28,7 @@ public:
 private:
     void keyPressEvent( QKeyEvent * keyEvent );
     void keyReleaseEvent( QKeyEvent * keyEvent );
+    void setBackgroundImage();
     QGraphicsSimpleTextItem * score;
 signals:
    void forwardKeyPressEvent(QKeyEvent*);

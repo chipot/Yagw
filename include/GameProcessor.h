@@ -52,6 +52,7 @@ class GameProcessor : public QObject
     void affDelimiters();
     void affGrid();
     ConfManager *getConfig();
+    void setBackgroundImage();
   private :
 
     void displayLifes();
@@ -61,6 +62,7 @@ class GameProcessor : public QObject
     bool isWall(const Entity *);
     void stop();
     void checkCollidings();
+    void setBloom();
 
 public slots:
     void keyPressEvent( QKeyEvent * );

@@ -7,6 +7,9 @@
 #include "Entity.h"
 #include "Profile.h"
 #include "ConfManager.h"
+#include <QLabel>
+#include <QGridLayout>
+#include "Bloom.h"
 
 #include "Behaviors/BasicFollowingBehavior.h"
 #include "Behaviors/FollowingRotationBehavior.h"
@@ -92,6 +95,7 @@ void GameProcessor::advance()
     if (this->player != 0)
       ptr->centerOn(this->player);
   }
+  this->setBloom();
 }
 
 void GameProcessor::setPlayer()
@@ -328,7 +332,6 @@ bool    GameProcessor::isWall(const Entity *e)
 
 
 void GameProcessor::affDelimiters() {
-
     Entity *delimDown = EntityFactory::getEntity("gamedelimiterhorizontal");
     delimDown->setProfile(new Profile(0,0,0,0));
     this->scene.addItem(delimDown);
@@ -390,4 +393,39 @@ void GameProcessor::affGrid()
 
 ConfManager *GameProcessor::getConfig() {
     return &cfg;
+}
+
+void GameProcessor::setBloom()
+{
+//    qDebug() << "setBloom";
+//    static int i = 0;
+//    i++;
+//    if (i == 200)
+//    {
+//        QString fileName("test.png");
+//        //QString fileName2("test2.png");
+//        QPainter *pngPainter = new QPainter();
+//        QImage *image = new QImage(QSize(1500, 1500), QImage::Format_ARGB32);
+//        // Resolution of the image is 600 dpi by default
+//        image->setDotsPerMeterX(600*254);
+//        image->setDotsPerMeterY(600*254);
+
+//        pngPainter->begin(image);
+//        scene.render(pngPainter);
+
+//        //QRect rectangle(0, 0, 80, 80);
+//        //pngPainter->drawEllipse(rectangle);
+
+//        Bloom *bloom = new Bloom();
+//        //pngPainter->drawImage(0, 0, bloom->bloomed(*image, 19, 49, 254, QPainter::CompositionMode_Overlay));
+//        QImage bloomed = bloom->bloomed(*image, 1, 50, 255, QPainter::CompositionMode_Overlay);
+//        pngPainter->end();
+
+//        image->save(fileName);
+//        //bloomed.save(fileName);
+//        delete pngPainter;
+//        delete image;
+//        qDebug() << "setBloom_EXIT";
+//        exit(1);
+//    }
 }

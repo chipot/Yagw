@@ -22,10 +22,10 @@ void Spaceship::initPath() {
 //    path.lineTo(5, -10);
 //    path.lineTo(20, 0);
 
-    path.moveTo(10, 0);
-    path.lineTo(-10, 7);
-    path.lineTo(-10, -7);
-    path.lineTo(10, 0);
+    path.moveTo(12, 0);
+    path.lineTo(-12, 8);
+    path.lineTo(-12, -8);
+    path.lineTo(12, 0);
     path.closeSubpath();
 }
 
