@@ -250,12 +250,17 @@ void GameProcessor::checkCollidings()
       {
         if (static_cast<Entity*>(item) == this->player || !static_cast<Entity*>(item)->die())
           continue;
-        scene.removeItem(item);
         if (static_cast<Entity*>(item)->getType() == Entity::bullet)
-          this->fire.removeOne(static_cast<Entity*>(item));
+          {
+            scene.removeItem(item);
+            this->fire.removeOne(static_cast<Entity*>(item));
+            delete item;
+          }
         else
-          this->entities.removeOne(static_cast<Entity*>(item));
-        delete item;
+          {
+            this->entities.removeOne(static_cast<Entity*>(item));
+            static_cast<Entity*>(item)->explode();
+          }
       }
         QPair<GameProcessor::_dir, Entity*> * pair;
     foreach(pair, walls)

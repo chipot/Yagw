@@ -1,18 +1,41 @@
+#include <QTimer>
 #include "Entity.h"
 #include "Behavior.h"
 #include "Score.h"
+#include "ProfileFactory.h"
+
 
 Entity::Entity(Profile *_profile, const char *name) :
     QGraphicsItem(), profile(_profile),
     parentScene(0), move(QPointF(0,0)), spawnTime(new QTime()),
     spawnShield(true), rotation(0), speed(100), score(0),
     rotationSpeed(0), lives(1), time(QTime()),  orientation(90),
-    index(QString(name)), type(Entity::unknow)
+    index(QString(name)), type(Entity::unknow), is_exploding(false),
+    timer(0)
 {
     spawnTime->start();
     time.start();
 }
 
+void Entity::explode()
+{
+  this->is_exploding = true;
+  delete this->profile;
+  this->setProfile(new Profile(MoveBehaviorFactory::getMoveBehavior("SimpleMoveBehavior"),
+                              RotationBehaviorFactory::getRotationBehavior("SimpleRotationBehavior"),
+                             0,
+                               TransformationBehaviorFactory::getTransformationBehavior("ImplodingBehavior")));
+  spawnShield = true;
+  this->timer = new QTimer();
+  this->timer->start(500);
+  this->connect(this->timer, SIGNAL(timeout()), this, SLOT(finishExplode()));
+}
+
+void Entity::finishExplode()
+{
+//  parentScene.removeItem(this);
+  delete this;
+}
 
 Entity::Entity(YagwScene *scene) : QGraphicsItem() {
     move = QPointF(0,0);
@@ -34,6 +57,7 @@ Entity::~Entity()
   Score::get_instance()->inc(this->score);
   delete profile;
   delete spawnTime;
+  delete timer;
 }
 
 bool    Entity::die()

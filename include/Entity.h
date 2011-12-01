@@ -12,6 +12,7 @@
 #include <QQueue>
 #include <QVector2D>
 #include <QTime>
+#include <QTimer>
 #include <math.h>
 #include "Profile.h"
 
@@ -19,8 +20,10 @@
 
 class YagwScene;
 
-class Entity : public QGraphicsItem
+class Entity : public QObject, public QGraphicsItem
 {
+    Q_OBJECT
+
 protected :
     Profile *profile;
     QPainterPath path;
@@ -36,9 +39,9 @@ protected :
     QTime time;
     int orientation;
     QString index;
-
 public:
     enum kind {bullet, unknow};
+    void Explode();
     Entity(Profile *profile = 0, const char* name="");
     Entity::kind getType(){return this->type;}
     void setType(kind k){this->type = k;}
@@ -47,7 +50,7 @@ public:
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
     void advance (int);
-
+    void explode();
     const QPointF &getMove() const;
     int getRotation() const;
     YagwScene *getScene() const;
@@ -69,8 +72,13 @@ public:
     bool shielded();
     bool die();
     void setLives(const int);
-private:
+  public slots:
+    void finishExplode();
+  private:
     kind type;
+    bool is_exploding;
+    QTimer  *timer;
+
 };
 
 
