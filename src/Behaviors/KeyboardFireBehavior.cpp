@@ -21,11 +21,11 @@ KeyboardFireBehavior::~KeyboardFireBehavior(){
 Entity *KeyboardFireBehavior::createFire(QPointF direction) {
 
     Entity *fire = EntityFactory::getEntity("fire01");
-
+    fire->setType(Entity::bullet);
     SimpleMoveBehavior *moveBehavior = new SimpleMoveBehavior(direction, 300);
     Profile *profile = new Profile(moveBehavior);
     fire->setProfile(profile);
-     entity->getScene()->createFire(fire);
+    entity->getScene()->createFire(fire);
 
     return fire;
 }

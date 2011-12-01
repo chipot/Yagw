@@ -7,6 +7,8 @@ void KeyboardDoubleFireBehavior::fire() {
     using namespace std;
     Entity *fire1 = createFire(fireDirection);
     Entity *fire2 = createFire(fireDirection);
+    fire1->setType(Entity::bullet);
+    fire2->setType(Entity::bullet);
     QRectF brect = this->entity->boundingRect();
     qreal s = max(brect.height(), brect.width());
     s *= 1.2;

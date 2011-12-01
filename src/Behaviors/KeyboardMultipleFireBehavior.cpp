@@ -34,6 +34,7 @@ void KeyboardMultipleFireBehavior::fire() {
         }
         QVector2D direction(Calculator::vectorialRotation(QVector2D(fireDirection), angle));
         Entity *fire = createFire(direction.toPointF());
+        fire->setType(Entity::bullet);
         fire->moveBy(entity->pos().x() + direction.x()*s, entity->pos().y()+direction.y()*s);
     }
 }
