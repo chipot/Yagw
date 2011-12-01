@@ -13,6 +13,7 @@
 #include <QVector2D>
 #include <QTime>
 #include <QTimer>
+#include <QSharedPointer>
 #include <math.h>
 #include "Profile.h"
 
@@ -23,9 +24,14 @@ class YagwScene;
 class Entity : public QObject, public QGraphicsItem
 {
     Q_OBJECT
-public:
-    enum kind {bullet, unknow};
-protected :
+
+ public:
+    enum kind
+    {
+      bullet,
+      unknow
+    };
+ protected :
     Profile *profile;
     QPainterPath path;
     YagwScene *parentScene;
@@ -48,10 +54,9 @@ protected :
     bool is_exploding;
     QTimer  *timer;
 
-    void Explode();
-  public:
+ public:
     Entity(Profile *profile = 0, const char* name="");
-    Entity::kind getType(){return this->type;}
+    Entity::kind getType() const {return this->type;}
     void setType(kind k){this->type = k;}
     virtual ~Entity();
     Entity(YagwScene*);
@@ -83,5 +88,6 @@ protected :
     void finishExplode();
  };
 
+typedef QSharedPointer<Entity> EntityPtr;
 
 #endif // ENTITY_H

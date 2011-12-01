@@ -51,19 +51,17 @@ void GameIA::advance(const  int turn, const  int score)
       Entity *entity = EntityFactory::getRandom(this->level);
       if (!entity)
         return;
-      entity->setProfile(
-                  profileFactory->getCopy(
-                      game.getConfig()->getProfileIndex(
-                          entity->getIndex()
-                          )
-                      )
-                  );
-
-              /*        new Profile(MoveBehaviorFactory::getRandom(this->level, this->player),
-                    RotationBehaviorFactory::getRandom(this->level, this->player),
-                    ShootBehaviorFactory::getRandom(this->level),
-                    TransformationBehaviorFactory::getRandom(this->level)));
-                            */
+      ConfManager *M = game.getConfig();
+      QString profileName = M->getProfileIndex(entity->getIndex());
+      Profile *P = profileFactory->getCopy(profileName);
+      if (P != 0)
+        entity->setProfile(P); 
+      /*
+      new Profile(MoveBehaviorFactory::getRandom(this->level, this->player),
+                  RotationBehaviorFactory::getRandom(this->level, this->player),
+                  ShootBehaviorFactory::getRandom(this->level),
+                  TransformationBehaviorFactory::getRandom(this->level)));
+      */
       this->game.spawnEntity(entity, randomPosition());
     }
 }

@@ -98,8 +98,10 @@ void GameProcessor::setPlayer()
 {
 
     KeyboardMoveBehavior *playerMoveBehavior = new KeyboardMoveBehavior();
-    KeyboardMultipleFireBehavior *playerShootBehavior = new KeyboardMultipleFireBehavior(150, 3, 16);
-    KeyboardRotationBehavior *playerRotationBehavior = new KeyboardRotationBehavior();
+    KeyboardMultipleFireBehavior *playerShootBehavior = 
+        new KeyboardMultipleFireBehavior(150, 3, 16);
+    KeyboardRotationBehavior *playerRotationBehavior = 
+        new KeyboardRotationBehavior();
 
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)),
                      playerMoveBehavior, SLOT(keyPressEvent(QKeyEvent*)));
@@ -234,12 +236,12 @@ void GameProcessor::checkCollidings()
     QGraphicsItem *collideIt = 0;
     foreach (collideIt, collideList)
     {
-      Entity *currentEntity = static_cast<Entity*>(collideIt);
+      Entity const *currentEntity = static_cast<Entity*>(collideIt);
       if (currentEntity->getType() != Entity::bullet)
         to_delete += collideIt;
     }
-    if ((size != to_delete.size() || (std::abs(item->x()) > WINSIZE_X / 2)
-         || (std::abs(item->y()) > WINSIZE_Y / 2)))
+    if ((size != to_delete.size()) || (std::abs(item->x()) > WINSIZE_X / 2)
+         || (std::abs(item->y()) > WINSIZE_Y / 2))
     {
       to_delete << item;
       size = to_delete.size();
@@ -248,8 +250,8 @@ void GameProcessor::checkCollidings()
 
   foreach(item, to_delete)
   {
-    Entity *currentEntity = static_cast<Entity*>(item);
-    if (currentEntity == this->player || !currentEntity->die())
+    Entity *currentEntity = static_cast<Entity*>(item); // not const because of call to die
+    if (currentEntity == this->player || currentEntity->die() == false)
       continue;
     if (currentEntity->getType() == Entity::bullet)
       {
@@ -264,12 +266,12 @@ void GameProcessor::checkCollidings()
       }
   }
 
-  QPair<GameProcessor::_dir, Entity*> * pair = 0;
+  QPair<GameProcessor::_dir, Entity*> const * pair = 0;
   foreach(pair, walls)
   {
       foreach(item, pair->second->collidingItems())
       {
-        Entity * currentEntity = static_cast<Entity*>(item);
+        Entity const * currentEntity = static_cast<Entity*>(item);
         if (isWall(currentEntity))
           continue;
         switch (pair->first)
