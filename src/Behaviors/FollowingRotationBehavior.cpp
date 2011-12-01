@@ -16,12 +16,17 @@ void FollowingRotationBehavior::rotate()
         entity->setRotation(sign*entity->getRotationSpeed());
         angle += entity->getRotationSpeed()*sign;
     }
-
 }
 
 void FollowingRotationBehavior::init() {
-    if (entity)
+    if (entity) {
         entity->setRotationSpeed(3);
+        angle = entity->getOrientation();
+    }
+}
+
+FollowingRotationBehavior *FollowingRotationBehavior::copy() const {
+    return new FollowingRotationBehavior(0, target, angle);
 }
 
 Registry<RotationBehavior>::Add<FollowingRotationBehavior> FollowingRotationBehavior("FollowingRotationBehavior", "2: une meilleur expliquation est bienvenue");

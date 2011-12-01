@@ -11,7 +11,7 @@
 
 
 GameIA::GameIA(GameProcessor &g, int w, int h, Entity *&p)
-  :game(g), width(w), height(h), player(p), level(0)
+    :game(g), profileFactory(new ProfileFactory()), width(w), height(h), player(p), level(0)
 {
 
 }
@@ -54,5 +54,13 @@ void GameIA::advance(const  int turn, const  int score)
                     TransformationBehaviorFactory::getRandom(this->level)));
       this->game.spawnEntity(entity, randomPosition());
     }
+}
+
+void GameIA::setProfile(const char *name, Profile *profile) {
+    profileFactory->StoreProfile(name, profile);
+}
+
+void GameIA::designProfiles() {
+
 }
 

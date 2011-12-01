@@ -2,11 +2,12 @@
 #include "Behavior.h"
 #include "Score.h"
 
-Entity::Entity(Profile *_profile) :
+Entity::Entity(Profile *_profile, const char *name) :
     QGraphicsItem(), profile(_profile),
     parentScene(0), move(QPointF(0,0)), spawnTime(new QTime()),
     spawnShield(true), rotation(0), speed(100), score(0),
-    rotationSpeed(0), lives(1), time(QTime()), type(Entity::unknow)
+    rotationSpeed(0), lives(1), time(QTime()),  orientation(90),
+    index(QString(name)), type(Entity::unknow)
 {
     spawnTime->start();
     time.start();
@@ -122,4 +123,13 @@ bool Entity::shielded() {
         return false;
     }
     return true;
+}
+
+int Entity::getOrientation() const {
+    return orientation;
+}
+
+
+void Entity::setIndex(const char *name) {
+    index = QString(name);
 }

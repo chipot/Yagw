@@ -6,6 +6,7 @@
 #include "Score.h"
 #include "Entity.h"
 #include "Profile.h"
+#include "ConfManager.h"
 
 #include "Behaviors/BasicFollowingBehavior.h"
 #include "Behaviors/FollowingRotationBehavior.h"
@@ -18,7 +19,8 @@ GameProcessor::GameProcessor(YagwScene &ygws)
   : scene(ygws),
     player(0),
     disclaimer(0),
-    gia(*this, ygws.width(), ygws.height(), player)
+    gia(*this, ygws.width(), ygws.height(), player),
+    cfg(ConfManager("config.cfg"))
 {
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
@@ -92,7 +94,7 @@ void GameProcessor::setPlayer()
 {
 
     KeyboardMoveBehavior *playerMoveBehavior = new KeyboardMoveBehavior();
-    KeyboardMultipleFireBehavior *playerShootBehavior = new KeyboardMultipleFireBehavior(150, 3, 7);
+    KeyboardMultipleFireBehavior *playerShootBehavior = new KeyboardMultipleFireBehavior(150, 3, 16);
     KeyboardRotationBehavior *playerRotationBehavior = new KeyboardRotationBehavior();
 
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)),

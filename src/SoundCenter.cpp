@@ -1,8 +1,6 @@
 #include <QDebug>
 #include <QPair>
 #include <QFileInfo>
-#include <QThread>
-
 #include "SoundCenter.h"
 
 SoundCenter::SoundCenter()
@@ -27,6 +25,7 @@ SoundCenter::SoundCenter()
 
 SoundCenter::~SoundCenter()
 {
+  this->quit();
   SoundRelationMap::mapped_type media_ptr;
   foreach(media_ptr, data)
   {

@@ -1,6 +1,17 @@
 #include "ProfileFactory.h"
 #include "Behaviors.h"
 
+void ProfileFactory::StoreProfile(const char *name, Profile *profile) {
+    profiles.insert(name, profile);
+}
+
+Profile *ProfileFactory::getCopy(const char *name) const {
+    if (profiles.contains(name))
+        return profiles[name]->copy();
+    return 0;
+}
+
+
 MoveBehaviorFactory moveBehaviorFactory;
 
 MoveBehavior *MoveBehaviorFactory::getMoveBehavior(const char *name) {

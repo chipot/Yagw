@@ -13,7 +13,9 @@ void GreenSquare::initPath() {
 }
 
 void GreenSquare::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {
-    painter->setPen(QColor("green"));
+    QPen pen(QColor("green"));
+    pen.setWidth(2);
+    painter->setPen(pen);
     painter->drawPath(this->path);
 }
 

@@ -20,7 +20,9 @@ void GreenCrossSquare::paint(QPainter *painter,
                         QStyleOptionGraphicsItem const * option,
                         QWidget *widget = 0)
 {
-    painter->setPen(QColor("magenta"));
+    QPen pen(QColor("magenta"));
+    pen.setWidth(2);
+    painter->setPen(pen);
     painter->drawPath(this->path);
 }
 

@@ -1,6 +1,7 @@
 #include "Registry.h"
 #include "Behaviors/KeyboardMoveBehavior.h"
 #include "YagwScene.h"
+#include "Calculator.h"
 
 
 KeyboardMoveBehavior::KeyboardMoveBehavior() : displacement(QPointF(0,0)), maxSpeed(200), time(QTime())
@@ -21,8 +22,10 @@ void KeyboardMoveBehavior::move() {
             entity->setSpeed(speed-3);
         if (speed+3 <= maxSpeed && displacement != QPointF(0, 0))
             entity->setSpeed(speed+3);
-        QPointF move = calcMove((displacement != QPointF(0, 0) ? displacement : entity->getMove()), entity->getSpeed());
+        QPointF move = Calculator::calcMovement((displacement != QPointF(0, 0) ? displacement : entity->getMove()), entity->getSpeed(), time.elapsed());
         entity->setMove(move);
+        time.restart();
+
     }
 }
 

@@ -18,14 +18,14 @@ private:
 
 public :
     GrowingBehavior(int duration = 2000, float ratio = 2) : TransformationBehavior(), growingDuration(duration) ,growingUp(true), actualSize(1), maxSize(ratio) {
-        start();
         scale = (maxSize-actualSize) / (growingDuration / 60);
-        qDebug() << scale;
+        timer.connect(&timer, SIGNAL(timeout()), this, SLOT(changeSize()));
     }
     virtual ~GrowingBehavior() {
         timer.disconnect();
     }
     void transform();
+    GrowingBehavior *copy() const;
 
 public slots:
     void changeSize();
