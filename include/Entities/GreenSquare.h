@@ -6,8 +6,6 @@
 
 class GreenSquare : public Entity
 {
-
-
 private :
     // private methods
     void initPath();

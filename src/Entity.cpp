@@ -11,6 +11,7 @@ Entity::Entity(Profile *_profile, const char *name) :
     spawnShield(true), rotation(0), speed(100), score(0),
     rotationSpeed(0), lives(1), time(QTime()),  orientation(90),
     index(QString(name)), _boundindrect(0, 0, 0,0), type(Entity::unknow),
+    _pen(), _brush(),
     is_exploding(false), timer(0)
 {
     spawnTime->start();

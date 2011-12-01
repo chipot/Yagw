@@ -68,3 +68,4 @@ void    SoundCenter::loop()
   this->music->enqueue(Phonon::MediaSource("./ressource/background_music.wav"));
   //delete pair;
 }
+

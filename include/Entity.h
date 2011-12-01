@@ -42,6 +42,8 @@ protected :
     QString index;
     QRectF _boundindrect;
     kind type;
+    QPen _pen;
+    QBrush _brush;
   private:
     bool is_exploding;
     QTimer  *timer;

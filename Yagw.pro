@@ -57,7 +57,9 @@ HEADERS += \
     include/Behaviors/ImplodingBehavior.h \
     include/Behaviors/SimpleRotationBehavior.h\
     include/ConfManager.h\
-    include/Behaviors/ChargingBehavior.h
+    include/Behaviors/ChargingBehavior.h \
+    include/Behaviors/FiringBehavior.h \
+    include/Behaviors/BasicRotationBehavior.h
 
 
 
@@ -95,7 +97,8 @@ SOURCES += src/main.cpp \
     src/Behaviors/ImplodingBehavior.cpp \
     src/Behaviors/SimpleRotationBehavior.cpp\
     src/ConfManager.cpp\
-    src/Behaviors/ChargingBehavior.cpp
+    src/Behaviors/ChargingBehavior.cpp\
+    src/Behaviors/BasicRotationBehavior.cpp
 
 
 

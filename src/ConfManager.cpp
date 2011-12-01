@@ -3,8 +3,9 @@
 
 void ConfManager::parseFile() {
     QFile file(fileName);
-    if (!file.exists())
+    if (!file.exists()) {
         return;
+    }
     if (!file.open(QIODevice::ReadOnly))
         return;
     QTextStream stream(&file);
@@ -35,8 +36,7 @@ void ConfManager::setDefault() {
 }
 
 QString ConfManager::getProfileIndex(QString entityIndex) const {
-    if (map.contains(entityIndex)) {
+    if (map.contains(entityIndex))
         return map[entityIndex];
-    }
     return "";
 }

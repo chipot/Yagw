@@ -5,6 +5,8 @@ Fire01::Fire01() {
     speed = 300;
     initPath();
     this->_boundindrect = this->path.boundingRect();
+    this->_pen = QPen(QColor("yellow"));
+    this->_brush = QBrush(QColor("yellow"));
 }
 
 Fire01::~Fire01()
@@ -16,9 +18,9 @@ void Fire01::initPath() {
     path.closeSubpath();
 }
 
-void Fire01::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0) {
-    painter->setPen(QColor("yellow"));
-    painter->setBrush(QColor("yellow"));
+void Fire01::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0) {    
+    painter->setPen(this->_pen);
+    painter->setBrush(this->_brush);
     painter->drawPath(this->path);
 }
 
