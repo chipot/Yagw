@@ -17,8 +17,8 @@ void Pacman::initPath() {
   path.closeSubpath();
 }
 
-void Pacman::paint(QPainter *painter, 
-                        QStyleOptionGraphicsItem const * option, 
+void Pacman::paint(QPainter *painter,
+                        QStyleOptionGraphicsItem const * option,
                         QWidget *widget = 0)
 {
     painter->setPen(QColor("red"));
@@ -31,4 +31,4 @@ Pacman::~Pacman()
 }
 
 Registry<Entity>::Add<Pacman>
-Pacman("pacman", "Pacman shape entity");
+Pacman("pacman", "2:Pacman shape entity");

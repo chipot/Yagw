@@ -1,3 +1,4 @@
+#include "Registry.h"
 #include "Behaviors/KeyboardRotationBehavior.h"
 #include "YagwScene.h"
 
@@ -109,3 +110,5 @@ void KeyboardRotationBehavior::init() {
         return;
     entity->setRotationSpeed(7);
 }
+
+Registry<RotationBehavior>::Add<KeyboardRotationBehavior> KeyboardRotationBehavior("KeyboardRotationBehavior", "une meilleur expliquation est bienvenue");

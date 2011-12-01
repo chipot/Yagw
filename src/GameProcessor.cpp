@@ -15,7 +15,11 @@
 #include "Behaviors/GrowingBehavior.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
-  : scene(ygws), player(0), disclaimer(0) {
+  : scene(ygws),
+    player(0),
+    disclaimer(0),
+    gia(*this, ygws.width(), ygws.height(), player)
+{
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
     QObject::connect(&scene, SIGNAL(phase2()), this, SLOT(advance()));
@@ -70,6 +74,7 @@ void GameProcessor::createDisclaimer(const QString &s)
 
 void GameProcessor::advance()
 {
+  this->gia.advance(++(this->turn), Score::get_instance()->getScore());
   this->checkCollidings();
   this->displayLifes();
   QString str("Score:\n");
@@ -104,27 +109,10 @@ void GameProcessor::setPlayer()
     qDebug() << "player set";
  }
 
-QPointF GameProcessor::randomDirection() {
-    float x = ((rand()%2000) - 1000);
-    float y = ((rand()%2000) - 1000);
-    x /= 1000.0;
-    y /= 1000.0;
-    QPointF random(x, y);
-    return random;
-}
-
-QPointF GameProcessor::randomPosition() {
-    int posx = (rand() % (long int)scene.width()) - (long int)scene.width()/2;
-    int posy = (rand() % (long int)scene.height()) - (long int)scene.height()/2;
-    QPointF random(posx, posy);
-    return random;
-}
 
 void GameProcessor::stop()
 {
   this->player = 0;
-  ennemy1Timer->disconnect();
-  delete ennemy1Timer;
   gameTimer->stop();
   gameTimer->disconnect();
   delete gameTimer;
@@ -161,6 +149,7 @@ void GameProcessor::displayLifes()
 
 void GameProcessor::start(int framePerSecond)
 {
+  this->turn = 0;
   this->playerLifes = 3;
   this->displayLifes();
   scene.removeItem(disclaimer);
@@ -171,26 +160,13 @@ void GameProcessor::start(int framePerSecond)
   gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
   gameTimer->start(framePerSecond);
   this->setPlayer();
-  ennemy1Timer = new QTimer();
-  ennemy1Timer->connect(ennemy1Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy1()));
-  ennemy1Timer->start(2500);
-
-
-  ennemy2Timer = new QTimer();
-  ennemy2Timer->connect(ennemy2Timer, SIGNAL(timeout()), this, SLOT(spawnEnnemy2()));
-  ennemy2Timer->start(5000);
-
-}
-
-void GameProcessor::generateEntity(const char *name) {
-    qDebug() << "generate Entity";
-    Entity *entity = EntityFactory::getEntity(name);
-    entities << entity;
 }
 
 void GameProcessor::spawnEntity(Entity *entity, QPointF position) {
   scene.addItem(entity);
-    entity->moveBy(position.x(), position.y());
+  entity->moveBy(position.x(), position.y());
+  entities << entity;
+  entity->setScene(&scene);
 }
 
 void GameProcessor::loadEntity(Entity *entity) {
@@ -201,34 +177,7 @@ void GameProcessor::loadFire(Entity *entity) {
     fire << entity;
 }
 
-void GameProcessor::spawnEnnemy1() {
-    Entity *entity = EntityFactory::getEntity("greensquare");
 
-    BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
-    GrowingBehavior *growing = new GrowingBehavior(1, 3);
-
-    Profile *profile = new Profile(moveBehavior, 0, 0, growing);
-    QPointF entityPosition = randomPosition();
-    entity->setScene(&scene);
-    entity->setProfile(profile);
-    spawnEntity(entity, entityPosition);
-    entities << entity;
-}
-
-void GameProcessor::spawnEnnemy2() {
-    Entity *entity = EntityFactory::getEntity("pacman");
-
-    FollowingRotationBehavior *rotationBehavior = new FollowingRotationBehavior(entity, player, 270);
-    BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
-    GrowingBehavior *growing = new GrowingBehavior();
-
-    Profile *profile = new Profile(moveBehavior, rotationBehavior, 0, growing);
-    QPointF entityPosition = randomPosition();
-    entity->setScene(&scene);
-    entity->setProfile(profile);
-    spawnEntity(entity, entityPosition);
-    entities << entity;
-}
 
 void GameProcessor::playerDead() {
   QList<Entity*> to_delete;

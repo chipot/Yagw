@@ -15,6 +15,7 @@ QMAKE_CXXFLAGS +=
 
 
 HEADERS += \
+    include/GameIA.h \
     include/YagwScene.h \
     include/Entity.h \
     include/Score.h\
@@ -24,6 +25,7 @@ HEADERS += \
     include/SoundCenter.h \
     include/GameProcessor.h \
     include/EntityFactory.h \
+    include/ProfileFactory.h \
     include/Registry.h \
     include/SimpleFollowingBehavior.h \
     include/EnnemyBehavior.h \
@@ -58,12 +60,14 @@ HEADERS += \
 
 
 SOURCES += src/main.cpp \
+    src/GameIA.cpp \
     src/Score.cpp\
     src/YagwScene.cpp \
     src/SoundCenter.cpp \
     src/Entity.cpp \
     src/GameProcessor.cpp \
     src/EntityFactory.cpp \
+    src/ProfileFactory.cpp \
     src/SimpleFollowingBehavior.cpp \
     src/EnnemyBehavior.cpp \
     src/Entities/Spaceship.cpp \

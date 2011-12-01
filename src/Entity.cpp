@@ -103,8 +103,8 @@ void Entity::setSpeed(float moveSpeed) {
 }
 
 void Entity::setProfile(Profile *_profile) {
-    this->profile = _profile;
-    this->profile->setEntity(this);
+  this->profile = _profile;
+  this->profile->setEntity(this);
 }
 
 float Entity::getSpeed() const {

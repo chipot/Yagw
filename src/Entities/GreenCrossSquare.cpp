@@ -16,8 +16,8 @@ void GreenCrossSquare::initPath() {
     path.closeSubpath();
 }
 
-void GreenCrossSquare::paint(QPainter *painter, 
-                        QStyleOptionGraphicsItem const * option, 
+void GreenCrossSquare::paint(QPainter *painter,
+                        QStyleOptionGraphicsItem const * option,
                         QWidget *widget = 0)
 {
     painter->setPen(QColor("magenta"));
@@ -30,4 +30,4 @@ GreenCrossSquare::~GreenCrossSquare()
 }
 
 Registry<Entity>::Add<GreenCrossSquare>
-greenCrossSquare("greencrosssquare", "GreenCrossSquare shape entity");
+greenCrossSquare("greencrosssquare", "1: GreenCrossSquare shape entity");

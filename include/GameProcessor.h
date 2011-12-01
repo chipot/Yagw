@@ -13,6 +13,9 @@
 #define WINSIZE_X 1000
 #define WINSIZE_Y 1000
 
+#include "GameIA.h"
+class GameIA;
+
 class GameProcessor : public QObject
 {
     Q_OBJECT
@@ -26,27 +29,25 @@ private :
     QVector<QPair<GameProcessor::_dir, Entity*> *>  walls;
     QVector<Entity*> lives;
     int playerLifes;
-    QTimer *ennemy1Timer;
-    QTimer *ennemy2Timer;
+    unsigned int turn;
     QTimer *gameTimer;
     QGraphicsSimpleTextItem * disclaimer;
     QGraphicsSimpleTextItem * score;
+    GameIA      gia;
 
 public :
     GameProcessor(YagwScene &ygwscene);
     ~GameProcessor(){}
     void setPlayer();
     void start(int = 1000 / 60);
-    void generateEntity(const char *name);
     void spawnEntity(Entity*, QPointF);
     void affDelimiters();
     void affGrid();
 
   private :
+
     void displayLifes();
     void createDisclaimer(const QString &);
-    QPointF randomDirection();
-    QPointF randomPosition();
     void newGridVertical(char*, int);
     void playerDead();
     bool isWall(const Entity *);
@@ -57,8 +58,6 @@ public slots:
     void keyPressEvent( QKeyEvent * );
     void loadFire(Entity*);
     void loadEntity(Entity*);
-    void spawnEnnemy1();
-    void spawnEnnemy2();
     void advance();
 };
 

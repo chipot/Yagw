@@ -1,3 +1,5 @@
+#include "Registry.h"
+
 #include "Behaviors/BasicFollowingBehavior.h"
 #include "Calculator.h"
 
@@ -10,12 +12,12 @@ void BasicFollowingBehavior::move()
 
 }
 
-void BasicFollowingBehavior::setTarget(Entity *entity) {
-    target = entity;
-}
 
 void BasicFollowingBehavior::init() {
     qDebug() << "following move init";
     if (entity)
         entity->setSpeed(100);
 }
+
+
+Registry<MoveBehavior>::Add<BasicFollowingBehavior> BasicFollowingBehavior("BasicFollowingBehavior", "1: une meilleur expliquation est bienvenue");

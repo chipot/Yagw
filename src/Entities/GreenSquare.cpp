@@ -22,4 +22,4 @@ GreenSquare::~GreenSquare()
   SoundCenter::get_instance()->play("kill");
 }
 
-Registry<Entity>::Add<GreenSquare> greenSquare("greensquare", "GreenSquare shape entity");
+Registry<Entity>::Add<GreenSquare> greenSquare("greensquare", "0:GreenSquare shape entity");

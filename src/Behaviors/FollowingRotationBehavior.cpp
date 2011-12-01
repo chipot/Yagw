@@ -1,3 +1,5 @@
+#include "Registry.h"
+
 #include "Behaviors/FollowingRotationBehavior.h"
 #include "Behaviors/BasicFollowingBehavior.h"
 #include "Calculator.h"
@@ -17,12 +19,11 @@ void FollowingRotationBehavior::rotate()
 
 }
 
-void FollowingRotationBehavior::setTarget(Entity *entity) {
-    target = entity;
-}
+
 
 void FollowingRotationBehavior::init() {
     if (entity)
         entity->setRotationSpeed(3);
 }
 
+Registry<RotationBehavior>::Add<FollowingRotationBehavior> FollowingRotationBehavior("FollowingRotationBehavior", "2: une meilleur expliquation est bienvenue");

@@ -28,4 +28,4 @@ Ship::~Ship()
 
 
 
-Registry<Entity>::Add<Ship> ship("ship", "Ship shape entity");
+Registry<Entity>::Add<Ship> ship("ship", "7:wired Ship shape entity");
