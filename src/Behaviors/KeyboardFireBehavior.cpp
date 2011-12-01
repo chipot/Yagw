@@ -23,7 +23,7 @@ Entity *KeyboardFireBehavior::createFire(QPointF direction) {
 
     Entity *fire = EntityFactory::getEntity("fire01");
     fire->setType(Entity::bullet);
-    SimpleMoveBehavior *moveBehavior = new SimpleMoveBehavior(direction, 300);
+    SimpleMoveBehavior *moveBehavior = new SimpleMoveBehavior(direction, fire->getSpeed());
     Profile *profile = new Profile(moveBehavior);
     fire->setProfile(profile);
     entity->getScene()->createFire(fire);
