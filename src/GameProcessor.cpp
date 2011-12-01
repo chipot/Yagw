@@ -224,6 +224,7 @@ void GameProcessor::playerDead() {
   scene.removeItem(this->player);
   delete this->player;
   if (--playerLifes > 0)
+  {
     this->setPlayer();
     this->gia.designProfiles();
   }
