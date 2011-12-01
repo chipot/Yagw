@@ -14,6 +14,7 @@ SoundCenter::SoundCenter()
   data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
   data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
   data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
+  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
 
   data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.wav")));
   data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.wav")));
