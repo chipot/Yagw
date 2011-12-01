@@ -21,9 +21,14 @@ class GameIA;
 class GameProcessor : public QObject
 {
     Q_OBJECT
-
-private :
-    enum _dir{R,L,T,B};
+ private :
+    enum _dir
+    {
+      R,
+      L,
+      T,
+      B
+    };
     YagwScene       &scene;
     Entity          *player;
     QList<Entity*>  entities;
@@ -38,7 +43,7 @@ private :
     GameIA      gia;
     ConfManager  cfg;
 
-public :
+ public :
     GameProcessor(YagwScene &ygwscene);
     ~GameProcessor(){}
     void setPlayer();

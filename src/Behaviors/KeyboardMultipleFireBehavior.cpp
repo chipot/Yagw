@@ -39,4 +39,5 @@ void KeyboardMultipleFireBehavior::fire() {
         fire->setType(Entity::bullet);
         fire->moveBy(entity->pos().x() + direction.x()*s, entity->pos().y()+direction.y()*s);
     }
-    SoundCenter::get_instance()->play("shoot");}
+    SoundCenter::get_instance()->play("shoot");
+}
