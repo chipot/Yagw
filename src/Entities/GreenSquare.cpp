@@ -6,6 +6,7 @@ GreenSquare::GreenSquare() {
     speed = 100;
     initPath();
     score = 20;
+    this->_boundindrect = path.boundingRect();
 }
 
 void GreenSquare::initPath() {

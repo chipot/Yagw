@@ -35,7 +35,11 @@ public :
         QVector2D vector(direction);
         vector.normalize();
         return (vector.toPointF()* dist);
-}
+    }
+
+    static qreal calcDistance(QPointF point1, QPointF point2) {
+        return abs((point2.y() - point1.y()) + (point2.x() - point1.x()));
+    }
 };
 
 #endif // CALCULATOR_H

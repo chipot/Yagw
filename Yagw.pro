@@ -7,10 +7,14 @@ QT += opengl phonon
 TARGET = yagw
 DEPENDPATH += . include src
 INCLUDEPATH += . include /usr/X11/include include/lib
-QMAKE_CXXFLAGS +=
 
+CONFIG += debug
 
-
+unix {
+	QMAKE_CXXFLAGS_DEBUG *=  -pg
+	QMAKE_LFLAGS_DEBUG *= -pg
+	QMAKE_CXXFLAGS_RELEASE *= -march=native -O3
+}
 # Input
 
 
@@ -34,10 +38,6 @@ HEADERS += \
     include/Entities/Pacman.h \
     include/Entities/Spaceship.h \
     include/Entities/Fire01.h \
-    include/Entities/GameDelimiterUp.h \
-    include/Entities/GameDelimiterDown.h \
-    include/Entities/GameDelimiterRight.h \
-    include/Entities/GameDelimiterLeft.h \
     include/Entities/GameDelimiterHorizontal.h \
     include/Entities/GameDelimiterVertical.h \
     include/Entities/GridVert1.h \
@@ -56,7 +56,9 @@ HEADERS += \
     include/Behaviors/GrowingBehavior.h \
     include/Behaviors/ImplodingBehavior.h \
     include/Behaviors/SimpleRotationBehavior.h\
-    include/ConfManager.h
+    include/ConfManager.h\
+    include/Behaviors/ChargingBehavior.h
+
 
 
 SOURCES += src/main.cpp \
@@ -75,10 +77,6 @@ SOURCES += src/main.cpp \
     src/Entities/GreenCrossSquare.cpp \
     src/Entities/Star.cpp \
     src/Entities/Pacman.cpp \
-    src/Entities/GameDelimiterUp.cpp \
-    src/Entities/GameDelimiterRight.cpp \
-    src/Entities/GameDelimiterLeft.cpp \
-    src/Entities/GameDelimiterDown.cpp \
     src/Entities/Fire01.cpp \
     src/Entities/GameDelimiterHorizontal.cpp \
     src/Entities/GameDelimiterVertical.cpp \
@@ -96,7 +94,8 @@ SOURCES += src/main.cpp \
     src/Behaviors/GrowingBehavior.cpp \
     src/Behaviors/ImplodingBehavior.cpp \
     src/Behaviors/SimpleRotationBehavior.cpp\
-    src/ConfManager.cpp
+    src/ConfManager.cpp\
+    src/Behaviors/ChargingBehavior.cpp
 
 
 

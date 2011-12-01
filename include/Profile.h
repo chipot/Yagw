@@ -33,7 +33,7 @@ public:
     void transform();
     void process();
 
-    Profile *copy() const;
+    Profile *copy();
 };
 
 

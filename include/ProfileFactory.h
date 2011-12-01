@@ -6,10 +6,6 @@
 #include "Entities/GreenSquare.h"
 #include "Entities/Spaceship.h"
 #include "Entities/Fire01.h"
-#include "Entities/GameDelimiterUp.h"
-#include "Entities/GameDelimiterDown.h"
-#include "Entities/GameDelimiterLeft.h"
-#include "Entities/GameDelimiterRight.h"
 #include "Registry.h"
 #include "Profile.h"
 #include <QMap>
@@ -18,13 +14,12 @@
 class ProfileFactory
 {
 private :
-    QMap<const char*, Profile*> profiles;
+    QMap<QString, Profile*> profiles;
 public :
     ProfileFactory(){}
     ~ProfileFactory(){}
-    void StoreProfile(const char*, Profile*);
-    Profile *getCopy(const char*) const;
-
+    void StoreProfile(QString, Profile*);
+    Profile *getCopy(QString);
 };
 
 

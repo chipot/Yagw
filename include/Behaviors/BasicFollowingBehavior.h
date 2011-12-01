@@ -8,12 +8,14 @@
 
 class BasicFollowingBehavior : public MoveBehavior
 {
+protected :
+    int speed;
 
 public :
-    BasicFollowingBehavior(Entity *ent = 0, Entity *t = 0) : MoveBehavior(ent, t) {}
+    BasicFollowingBehavior(Entity *ent = 0, Entity *t = 0, int moveSpeed = 100) : MoveBehavior(ent, t), speed(moveSpeed) {}
     void move();
     void init();
-    BasicFollowingBehavior *copy() const;
+    virtual BasicFollowingBehavior *copy();
 };
 
 #endif // BASICFOLLOWINGBEHAVIOR_H

@@ -5,8 +5,6 @@ Profile::Profile() : moveBehavior(0), rotationBehavior(0),
     shootBehavior(0), transformationBehavior(0),
     entity(0)
 {
-    qDebug() << "instance profile";
-
 }
 
 Profile::Profile(MoveBehavior *move, RotationBehavior *rotate,
@@ -86,19 +84,23 @@ void Profile::process() {
     transform();
 }
 
-Profile *Profile::copy() const {
+Profile *Profile::copy() {
     MoveBehavior *moveB = 0;
     RotationBehavior *rotB = 0;
     ShootBehavior *shootB = 0;
     TransformationBehavior *tB = 0;
 
-    if (moveBehavior)
+    if (moveBehavior) {
         moveB = moveBehavior->copy();
-    if (rotationBehavior)
+    }
+    if (rotationBehavior) {
         rotB = rotationBehavior->copy();
-    if (shootBehavior)
+    }
+    if (shootBehavior) {
         shootB = shootBehavior->copy();
-    if (transformationBehavior)
+    }
+    if (transformationBehavior) {
         tB = transformationBehavior->copy();
+    }
     return new Profile(moveB, rotB, shootB, tB);
 }

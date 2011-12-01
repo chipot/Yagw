@@ -11,8 +11,8 @@ private:
 
 public:
     Fire01();
-    QRectF boundingRect() const;
-    void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
+    virtual ~Fire01();
+    virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
 };
 
 #endif // FIRE01_H

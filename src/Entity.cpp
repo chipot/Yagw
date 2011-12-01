@@ -3,15 +3,15 @@
 #include "Behavior.h"
 #include "Score.h"
 #include "ProfileFactory.h"
-
+#include "YagwScene.h"
 
 Entity::Entity(Profile *_profile, const char *name) :
     QGraphicsItem(), profile(_profile),
     parentScene(0), move(QPointF(0,0)), spawnTime(new QTime()),
     spawnShield(true), rotation(0), speed(100), score(0),
     rotationSpeed(0), lives(1), time(QTime()),  orientation(90),
-    index(QString(name)), type(Entity::unknow), is_exploding(false),
-    timer(0)
+    index(QString(name)), _boundindrect(0, 0, 0,0), type(Entity::unknow),
+    is_exploding(false), timer(0)
 {
     spawnTime->start();
     time.start();
@@ -22,8 +22,8 @@ void Entity::explode()
   this->is_exploding = true;
   delete this->profile;
   this->setProfile(new Profile(MoveBehaviorFactory::getMoveBehavior("SimpleMoveBehavior"),
-                              RotationBehaviorFactory::getRotationBehavior("SimpleRotationBehavior"),
-                             0,
+                               RotationBehaviorFactory::getRotationBehavior("SimpleRotationBehavior"),
+                               0,
                                TransformationBehaviorFactory::getTransformationBehavior("ImplodingBehavior")));
   spawnShield = true;
   this->timer = new QTimer();
@@ -33,7 +33,7 @@ void Entity::explode()
 
 void Entity::finishExplode()
 {
-//  parentScene.removeItem(this);
+  parentScene->removeItem(this);
   delete this;
 }
 
@@ -66,7 +66,7 @@ bool    Entity::die()
   return lives == 0;
 }
 QRectF Entity::boundingRect() const {
-    return this->path.boundingRect();
+  return this->_boundindrect;
 }
 
 void Entity::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {
@@ -141,7 +141,7 @@ float Entity::getSpeed() const {
 bool Entity::shielded() {
     if (spawnShield == false)
         return false;
-    if (spawnTime->elapsed() >= 2000) {
+    if (spawnTime->elapsed() >= 750) {
         spawnShield = false;
         delete spawnTime;
         spawnTime = 0;
@@ -154,7 +154,10 @@ int Entity::getOrientation() const {
     return orientation;
 }
 
+void Entity::setIndex(QString name) {
+    index = name;
+}
 
-void Entity::setIndex(const char *name) {
-    index = QString(name);
+QString Entity::getIndex() const {
+    return index;
 }

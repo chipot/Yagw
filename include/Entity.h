@@ -23,7 +23,8 @@ class YagwScene;
 class Entity : public QObject, public QGraphicsItem
 {
     Q_OBJECT
-
+public:
+    enum kind {bullet, unknow};
 protected :
     Profile *profile;
     QPainterPath path;
@@ -39,9 +40,14 @@ protected :
     QTime time;
     int orientation;
     QString index;
-public:
-    enum kind {bullet, unknow};
+    QRectF _boundindrect;
+    kind type;
+  private:
+    bool is_exploding;
+    QTimer  *timer;
+
     void Explode();
+  public:
     Entity(Profile *profile = 0, const char* name="");
     Entity::kind getType(){return this->type;}
     void setType(kind k){this->type = k;}
@@ -57,15 +63,14 @@ public:
     float getSpeed() const;
     int getRotationSpeed() const;
     int getOrientation() const;
-    const QString &getIndex() const;
-
+    QString getIndex() const;
     void setMove(QPointF);
     void setRotation(int);
     void setScene(YagwScene*);
     void setSpeed(float);
     void setProfile(Profile*);
     void setRotationSpeed(int speed);
-    void setIndex(const char *);
+    void setIndex(QString);
 
     QPointF calcMove();
     int timeSinceSpawn() const;
@@ -74,12 +79,7 @@ public:
     void setLives(const int);
   public slots:
     void finishExplode();
-  private:
-    kind type;
-    bool is_exploding;
-    QTimer  *timer;
-
-};
+ };
 
 
 #endif // ENTITY_H

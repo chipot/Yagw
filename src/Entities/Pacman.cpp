@@ -8,6 +8,7 @@ Pacman::Pacman() {
     speed = 1;
     orientation = 270;
     initPath();
+    this->_boundindrect = path.boundingRect();
     score = 42;
 }
 

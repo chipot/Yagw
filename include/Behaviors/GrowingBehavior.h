@@ -25,7 +25,7 @@ public :
         timer.disconnect();
     }
     void transform();
-    GrowingBehavior *copy() const;
+    GrowingBehavior *copy();
 
 public slots:
     void changeSize();
