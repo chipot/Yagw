@@ -12,6 +12,7 @@
 #include <QQueue>
 #include <QVector2D>
 #include <QTime>
+#include <QSharedPointer>
 #include <math.h>
 #include "Profile.h"
 
@@ -22,8 +23,12 @@ class YagwScene;
 class Entity : public QGraphicsItem
 {
  public:
-    enum kind {bullet, unknow};
-protected :
+    enum kind 
+    {
+      bullet,
+      unknow
+    };
+ protected :
     Profile *profile;
     QPainterPath path;
     YagwScene *parentScene;
@@ -41,7 +46,7 @@ protected :
     kind type;
     QRectF _boundindrect;
 
-public:
+ public:
     Entity(Profile *profile = 0, const char* name="");
     Entity::kind getType() const {return this->type;}
     void setType(kind k){this->type = k;}
@@ -74,5 +79,6 @@ public:
     void setLives(const int);
 };
 
+typedef QSharedPointer<Entity> EntityPtr;
 
 #endif // ENTITY_H

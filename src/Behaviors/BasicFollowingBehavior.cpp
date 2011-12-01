@@ -6,8 +6,11 @@
 void BasicFollowingBehavior::move()
 {
     if (entity) {
-        QVector2D direction = Calculator::calcDirectionVector(entity->pos(), target->pos());
-        QPointF move = Calculator::calcMovement(direction.toPointF(), entity->getSpeed(), time.elapsed());
+        QVector2D direction = Calculator::calcDirectionVector(entity->pos(),
+                                                              target->pos());
+        QPointF move = Calculator::calcMovement(direction.toPointF(),
+                                                entity->getSpeed(),
+                                                time.elapsed());
         entity->setMove(move);
         time.restart();
     }
