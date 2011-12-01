@@ -10,7 +10,6 @@
 #include "Entities/GameDelimiterDown.h"
 #include "Entities/GameDelimiterLeft.h"
 #include "Entities/GameDelimiterRight.h"
-#include "FireBehavior.h"
 #include "Registry.h"
 #include <QMap>
 

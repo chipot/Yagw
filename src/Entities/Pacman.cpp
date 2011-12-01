@@ -6,6 +6,7 @@ static const float Pi = 3.14159f;
 
 Pacman::Pacman() {
     speed = 1;
+    orientation = 270;
     initPath();
 }
 

@@ -7,7 +7,6 @@
 #include "Behaviors/KeyboardMoveBehavior.h"
 #include "Behaviors/KeyboardRotationBehavior.h"
 #include "Profile.h"
-#include "SimpleFollowingBehavior.h"
 #include "GameProcessor.h"
 
 
@@ -32,7 +31,6 @@ QPointF GameIA::randomPosition() {
     QPointF random(posx, posy);
     return random;
 }
-
 
 void  GameIA::calcLevel(const  int i)
 {

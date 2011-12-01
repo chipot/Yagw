@@ -84,8 +84,9 @@ void GameProcessor::advance()
 
 void GameProcessor::setPlayer()
 {
+
     KeyboardMoveBehavior *playerMoveBehavior = new KeyboardMoveBehavior();
-    KeyboardMultipleFireBehavior *playerShootBehavior = new KeyboardMultipleFireBehavior(150, 3, 16);
+    KeyboardMultipleFireBehavior *playerShootBehavior = new KeyboardMultipleFireBehavior(150, 3, 7);
     KeyboardRotationBehavior *playerRotationBehavior = new KeyboardRotationBehavior();
 
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerMoveBehavior, SLOT(keyPressEvent(QKeyEvent*)));

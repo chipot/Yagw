@@ -3,8 +3,6 @@
 #include "YagwScene.h"
 #include "EntityFactory.h"
 
-#include "FireBehavior.h"
-
 YagwScene::YagwScene(QObject *parent) :
   QGraphicsScene(parent) {
   qDebug() << "instance scene";

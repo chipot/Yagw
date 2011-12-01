@@ -19,8 +19,6 @@ void FollowingRotationBehavior::rotate()
 
 }
 
-
-
 void FollowingRotationBehavior::init() {
     if (entity)
         entity->setRotationSpeed(3);

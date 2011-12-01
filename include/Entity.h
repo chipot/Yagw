@@ -35,6 +35,7 @@ protected :
     int rotationSpeed;
     int lives;
     QTime time;
+    int orientation;
 
 public:
 
