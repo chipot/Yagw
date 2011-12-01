@@ -38,8 +38,10 @@ protected :
     int orientation;
 
 public:
-
+    enum kind {bullet, unknow};
     Entity(Profile *profile = 0);
+    Entity::kind getType(){return this->type;}
+    void setType(kind k){this->type = k;}
     virtual ~Entity();
     Entity(YagwScene*);
     virtual QRectF boundingRect() const;
@@ -64,6 +66,8 @@ public:
     bool shielded();
     bool die();
     void setLives(const int);
+private:
+    kind type;
 };
 
 
