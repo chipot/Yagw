@@ -1,3 +1,4 @@
+#include <QtCore/qmath.h>
 #include "ProfileFactory.h"
 #include "EntityFactory.h"
 #include "Registry.h"
@@ -17,7 +18,7 @@
 
 
 GameIA::GameIA(GameProcessor &g, int w, int h, Entity *&p)
-    :game(g), profileFactory(new ProfileFactory()), width(w), height(h), player(p), level(0)
+  :game(g), profileFactory(new ProfileFactory()), width(w), height(h), player(p), level(0), firelevel(1)
 {
 }
 
@@ -31,22 +32,30 @@ QPointF GameIA::randomDirection() {
 }
 
 QPointF GameIA::randomPosition() {
-    int posx = (rand() % (long int)this->width) - (long int)this->width/2;
-    int posy = (rand() % (long int)this->height) - (long int)this->height/2;
-    QPointF random(posx, posy);
-    return random;
+  int posx = (rand() % (long int)this->width) - (long int)this->width/2;
+  int posy = (rand() % (long int)this->height) - (long int)this->height/2;
+  QPointF random(posx, posy);
+  return random;
 }
 
 void  GameIA::calcLevel(const  int i)
 {
   this->level = (i / 100 > 10 ? 10 : i / 100);
-  game.getPlayerFire()->setNumber(this->level+1);
+  if (level < 3)
+    this->firelevel = 1;
+  else if (this->level == 3 && this->firelevel == 1)
+    this->firelevel = 2;
+  else if (this->level == 6 && this->firelevel == 2)
+    this->firelevel = 3;
+  game.getPlayerFire()->setNumber(this->firelevel);
 }
 
 void GameIA::advance(const  int turn, const  int score)
 {
-  int freq = (70 - (score / 40) + 1 <= 0 ? 1 : 70 - (score / 40) + 1);
-
+  int freq;
+  freq = 60 - qLn(score + 3) * 2 ;
+  if (freq == 0)
+    freq = 1;
   this->calcLevel(score);
 
   if (!(turn % freq))
@@ -58,7 +67,7 @@ void GameIA::advance(const  int turn, const  int score)
       QString profileName = M->getProfileIndex(entity->getIndex());
       Profile *P = profileFactory->getCopy(profileName);
       if (P != 0)
-        entity->setProfile(P); 
+        entity->setProfile(P);
       /*
       new Profile(MoveBehaviorFactory::getRandom(this->level, this->player),
                   RotationBehaviorFactory::getRandom(this->level, this->player),
@@ -96,6 +105,6 @@ void GameIA::designProfiles() {
     setProfile(QString("followingGrowing2"), new Profile(new BasicFollowingBehavior(0, this->player, 110), new BasicRotationBehavior(0, 10), 0, new GrowingBehavior(1000, 0.6)));
 
     // Profile : "expanding"
-    setProfile(QString("expanding"), new Profile(0, 0, 0, new GrowingBehavior(2500, 10)));
+    setProfile(QString("expanding"), new Profile(0, 0, 0, new GrowingBehavior(2500, 3)));
 }
 

@@ -5,7 +5,7 @@
 // Login   <Antoine@MBP-Antoine.local>
 //
 // Started on Tue Nov 29 20:09:16 2011 Antoine Marandon
-// Last update Wed Nov 30 20:27:06 2011 Antoine Marandon
+// Last update Fri Dec  2 07:40:00 2011 antoine marandon
 //
 
 #ifndef GAMEIA_H_
@@ -34,6 +34,7 @@ class GameIA
     int height;
     Entity  *&player;
     int level;
+    int firelevel;
 };
 
 #endif /* !GAMEIA_H_ */
