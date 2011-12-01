@@ -12,6 +12,7 @@
 #include <QQueue>
 #include <QVector2D>
 #include <QTime>
+#include <QTimer>
 #include <QSharedPointer>
 #include <math.h>
 #include "Profile.h"
@@ -20,10 +21,12 @@
 
 class YagwScene;
 
-class Entity : public QGraphicsItem
+class Entity : public QObject, public QGraphicsItem
 {
+    Q_OBJECT
+
  public:
-    enum kind 
+    enum kind
     {
       bullet,
       unknow
@@ -43,10 +46,13 @@ class Entity : public QGraphicsItem
     QTime time;
     int orientation;
     QString index;
-    kind type;
     QRectF _boundindrect;
+    kind type;
     QPen _pen;
     QBrush _brush;
+  private:
+    bool is_exploding;
+    QTimer  *timer;
 
  public:
     Entity(Profile *profile = 0, const char* name="");
@@ -57,7 +63,7 @@ class Entity : public QGraphicsItem
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
     void advance (int);
-
+    void explode();
     const QPointF &getMove() const;
     int getRotation() const;
     YagwScene *getScene() const;
@@ -65,7 +71,6 @@ class Entity : public QGraphicsItem
     int getRotationSpeed() const;
     int getOrientation() const;
     QString getIndex() const;
-
     void setMove(QPointF);
     void setRotation(int);
     void setScene(YagwScene*);
@@ -79,7 +84,9 @@ class Entity : public QGraphicsItem
     bool shielded();
     bool die();
     void setLives(const int);
-};
+  public slots:
+    void finishExplode();
+ };
 
 typedef QSharedPointer<Entity> EntityPtr;
 

@@ -17,14 +17,14 @@ class YagwGLDrawer : public QGLWidget
 {
   Q_OBJECT
  public:
-  YagwGLDrawer(QWidget *parent = 0) : QGLWidget(parent)
-  {
-    this->setMouseTracking(true);
-  }
+    YagwGLDrawer(QWidget *parent = 0) : QGLWidget(parent)
+    {
+      this->setMouseTracking(true);
+    }
 
   virtual ~YagwGLDrawer()
-  {
-  }
+    {
+    }
 
   public slots:
   void update()
@@ -41,7 +41,7 @@ class YagwGLDrawer : public QGLWidget
 
  private:
   QQueue<QKeyEvent>	_keyq;
-  QList<Entity *>	_entities;	
+  QList<Entity *>	_entities;
 };
 
 

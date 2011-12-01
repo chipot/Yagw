@@ -254,12 +254,17 @@ void GameProcessor::checkCollidings()
     Entity *currentEntity = static_cast<Entity*>(item); // not const because of call to die
     if (currentEntity == this->player || currentEntity->die() == false)
       continue;
-    scene.removeItem(item);
     if (currentEntity->getType() == Entity::bullet)
-      this->fire.removeOne(currentEntity);
+      {
+        scene.removeItem(item);
+        this->fire.removeOne(currentEntity);
+        delete currentEntity;
+      }
     else
-      this->entities.removeOne(currentEntity);
-    delete item;
+      {
+        this->entities.removeOne(currentEntity);
+        currentEntity->explode();
+      }
   }
 
   QPair<GameProcessor::_dir, Entity*> const * pair = 0;
@@ -291,21 +296,21 @@ void GameProcessor::checkCollidings()
   }
 
   if (player != 0 && player->shielded() == false)
-  {
-    QList<QGraphicsItem*> const &collidingItems = this->player->collidingItems();
-    foreach(item, collidingItems) 
     {
-      Entity *currentEntity = static_cast<Entity*>(item);
-      if (currentEntity->shielded() == false)
-      {
-        scene.removeItem(item);
-        this->entities.removeOne(currentEntity);
-        delete item;
-        this->playerDead();
-        break;
-      }
+      QList<QGraphicsItem*> const &collidingItems = this->player->collidingItems();
+      foreach(item, collidingItems)
+        {
+          Entity *currentEntity = static_cast<Entity*>(item);
+          if (currentEntity->shielded() == false)
+            {
+              scene.removeItem(item);
+              this->entities.removeOne(currentEntity);
+              delete item;
+              this->playerDead();
+              break;
+            }
+        }
     }
-  }
 }
 
 bool    GameProcessor::isWall(const Entity *e)

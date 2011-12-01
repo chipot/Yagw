@@ -11,7 +11,7 @@ INCLUDEPATH += . include /usr/X11/include include/lib
 CONFIG += debug
 
 unix {
-	QMAKE_CXXFLAGS_DEBUG *= -gdwarf-4 -pg
+	QMAKE_CXXFLAGS_DEBUG *=  -pg
 	QMAKE_LFLAGS_DEBUG *= -pg
 	QMAKE_CXXFLAGS_RELEASE *= -march=native -O3
 }
@@ -54,10 +54,13 @@ HEADERS += \
     include/Behaviors/KeyboardMultipleFireBehavior.h \
     include/Behaviors/FireCollisionBehavior.h \
     include/Behaviors/GrowingBehavior.h \
-    include/ConfManager.h \
+    include/Behaviors/ImplodingBehavior.h \
+    include/Behaviors/SimpleRotationBehavior.h\
+    include/ConfManager.h\
     include/Behaviors/ChargingBehavior.h \
     include/Behaviors/FiringBehavior.h \
     include/Behaviors/BasicRotationBehavior.h
+
 
 
 SOURCES += src/main.cpp \
@@ -91,14 +94,11 @@ SOURCES += src/main.cpp \
     src/Behaviors/KeyboardDoubleFireBehavior.cpp \
     src/Behaviors/KeyboardMultipleFireBehavior.cpp \
     src/Behaviors/GrowingBehavior.cpp \
-    src/ConfManager.cpp \
-    src/Behaviors/ChargingBehavior.cpp \
+    src/Behaviors/ImplodingBehavior.cpp \
+    src/Behaviors/SimpleRotationBehavior.cpp\
+    src/ConfManager.cpp\
+    src/Behaviors/ChargingBehavior.cpp\
     src/Behaviors/BasicRotationBehavior.cpp
-
-
-
-
-
 
 
 
