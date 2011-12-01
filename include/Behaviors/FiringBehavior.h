@@ -1,0 +1,4 @@
+#ifndef FIRINGBEHAVIOR_H
+#define FIRINGBEHAVIOR_H
+
+#endif // FIRINGBEHAVIOR_H

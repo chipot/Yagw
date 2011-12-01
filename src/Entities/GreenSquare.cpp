@@ -7,6 +7,8 @@ GreenSquare::GreenSquare() {
     initPath();
     score = 20;
     this->_boundindrect = path.boundingRect();
+    this->_pen = QPen(QColor("green"));
+    this->_pen.setWidth(1);
 }
 
 void GreenSquare::initPath() {
@@ -14,9 +16,7 @@ void GreenSquare::initPath() {
 }
 
 void GreenSquare::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {
-    QPen pen(QColor("green"));
-    pen.setWidth(2);
-    painter->setPen(pen);
+    painter->setPen(this->_pen);
     painter->drawPath(this->path);
 }
 
