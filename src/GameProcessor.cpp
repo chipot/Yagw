@@ -5,13 +5,14 @@
 #include "EntityFactory.h"
 #include "Score.h"
 #include "Entity.h"
-#include "WallBehavior.h"
+#include "Profile.h"
+
 #include "Behaviors/BasicFollowingBehavior.h"
 #include "Behaviors/FollowingRotationBehavior.h"
-#include "Behaviors/KeyboardFireBehavior.h"
+#include "Behaviors/KeyboardMultipleFireBehavior.h"
 #include "Behaviors/KeyboardMoveBehavior.h"
 #include "Behaviors/KeyboardRotationBehavior.h"
-#include "Profile.h"
+#include "Behaviors/GrowingBehavior.h"
 
 GameProcessor::GameProcessor(YagwScene &ygws)
   : scene(ygws), player(0), disclaimer(0) {
@@ -79,7 +80,7 @@ void GameProcessor::advance()
 void GameProcessor::setPlayer()
 {
     KeyboardMoveBehavior *playerMoveBehavior = new KeyboardMoveBehavior();
-    KeyboardFireBehavior *playerShootBehavior = new KeyboardFireBehavior();
+    KeyboardMultipleFireBehavior *playerShootBehavior = new KeyboardMultipleFireBehavior(150, 3, 16);
     KeyboardRotationBehavior *playerRotationBehavior = new KeyboardRotationBehavior();
 
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)), playerMoveBehavior, SLOT(keyPressEvent(QKeyEvent*)));
@@ -204,8 +205,9 @@ void GameProcessor::spawnEnnemy1() {
     Entity *entity = EntityFactory::getEntity("greensquare");
 
     BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
+    GrowingBehavior *growing = new GrowingBehavior(1, 3);
 
-    Profile *profile = new Profile(moveBehavior);
+    Profile *profile = new Profile(moveBehavior, 0, 0, growing);
     QPointF entityPosition = randomPosition();
     entity->setScene(&scene);
     entity->setProfile(profile);
@@ -218,8 +220,9 @@ void GameProcessor::spawnEnnemy2() {
 
     FollowingRotationBehavior *rotationBehavior = new FollowingRotationBehavior(entity, player, 270);
     BasicFollowingBehavior *moveBehavior = new BasicFollowingBehavior(entity, player);
+    GrowingBehavior *growing = new GrowingBehavior();
 
-    Profile *profile = new Profile(moveBehavior, rotationBehavior);
+    Profile *profile = new Profile(moveBehavior, rotationBehavior, 0, growing);
     QPointF entityPosition = randomPosition();
     entity->setScene(&scene);
     entity->setProfile(profile);
@@ -253,7 +256,7 @@ void GameProcessor::playerDead() {
 void GameProcessor::checkCollidings()
 {
     QSet<QGraphicsItem*> to_delete;
-    QList<QGraphicsItem*> used_fire;
+    QSet<QGraphicsItem*> used_fire;
     QGraphicsItem *item;
     int size = 0;
 
@@ -270,6 +273,7 @@ void GameProcessor::checkCollidings()
       }
     foreach(item, used_fire)
       {
+        qDebug() << "remove fire";
         scene.removeItem((item));
         this->fire.removeOne(static_cast<Entity*>(item));
         delete item;
@@ -355,10 +359,9 @@ void GameProcessor::affDelimiters() {
     walls.append(new QPair<GameProcessor::_dir, Entity*>(GameProcessor::B, delimDown));
 }
 
-void GameProcessor::newGridVertical(char *name, FireBehavior *GridLineBehavior, int i)
+void GameProcessor::newGridVertical(char *name, int i)
 {
     Entity *delimUp = EntityFactory::getEntity(name);
-    delimUp->setBehavior(GridLineBehavior);
     this->scene.addItem(delimUp);
     delimUp->setScene(&(this->scene));
     delimUp->moveBy(i, -1 * WINSIZE_Y/2);
@@ -366,8 +369,6 @@ void GameProcessor::newGridVertical(char *name, FireBehavior *GridLineBehavior, 
 
 void GameProcessor::affGrid()
 {
-    FireBehavior *GridLineBehavior = new FireBehavior();
-    GridLineBehavior->setRotationSpeed(0);
 
     /* Toutes les verticales */
     int i;
@@ -375,14 +376,14 @@ void GameProcessor::affGrid()
     while(i < WINSIZE_X/2)
     {
         if (i != 0) //A SUPPRIMER sert à éviter le segfault des collisions
-        newGridVertical((char *)"gridvert1", GridLineBehavior, i);
+        newGridVertical((char *)"gridvert1", i);
         i += 50;
     }
     i = -1 * WINSIZE_Y/2;
     while(i < WINSIZE_Y/2)
     {
         if (i != 0) //A SUPPRIMER sert à éviter le segfault des collisions
-        newGridVertical((char *)"gridvert1", GridLineBehavior, i);
+        newGridVertical((char *)"gridvert1", i);
         i += 50;
     }
 

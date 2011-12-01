@@ -7,7 +7,6 @@
 #include <QPair>
 
 #include "YagwScene.h"
-#include "FireBehavior.h"
 
 #include "Entities/Pacman.h"
 
@@ -48,7 +47,7 @@ public :
     void createDisclaimer(const QString &);
     QPointF randomDirection();
     QPointF randomPosition();
-    void newGridVertical(char *name, FireBehavior *GridLineBehavior, int i);
+    void newGridVertical(char*, int);
     void playerDead();
     bool isWall(const Entity *);
     void stop();

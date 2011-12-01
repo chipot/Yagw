@@ -11,19 +11,20 @@
 class KeyboardFireBehavior : public QObject, public ShootBehavior
 {
 Q_OBJECT
-private :
+protected :
     QPointF fireDirection;
     QTime time;
     int fireFrequency;
 
 public :
-    KeyboardFireBehavior();
+    KeyboardFireBehavior(int fireFrequency = 150);
     virtual ~KeyboardFireBehavior();
     void setFireFrequency(int frequency);
     void shoot();
 
-private:
+protected:
     Entity *createFire(QPointF);
+    virtual void fire();
 
 signals :
     void fireLaunched(Entity*);

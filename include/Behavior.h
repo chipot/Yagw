@@ -11,14 +11,10 @@ class Behavior
   public:
     Behavior(Entity *ent = 0) : entity(ent) {}
     virtual ~Behavior(){}
-    virtual void behave(Entity*) = 0;
     void setEntity(Entity *ent) {this->entity = ent;}
     virtual void init(){}
   protected:
     Entity *entity;
-    int angle;
-    int rotationSpeed;
-    int moveSpeed;
 };
 
 #endif // BEHAVIOR_H

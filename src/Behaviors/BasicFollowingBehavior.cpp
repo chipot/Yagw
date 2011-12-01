@@ -1,21 +1,11 @@
 #include "Behaviors/BasicFollowingBehavior.h"
-
-QPointF BasicFollowingBehavior::calcDirection(QPointF firstPoint, QPointF secondPoint)
-{
-    QPointF vector(secondPoint.x() - firstPoint.x(), secondPoint.y() - firstPoint.y());
-    QVector2D dir(vector);
-    dir.normalize();
-    return (QPointF(dir.x(), dir.y()));
-}
+#include "Calculator.h"
 
 void BasicFollowingBehavior::move()
 {
-    qDebug() << entity->getMove();
     if (entity) {
-        entity->setMove(
-                    calcMove(BasicFollowingBehavior::calcDirection(entity->pos(),
-                                           target->pos()),
-                             entity->getSpeed()));
+        QVector2D direction = Calculator::calcDirectionVector(entity->pos(), target->pos());
+        entity->setMove(calcMove(direction.toPointF(), entity->getSpeed()));
     }
 
 }

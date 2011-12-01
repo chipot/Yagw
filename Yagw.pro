@@ -20,8 +20,6 @@ HEADERS += \
     include/Score.h\
     include/Behavior.h \
     include/FireBehavior.h \
-    include/WallBehavior.h \
-    include/PlayerBehavior.h \
     include/singleton.hpp\
     include/SoundCenter.h \
     include/GameProcessor.h \
@@ -51,16 +49,18 @@ HEADERS += \
     include/Behaviors/KeyboardFireBehavior.h \
     include/Behaviors/SimpleMoveBehavior.h \
     include/Behaviors/BasicFollowingBehavior.h \
-    include/Behaviors/FollowingRotationBehavior.h
+    include/Behaviors/FollowingRotationBehavior.h \
+    include/Behaviors/KeyboardDoubleFireBehavior.h \
+    include/Calculator.h \
+    include/Behaviors/KeyboardMultipleFireBehavior.h \
+    include/Behaviors/FireCollisionBehavior.h \
+    include/Behaviors/GrowingBehavior.h
 
 
 SOURCES += src/main.cpp \
     src/Score.cpp\
     src/YagwScene.cpp \
     src/SoundCenter.cpp \
-    src/FireBehavior.cpp \
-    src/WallBehavior.cpp \
-    src/PlayerBehavior.cpp \
     src/Entity.cpp \
     src/GameProcessor.cpp \
     src/EntityFactory.cpp \
@@ -88,7 +88,31 @@ SOURCES += src/main.cpp \
     src/Behaviors/KeyboardFireBehavior.cpp \
     src/Behaviors/SimpleMoveBehavior.cpp \
     src/Behaviors/BasicFollowingBehavior.cpp \
-    src/Behaviors/FollowingRotationBehavior.cpp
+    src/Behaviors/FollowingRotationBehavior.cpp \
+    src/Behaviors/KeyboardDoubleFireBehavior.cpp \
+    src/Behaviors/KeyboardMultipleFireBehavior.cpp \
+    src/Behaviors/GrowingBehavior.cpp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

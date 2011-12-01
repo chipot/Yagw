@@ -50,4 +50,11 @@ public :
 
 };
 
+class CollisionBehavior : public Behavior {
+public :
+    CollisionBehavior(){}
+    virtual ~CollisionBehavior(){}
+    virtual void collide() = 0;
+};
+
 #endif // BEHAVIORS_H

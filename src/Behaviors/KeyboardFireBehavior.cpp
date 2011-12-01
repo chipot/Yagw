@@ -6,11 +6,9 @@
 #include "Behaviors/SimpleMoveBehavior.h"
 #include "YagwScene.h"
 
-KeyboardFireBehavior::KeyboardFireBehavior() : fireDirection(QPointF(0,0)), time(QTime()), fireFrequency(1000/6)
+KeyboardFireBehavior::KeyboardFireBehavior(int frequency) : fireDirection(QPointF(0,0)), time(QTime()), fireFrequency(frequency)
 {
     time.start();
-    qDebug() << "instance fireBehavior";
-
 }
 
 KeyboardFireBehavior::~KeyboardFireBehavior(){
@@ -30,16 +28,19 @@ Entity *KeyboardFireBehavior::createFire(QPointF direction) {
     return fire;
 }
 
+void KeyboardFireBehavior::fire() {
+    using namespace std;
+    Entity *fire = createFire(fireDirection);
+    QRectF brect = this->entity->boundingRect();
+    qreal s = max(brect.height(), brect.width());
+    s *= 1.4;
+    fire->moveBy(entity->pos().x() + fireDirection.x() * s, entity->pos().y() + fireDirection.y() * s);
+}
 
 void KeyboardFireBehavior::shoot() {
-    if (fireDirection.x() != 0 || fireDirection.y() != 0) {
+    if (entity && (fireDirection.x() != 0 || fireDirection.y() != 0)) {
         if (time.elapsed() > fireFrequency) {
-            using namespace std;
-            Entity *fire = createFire(fireDirection);
-            QRectF brect = this->entity->boundingRect();
-            qreal s = max(brect.height(), brect.width());
-            s *= 1.4;
-            fire->moveBy(entity->pos().x() + fireDirection.x() * s, entity->pos().y() + fireDirection.y() * s);
+            this->fire();
             time.restart();
         }
     }

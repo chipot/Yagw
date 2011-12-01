@@ -17,14 +17,12 @@
 
 #define PI 3.14159265f
 
-class Behavior;
 class YagwScene;
 
 class Entity : public QGraphicsItem
 {
 protected :
 
-    Behavior *behavior;
     Profile *profile;
     QPainterPath path;
     YagwScene *parentScene;
@@ -56,7 +54,6 @@ public:
     void setMove(QPointF);
     void setRotation(int);
     void setScene(YagwScene*);
-    void setBehavior(Behavior*);
     void setSpeed(float);
     void setProfile(Profile*);
     void setRotationSpeed(int speed);

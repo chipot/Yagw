@@ -3,7 +3,7 @@
 #include "Score.h"
 
 Entity::Entity(Profile *_profile) :
-    QGraphicsItem(), behavior(0), profile(_profile),
+    QGraphicsItem(), profile(_profile),
     parentScene(0), move(QPointF(0,0)), spawnTime(new QTime()),
     spawnShield(true), rotation(0), speed(100), score(0),
     rotationSpeed(0), lives(1), time(QTime())
@@ -14,7 +14,6 @@ Entity::Entity(Profile *_profile) :
 
 Entity::Entity(YagwScene *scene) : QGraphicsItem() {
     move = QPointF(0,0);
-    behavior = NULL;
     parentScene = scene;
     spawnTime = new QTime();
     spawnTime->start();
@@ -31,7 +30,6 @@ void Entity::setLives(const int l)
 Entity::~Entity()
 {
   Score::get_instance()->inc(this->score);
-  delete behavior;
   delete profile;
 }
 
@@ -65,13 +63,6 @@ void Entity::advance (int phase) {
             this->setPos(pos() + move);
             this->rotate(rotation);
         }
-    } else if (behavior) {
-        if (phase == 0)
-            behavior->behave(this);
-        if (phase == 1) {
-            this->setPos(pos() + this->calcMove());
-            this->rotate(rotation);
-        }
     }
 }
 
@@ -81,13 +72,6 @@ YagwScene *Entity::getScene() const {
 
 void Entity::setScene(YagwScene *scene) {
     this->parentScene = scene;
-}
-
-void Entity::setBehavior(Behavior *behavior) {
-    if (this->behavior != NULL) {
-        delete this->behavior;
-    }
-    this->behavior = behavior;
 }
 
 void Entity::setMove(QPointF move) {

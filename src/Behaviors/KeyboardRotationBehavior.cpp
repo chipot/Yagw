@@ -2,11 +2,11 @@
 #include "YagwScene.h"
 
 
-/*
+
 uint qHash(QPointF const &ptr) {
     return (ptr.x() * 1000 + ptr.y());
 }
-*/
+
 
 KeyboardRotationBehavior::KeyboardRotationBehavior() :
     angle(90), orientation(QPointF(0,0))
