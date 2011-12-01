@@ -33,6 +33,7 @@ Entity::~Entity()
 {
   Score::get_instance()->inc(this->score);
   delete profile;
+  delete spawnTime;
 }
 
 bool    Entity::die()
