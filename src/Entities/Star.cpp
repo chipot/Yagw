@@ -7,6 +7,7 @@ static const float Pi = 3.14159f;
 Star::Star() {
     speed = 1;
     initPath();
+    this->_boundindrect = path.boundingRect();
 }
 
 void Star::initPath() {

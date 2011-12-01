@@ -102,8 +102,10 @@ void GameProcessor::setPlayer()
 {
 
     KeyboardMoveBehavior *playerMoveBehavior = new KeyboardMoveBehavior();
-    KeyboardMultipleFireBehavior *playerShootBehavior = new KeyboardMultipleFireBehavior(150, 3, 16);
-    KeyboardRotationBehavior *playerRotationBehavior = new KeyboardRotationBehavior();
+    KeyboardMultipleFireBehavior *playerShootBehavior = 
+        new KeyboardMultipleFireBehavior(150, 3, 16);
+    KeyboardRotationBehavior *playerRotationBehavior = 
+        new KeyboardRotationBehavior();
 
     QObject::connect(&scene, SIGNAL(forwardKeyPressEvent(QKeyEvent*)),
                      playerMoveBehavior, SLOT(keyPressEvent(QKeyEvent*)));
@@ -121,7 +123,7 @@ void GameProcessor::setPlayer()
     Profile *playerProfile = new Profile(playerMoveBehavior, playerRotationBehavior, playerShootBehavior);
 
     player = EntityFactory::getEntity("spaceship");
-    qDebug() << "player set";
+    qDebug() << "Player addr:" << (void*)player;
     if (player != NULL) {
         player->setProfile(playerProfile);
         scene.addItem(player);
@@ -130,12 +132,12 @@ void GameProcessor::setPlayer()
         scene.setFocusItem(player);
     }
 
-    qDebug() << "player set";
  }
 
 
 void GameProcessor::stop()
 {
+  Score::get_instance()->saveScore();
   this->player = 0;
   gameTimer->stop();
   gameTimer->disconnect();
@@ -173,6 +175,7 @@ void GameProcessor::displayLifes()
 
 void GameProcessor::start(int framePerSecond)
 {
+  cfg.parseFile();
   this->turn = 0;
   this->playerLifes = 3;
   this->displayLifes();
@@ -184,6 +187,7 @@ void GameProcessor::start(int framePerSecond)
   gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
   gameTimer->start(framePerSecond);
   this->setPlayer();
+  this->gia.designProfiles();
 }
 
 void GameProcessor::spawnEntity(Entity *entity, QPointF position) {
@@ -219,8 +223,11 @@ void GameProcessor::playerDead() {
 
   scene.removeItem(this->player);
   delete this->player;
-  if (--playerLifes > 0)
+  if (--playerLifes > 0) {
+  {
     this->setPlayer();
+    this->gia.designProfiles();
+  }
   else
     this->stop();
   this->displayLifes();
@@ -228,65 +235,87 @@ void GameProcessor::playerDead() {
 
 void GameProcessor::checkCollidings()
 {
-    QSet<QGraphicsItem*> to_delete;
-    QSet<QGraphicsItem*> tmpl;
-    QGraphicsItem *item;
-    QGraphicsItem *tmpi;
-    int size = 0;
+  QList<QGraphicsItem*> to_delete;
+  QGraphicsItem *item = 0;
+  int size = 0;
 
-    foreach(item, this->fire)
+  foreach(item, this->fire)
+  {
+    QList<QGraphicsItem*> const &collideList = item->collidingItems();
+    QGraphicsItem *collideIt = 0;
+    foreach (collideIt, collideList)
+    {
+      Entity const *currentEntity = static_cast<Entity*>(collideIt);
+      if (currentEntity->getType() != Entity::bullet)
+        to_delete += collideIt;
+    }
+    if ((size != to_delete.size()) || (std::abs(item->x()) > WINSIZE_X / 2)
+         || (std::abs(item->y()) > WINSIZE_Y / 2))
+    {
+      to_delete << item;
+      size = to_delete.size();
+    }
+  }
+
+  foreach(item, to_delete)
+  {
+    Entity *currentEntity = static_cast<Entity*>(item); // not const because of call to die
+    if (currentEntity == this->player || currentEntity->die() == false)
+      continue;
+    if (currentEntity->getType() == Entity::bullet)
       {
-        tmpl = QSet<QGraphicsItem*>::fromList(item->collidingItems());
-        foreach (tmpi, tmpl)
-          {
-            if (static_cast<Entity *>(tmpi)->getType() != Entity::bullet)
-              to_delete += tmpi;
-          }
-        if ((size != to_delete.size() ||
-             std::abs(item->x()) > WINSIZE_X / 2 ||
-             std::abs(item->y()) > WINSIZE_Y / 2))
-          {
-            to_delete << item;
-            size = to_delete.size();
-          }
-      }
-    foreach(item, to_delete)
-      {
-        if (static_cast<Entity*>(item) == this->player || !static_cast<Entity*>(item)->die())
-          continue;
         scene.removeItem(item);
-        if (static_cast<Entity*>(item)->getType() == Entity::bullet)
-          this->fire.removeOne(static_cast<Entity*>(item));
-        else
-          this->entities.removeOne(static_cast<Entity*>(item));
-        delete item;
+        this->fire.removeOne(currentEntity);
+        delete currentEntity;
       }
-        QPair<GameProcessor::_dir, Entity*> * pair;
-    foreach(pair, walls)
+    else
+      {
+        this->entities.removeOne(currentEntity);
+        currentEntity->explode();
+      }
+  }
+
+  QPair<GameProcessor::_dir, Entity*> const * pair = 0;
+  foreach(pair, walls)
+  {
       foreach(item, pair->second->collidingItems())
-          {
-            if (isWall(static_cast<Entity*>(item)))
-              continue;
-            if (pair->first == GameProcessor::L)
-              item->moveBy(std::abs(static_cast<Entity*>(item)->getMove().x()) + 1, 0);
-            else if (pair->first == GameProcessor::R)
-              item->moveBy(-(std::abs(static_cast<Entity*>(item)->getMove().x()) + 1), 0);
-            else if (pair->first == GameProcessor::B)
-              item->moveBy(0, -(std::abs(static_cast<Entity*>(item)->getMove().y()) + 1));
-            else if (pair->first == GameProcessor::T)
-              item->moveBy(0, (std::abs(static_cast<Entity*>(item)->getMove().y()) + 1));
-          }
-    if (player->shielded())
-        return;
-    QList<QGraphicsItem*> collidingItems = this->player->collidingItems();
-    if (this->player && collidingItems.size() != 0) {
-        foreach(item, collidingItems) {
-            if (!static_cast<Entity*>(item)->shielded()) {
-                scene.removeItem((item));
-                this->entities.removeOne(static_cast<Entity*>(item));
-                delete item;
-                this->playerDead();
-                break;
+      {
+        Entity const * currentEntity = static_cast<Entity*>(item);
+        if (isWall(currentEntity))
+          continue;
+        switch (pair->first)
+        {
+          case GameProcessor::L:
+            item->moveBy(std::abs(currentEntity->getMove().x()) + 1, 0);
+            break;
+          case GameProcessor::R:
+            item->moveBy(-(std::abs(currentEntity->getMove().x()) + 1), 0);
+            break;
+          case GameProcessor::B:
+            item->moveBy(0, -(std::abs(currentEntity->getMove().y()) + 1));
+            break;
+          case GameProcessor::T:
+            item->moveBy(0, (std::abs(currentEntity->getMove().y()) + 1));
+            break;
+          default:
+            break;
+        }
+      }
+  }
+
+  if (player != 0 && player->shielded() == false)
+    {
+      QList<QGraphicsItem*> const &collidingItems = this->player->collidingItems();
+      foreach(item, collidingItems)
+        {
+          Entity *currentEntity = static_cast<Entity*>(item);
+          if (currentEntity->shielded() == false)
+            {
+              scene.removeItem(item);
+              this->entities.removeOne(currentEntity);
+              delete item;
+              this->playerDead();
+              break;
             }
         }
     }
@@ -360,7 +389,10 @@ void GameProcessor::affGrid()
         newGridVertical((char *)"gridvert1", i);
         i += 50;
     }
+}
 
+ConfManager *GameProcessor::getConfig() {
+    return &cfg;
 }
 
 void GameProcessor::setBloom()

@@ -25,7 +25,7 @@ void FollowingRotationBehavior::init() {
     }
 }
 
-FollowingRotationBehavior *FollowingRotationBehavior::copy() const {
+FollowingRotationBehavior *FollowingRotationBehavior::copy() {
     return new FollowingRotationBehavior(0, target, angle);
 }
 

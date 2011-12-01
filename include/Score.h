@@ -24,6 +24,7 @@ class Score: public moost::singleton<Score>
     unsigned int getMax() const;
     void        reset();
     void        inc(int);
+    void        saveScore();
   private:
     Score();
     unsigned int current;

@@ -5,6 +5,10 @@
 Spaceship::Spaceship() {
     speed = 200;
     initPath();
+    this->_boundindrect = path.boundingRect();
+    this->_pen = QPen(QColor("red"));
+    this->_pen.setWidth(2);
+
 }
 
 void Spaceship::initPath() {
@@ -30,9 +34,7 @@ QRectF Spaceship::boundingRect() const {
 }
 
 void Spaceship::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0) {
-    QPen pen(QColor(200, 0, 0));
-    pen.setWidth(3);
-    painter->setPen(pen);
+    painter->setPen(this->_pen);
     painter->drawPath(this->path);
 }
 

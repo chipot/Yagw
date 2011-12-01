@@ -5,7 +5,6 @@
 
 YagwScene::YagwScene(QObject *parent) :
   QGraphicsScene(parent) {
-  qDebug() << "instance scene";
   this->setSceneRect(-500,-500,1000,1000);
   this->setItemIndexMethod(NoIndex);
   setBackgroundImage();
@@ -16,6 +15,8 @@ void YagwScene::keyReleaseEvent(QKeyEvent *event) {
 }
 
 void YagwScene::keyPressEvent(QKeyEvent *event) {
+    if (event->key() == Qt::Key_Escape)
+      emit quit();
     emit forwardKeyPressEvent(event);
 }
 

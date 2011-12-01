@@ -12,6 +12,8 @@
 #include <QQueue>
 #include <QVector2D>
 #include <QTime>
+#include <QTimer>
+#include <QSharedPointer>
 #include <math.h>
 #include "Profile.h"
 
@@ -19,9 +21,17 @@
 
 class YagwScene;
 
-class Entity : public QGraphicsItem
+class Entity : public QObject, public QGraphicsItem
 {
-protected :
+    Q_OBJECT
+
+ public:
+    enum kind
+    {
+      bullet,
+      unknow
+    };
+ protected :
     Profile *profile;
     QPainterPath path;
     YagwScene *parentScene;
@@ -36,42 +46,48 @@ protected :
     QTime time;
     int orientation;
     QString index;
+    QRectF _boundindrect;
+    kind type;
+    QPen _pen;
+    QBrush _brush;
+  private:
+    bool is_exploding;
+    QTimer  *timer;
 
-public:
-    enum kind {bullet, unknow};
+ public:
     Entity(Profile *profile = 0, const char* name="");
-    Entity::kind getType(){return this->type;}
+    Entity::kind getType() const {return this->type;}
     void setType(kind k){this->type = k;}
     virtual ~Entity();
     Entity(YagwScene*);
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
     void advance (int);
-
+    void explode();
     const QPointF &getMove() const;
     int getRotation() const;
     YagwScene *getScene() const;
     float getSpeed() const;
     int getRotationSpeed() const;
     int getOrientation() const;
-    const QString &getIndex() const;
-
+    QString getIndex() const;
     void setMove(QPointF);
     void setRotation(int);
     void setScene(YagwScene*);
     void setSpeed(float);
     void setProfile(Profile*);
     void setRotationSpeed(int speed);
-    void setIndex(const char *);
+    void setIndex(QString);
 
     QPointF calcMove();
     int timeSinceSpawn() const;
     bool shielded();
     bool die();
     void setLives(const int);
-private:
-    kind type;
-};
+  public slots:
+    void finishExplode();
+ };
 
+typedef QSharedPointer<Entity> EntityPtr;
 
 #endif // ENTITY_H

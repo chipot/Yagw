@@ -8,13 +8,12 @@ class Shuriken : public Entity
 private :
     // private methods
     void initPath();
-    QPointF direction;
 
 public:
     Shuriken();
-    QRectF boundingRect() const;
+    virtual ~Shuriken(){}
+//    QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
-    void setDirection(QPointF &direction);
 };
 
 

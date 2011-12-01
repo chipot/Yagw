@@ -36,6 +36,7 @@ signals:
    void newEntity(Entity*);
    void newFire(Entity*);
    void phase2();
+   void quit();
 public slots:
     void advance();
 

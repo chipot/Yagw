@@ -4,15 +4,12 @@
 
 GameDelimiterHorizontal::GameDelimiterHorizontal() {
     initPath();
+    this->_boundindrect = path.boundingRect();
 }
 
 void GameDelimiterHorizontal::initPath() {
     path.lineTo(1000, 0);
     path.closeSubpath();
-}
-
-QRectF GameDelimiterHorizontal::boundingRect() const {
-    return this->path.boundingRect();
 }
 
 void GameDelimiterHorizontal::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0) {

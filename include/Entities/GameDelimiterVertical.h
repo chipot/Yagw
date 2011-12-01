@@ -11,7 +11,7 @@ private:
 
 public:
     GameDelimiterVertical();
-    QRectF boundingRect() const;
+    virtual ~GameDelimiterVertical(){};
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
 };
 

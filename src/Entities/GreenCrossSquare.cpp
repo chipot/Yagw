@@ -5,7 +5,10 @@
 GreenCrossSquare::GreenCrossSquare() {
     speed = 2;
     initPath();
+    this->_boundindrect = path.boundingRect();
     score = 22;
+    this->_pen = QPen(QColor("magenta"));
+    _pen.setWidth(1);
 }
 
 void GreenCrossSquare::initPath() {
@@ -21,9 +24,7 @@ void GreenCrossSquare::paint(QPainter *painter,
                         QStyleOptionGraphicsItem const * option,
                         QWidget *widget = 0)
 {
-    QPen pen(QColor("magenta"));
-    pen.setWidth(2);
-    painter->setPen(pen);
+    painter->setPen(this->_pen);
     painter->drawPath(this->path);
 }
 

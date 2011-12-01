@@ -26,7 +26,8 @@ void SimpleMoveBehavior::init() {
         entity->setSpeed(speed);
 }
 
-SimpleMoveBehavior *SimpleMoveBehavior::copy() const {
+SimpleMoveBehavior *SimpleMoveBehavior::copy() {
+    qDebug() << "simple move";
     return new SimpleMoveBehavior(direction, speed);
 }
 

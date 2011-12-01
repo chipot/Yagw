@@ -22,7 +22,7 @@ class GameIA
     GameIA(GameProcessor &, int, int, Entity *&);
     virtual ~GameIA(){}
     void advance(const int turn, const int score);
-    void setProfile(const char*, Profile*);
+    void setProfile(QString, Profile*);
     void designProfiles();
   private:
     QPointF randomDirection();

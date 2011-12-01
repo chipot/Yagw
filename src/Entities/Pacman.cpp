@@ -8,7 +8,11 @@ Pacman::Pacman() {
     speed = 1;
     orientation = 270;
     initPath();
+    this->_boundindrect = path.boundingRect();
     score = 42;
+    this->_pen = QPen(QColor("Yellow"));
+    this->_pen.setWidth(2);
+
 }
 
 void Pacman::initPath() {
@@ -23,9 +27,7 @@ void Pacman::paint(QPainter *painter,
                         QStyleOptionGraphicsItem const * option,
                         QWidget *widget = 0)
 {
-    QPen pen(QColor("Yellow"));
-    pen.setWidth(2);
-    painter->setPen(pen);
+    painter->setPen(this->_pen);
     painter->drawPath(this->path);
 }
 
