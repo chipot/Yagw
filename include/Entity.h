@@ -43,7 +43,7 @@ protected :
 
 public:
     Entity(Profile *profile = 0, const char* name="");
-    Entity::kind getType(){return this->type;}
+    Entity::kind getType() const {return this->type;}
     void setType(kind k){this->type = k;}
     virtual ~Entity();
     Entity(YagwScene*);
