@@ -130,6 +130,7 @@ void GameProcessor::setPlayer()
 
 void GameProcessor::stop()
 {
+  Score::get_instance()->saveScore();
   this->player = 0;
   gameTimer->stop();
   gameTimer->disconnect();
