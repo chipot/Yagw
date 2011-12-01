@@ -119,6 +119,7 @@ void GameProcessor::setPlayer()
     Profile *playerProfile = new Profile(playerMoveBehavior, playerRotationBehavior, playerShootBehavior);
 
     player = EntityFactory::getEntity("spaceship");
+    qDebug() << "Player addr:" << (void*)player;
     if (player != NULL) {
         player->setProfile(playerProfile);
         scene.addItem(player);
@@ -219,7 +220,9 @@ void GameProcessor::playerDead() {
   scene.removeItem(this->player);
   delete this->player;
   if (--playerLifes > 0) {
+  {
     this->setPlayer();
+    this->gia.designProfiles();
   }
   else
     this->stop();
