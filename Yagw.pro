@@ -20,15 +20,12 @@ HEADERS += \
     include/Entity.h \
     include/Score.h\
     include/Behavior.h \
-    include/FireBehavior.h \
     include/singleton.hpp\
     include/SoundCenter.h \
     include/GameProcessor.h \
     include/EntityFactory.h \
     include/ProfileFactory.h \
     include/Registry.h \
-    include/SimpleFollowingBehavior.h \
-    include/EnnemyBehavior.h \
     include/Entities/Ship.h \
     include/Entities/Shuriken.h \
     include/Entities/GreenSquare.h \
@@ -68,8 +65,6 @@ SOURCES += src/main.cpp \
     src/GameProcessor.cpp \
     src/EntityFactory.cpp \
     src/ProfileFactory.cpp \
-    src/SimpleFollowingBehavior.cpp \
-    src/EnnemyBehavior.cpp \
     src/Entities/Spaceship.cpp \
     src/Entities/Shuriken.cpp \
     src/Entities/Ship.cpp \
@@ -96,6 +91,11 @@ SOURCES += src/main.cpp \
     src/Behaviors/KeyboardDoubleFireBehavior.cpp \
     src/Behaviors/KeyboardMultipleFireBehavior.cpp \
     src/Behaviors/GrowingBehavior.cpp
+
+
+
+
+
 
 
 
