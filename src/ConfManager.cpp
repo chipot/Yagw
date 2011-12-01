@@ -1,5 +1,5 @@
 #include "ConfManager.h"
-
+#include <QDebug>
 
 void ConfManager::parseFile() {
     QFile file(fileName);
@@ -27,10 +27,16 @@ void ConfManager::parseLine(QString line) {
 }
 
 void ConfManager::setDefault() {
-    map.insert("greensquare", "following");
-    map.insert("greencrosssquare", "followinggrowing");
-    map.insert("pacman", "followingrotating");
-    map.insert("shuriken", "rapidefollowing");
-    map.insert("star", "immobilefiring");
-    map.insert("ship", "charging");
+    map.insert("greencrosssquare", "following");
+    map.insert("greensquare", "followingGrowing");
+    map.insert("pacman", "followingRotating");
+    map.insert("shuriken", "charging");
+    map.insert("star", "immobileFiring");
+}
+
+QString ConfManager::getProfileIndex(QString entityIndex) const {
+    if (map.contains(entityIndex)) {
+        return map[entityIndex];
+    }
+    return "";
 }

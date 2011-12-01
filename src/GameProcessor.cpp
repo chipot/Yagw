@@ -117,7 +117,6 @@ void GameProcessor::setPlayer()
     Profile *playerProfile = new Profile(playerMoveBehavior, playerRotationBehavior, playerShootBehavior);
 
     player = EntityFactory::getEntity("spaceship");
-    qDebug() << "player set";
     if (player != NULL) {
         player->setProfile(playerProfile);
         scene.addItem(player);
@@ -126,7 +125,6 @@ void GameProcessor::setPlayer()
         scene.setFocusItem(player);
     }
 
-    qDebug() << "player set";
  }
 
 
@@ -180,6 +178,7 @@ void GameProcessor::start(int framePerSecond)
   gameTimer->connect(gameTimer, SIGNAL(timeout()), &scene, SLOT(advance()));
   gameTimer->start(framePerSecond);
   this->setPlayer();
+  this->gia.designProfiles();
 }
 
 void GameProcessor::spawnEntity(Entity *entity, QPointF position) {
@@ -374,5 +373,8 @@ void GameProcessor::affGrid()
         newGridVertical((char *)"gridvert1", i);
         i += 50;
     }
+}
 
+ConfManager *GameProcessor::getConfig() {
+    return &cfg;
 }

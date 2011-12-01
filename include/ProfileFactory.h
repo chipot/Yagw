@@ -14,13 +14,12 @@
 class ProfileFactory
 {
 private :
-    QMap<const char*, Profile*> profiles;
+    QMap<QString, Profile*> profiles;
 public :
     ProfileFactory(){}
     ~ProfileFactory(){}
-    void StoreProfile(const char*, Profile*);
-    Profile *getCopy(const char*) const;
-
+    void StoreProfile(QString, Profile*);
+    Profile *getCopy(QString);
 };
 
 
