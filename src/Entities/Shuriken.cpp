@@ -1,11 +1,9 @@
 #include "Entities/Shuriken.h"
 #include "Registry.h"
-#include "SoundCenter.h"
 
 Shuriken::Shuriken():Entity(){
   speed = 5;
     initPath();
-    SoundCenter::get_instance()->play("shoot");
 }
 
 void Shuriken::initPath() {

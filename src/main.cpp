@@ -25,6 +25,8 @@ int  main(int argc, char *argv[])
     view.setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
     view.show();
     view.setMouseTracking(false);
+    view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     app.setOverrideCursor( QCursor( Qt::BlankCursor ) );
     app.exec();
     return (0);

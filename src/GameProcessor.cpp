@@ -208,34 +208,36 @@ void GameProcessor::playerDead() {
 void GameProcessor::checkCollidings()
 {
     QSet<QGraphicsItem*> to_delete;
-    QSet<QGraphicsItem*> used_fire;
+    QSet<QGraphicsItem*> tmpl;
     QGraphicsItem *item;
+    QGraphicsItem *tmpi;
     int size = 0;
 
     foreach(item, this->fire)
       {
-        to_delete += QSet<QGraphicsItem*>::fromList(item->collidingItems());
-        if (size != to_delete.size() ||
-            std::abs(item->x()) > WINSIZE_X / 2 ||
-            std::abs(item->y()) > WINSIZE_Y / 2)
+        tmpl = QSet<QGraphicsItem*>::fromList(item->collidingItems());
+        foreach (tmpi, tmpl)
           {
-            used_fire << item;
+            if (static_cast<Entity *>(tmpi)->getType() != Entity::bullet)
+              to_delete += tmpi;
+          }
+        if ((size != to_delete.size() ||
+             std::abs(item->x()) > WINSIZE_X / 2 ||
+             std::abs(item->y()) > WINSIZE_Y / 2))
+          {
+            to_delete << item;
             size = to_delete.size();
           }
-      }
-    foreach(item, used_fire)
-      {
-        qDebug() << "remove fire";
-        scene.removeItem((item));
-        this->fire.removeOne(static_cast<Entity*>(item));
-        delete item;
       }
     foreach(item, to_delete)
       {
         if (static_cast<Entity*>(item) == this->player || !static_cast<Entity*>(item)->die())
           continue;
         scene.removeItem(item);
-        this->entities.removeOne(static_cast<Entity*>(item));
+        if (static_cast<Entity*>(item)->getType() == Entity::bullet)
+          this->fire.removeOne(static_cast<Entity*>(item));
+        else
+          this->entities.removeOne(static_cast<Entity*>(item));
         delete item;
       }
         QPair<GameProcessor::_dir, Entity*> * pair;

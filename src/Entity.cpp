@@ -6,12 +6,13 @@ Entity::Entity(Profile *_profile, const char *name) :
     QGraphicsItem(), profile(_profile),
     parentScene(0), move(QPointF(0,0)), spawnTime(new QTime()),
     spawnShield(true), rotation(0), speed(100), score(0),
-    rotationSpeed(0), lives(1), time(QTime()), orientation(90),
-    index(QString(name))
+    rotationSpeed(0), lives(1), time(QTime()),  orientation(90),
+    type(Entity::unknow), index(QString(name))
 {
     spawnTime->start();
     time.start();
 }
+
 
 Entity::Entity(YagwScene *scene) : QGraphicsItem() {
     move = QPointF(0,0);
