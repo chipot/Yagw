@@ -1,6 +1,8 @@
 #include <QDebug>
 #include <QPair>
 #include <QFileInfo>
+#include <QThread>
+
 #include "SoundCenter.h"
 
 SoundCenter::SoundCenter()
@@ -10,15 +12,16 @@ SoundCenter::SoundCenter()
             Phonon::MediaSource("ressource/background_music.mp3")))
 {
   this->music->play();
-  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
-  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
-  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
-  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
-  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.wav")));
-  data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.wav")));
-  data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.wav")));
-  data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.wav")));
-  data.insert("quack", new SoundPair(Phonon::MediaSource("./ressource/quack.wav")));
+  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.mp3")));
+  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.mp3")));
+  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.mp3")));
+  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.mp3")));
+  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.mp3")));
+  data.insert("shoot", new SoundPair(Phonon::MediaSource("./ressource/shoot.mp3")));
+  data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.mp3")));
+  data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.mp3")));
+  data.insert("kill", new SoundPair(Phonon::MediaSource("./ressource/kill.mp3")));
+  data.insert("quack", new SoundPair(Phonon::MediaSource("./ressource/quack.mp3")));
   connect(this->music, SIGNAL(aboutToFinish()), this, SLOT(loop()));
 }
 
@@ -32,24 +35,32 @@ SoundCenter::~SoundCenter()
   data.clear();
 }
 
-void SoundCenter::play(const QString &name)
+
+void SoundCenter::run()
 {
+  QString name = this->to_play;
   QList<SoundRelationMap::mapped_type> l = data.values(name);
   SoundRelationMap::mapped_type v;
   foreach (v, l)
-  {
-    if (v->state() == Phonon::PlayingState)
-      continue;
-    else
     {
-      v->play();
-      break;
+      if (v->state() == Phonon::PlayingState)
+        continue;
+      else
+        {
+          v->play();
+          break;
+        }
     }
-  }
+}
+
+void SoundCenter::play(const QString &name)
+{
+  this->to_play = name;
+  this->start();
 }
 
 void    SoundCenter::loop()
 {
-  this->music->enqueue(Phonon::MediaSource("./ressource/background_music.wav"));
+  this->music->enqueue(Phonon::MediaSource("./ressource/background_music.mp3"));
   //delete pair;
 }
