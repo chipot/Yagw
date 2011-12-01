@@ -13,9 +13,7 @@
 #define WINSIZE_X 1000
 #define WINSIZE_Y 1000
 
-#include "ConfManager.h"
 #include "GameIA.h"
-
 class GameIA;
 
 class GameProcessor : public QObject
@@ -36,7 +34,6 @@ private :
     QGraphicsSimpleTextItem * disclaimer;
     QGraphicsSimpleTextItem * score;
     GameIA      gia;
-    ConfManager  cfg;
 
 public :
     GameProcessor(YagwScene &ygwscene);
@@ -51,7 +48,13 @@ public :
 
     void displayLifes();
     void createDisclaimer(const QString &);
+<<<<<<< HEAD
+    QPointF randomDirection();
+    QPointF randomPosition();
     void newGridVertical(char*, int);
+=======
+    void newGridVertical(char *name, FireBehavior *GridLineBehavior, int i);
+>>>>>>> 5d36ad251f642d3c33de0b3a87d3a2e7bdd28d21
     void playerDead();
     bool isWall(const Entity *);
     void stop();

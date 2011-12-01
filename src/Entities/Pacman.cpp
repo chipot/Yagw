@@ -22,7 +22,9 @@ void Pacman::paint(QPainter *painter,
                         QStyleOptionGraphicsItem const * option,
                         QWidget *widget = 0)
 {
-    painter->setPen(QColor("red"));
+    QPen pen(QColor("Yellow"));
+    pen.setWidth(2);
+    painter->setPen(pen);
     painter->drawPath(this->path);
 }
 

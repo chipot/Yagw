@@ -86,3 +86,19 @@ void Profile::process() {
     transform();
 }
 
+Profile *Profile::copy() const {
+    MoveBehavior *moveB = 0;
+    RotationBehavior *rotB = 0;
+    ShootBehavior *shootB = 0;
+    TransformationBehavior *tB = 0;
+
+    if (moveBehavior)
+        moveB = moveBehavior->copy();
+    if (rotationBehavior)
+        rotB = rotationBehavior->copy();
+    if (shootBehavior)
+        shootB = shootBehavior->copy();
+    if (transformationBehavior)
+        tB = transformationBehavior->copy();
+    return new Profile(moveB, rotB, shootB, tB);
+}

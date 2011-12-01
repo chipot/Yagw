@@ -15,6 +15,7 @@ private:
         void setDirection(QPointF dir);
         void move();
         void init();
+        SimpleMoveBehavior *copy() const;
 };
 
 #endif // SIMPLEFIREBEHAVIOR_H

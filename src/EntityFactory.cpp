@@ -8,7 +8,9 @@ Entity *EntityFactory::getEntity(const char *name) {
     for (;it != ite; ++it) {
         Registry<Entity>::entry e = *it;
         if (strcmp(e.getName(), name) == 0) {
-            return (e.instantiate());
+            Entity *ent = e.instantiate();
+            ent->setIndex(e.getName());
+            return ent;
         }
     }
     return NULL;
@@ -33,12 +35,16 @@ Entity *EntityFactory::getRandom(int level) {
     it = Registry<Entity>::begin();
     ite = Registry<Entity>::end();
 
-    for (;it != ite; ++it) {
+    for (;it != ite; ++it)
+    {
       Registry<Entity>::entry e = *it;
       if (e.getDesc() && e.getDesc()[0] - '0' <= level)
         ++count;
-      if (count == val)
-        return e.instantiate();
+      if (count == val) {
+          Entity *ent = e.instantiate();
+          ent->setIndex(e.getName());
+          return ent;
+      }
     }
     return NULL;
 }

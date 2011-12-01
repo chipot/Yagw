@@ -8,22 +8,15 @@
 
 class MoveBehavior : public Behavior
 {
-public :
-    MoveBehavior() : time(QTime()), target(0) {time.start();}
-    virtual ~MoveBehavior(){}
-    virtual void move() = 0;
-    virtual void behave(Entity*){}
-    virtual QPointF calcMove(QPointF direction, int speed) {
-            float dist = speed * (float)(time.elapsed()/1000.0);
-            QVector2D vector(direction);
-            vector.normalize();
-            time.restart();
-            return (QPointF(vector.x(), vector.y())* dist);
-    }
-    void setTarget(Entity*e){target = e;}
 protected :
     QTime time;
     Entity *target;
+public :
+    MoveBehavior(Entity *ent = 0, Entity *t = 0) : Behavior(ent), time(QTime()), target(t) {time.start();}
+    virtual ~MoveBehavior(){}
+    virtual void move() = 0;
+    void setTarget(Entity *t) {target = t;}
+    virtual MoveBehavior *copy(){return 0;}
 
 };
 
@@ -32,19 +25,19 @@ public :
     ShootBehavior(){}
     virtual ~ShootBehavior(){}
     virtual void shoot() = 0;
-    virtual void behave(Entity*){}
-
+    virtual ShootBehavior *copy() const  {return 0;}
 };
 
 class RotationBehavior : public Behavior {
+protected :
+    Entity *target;
+
 public :
-    RotationBehavior():target(0){}
+    RotationBehavior(Entity *ent = 0, Entity *t = 0) : Behavior(ent), target(t) {}
     virtual ~RotationBehavior(){}
     virtual void rotate() = 0;
-    virtual void behave(Entity*){}
-    void setTarget(Entity*e){target = e;}
-  protected:
-    Entity *target;
+    void setTarget(Entity *t) {target = t;}
+    virtual RotationBehavior *copy() const {return 0;}
 };
 
 class TransformationBehavior : public Behavior {
@@ -52,7 +45,7 @@ public :
     TransformationBehavior(){}
     virtual ~TransformationBehavior(){}
     virtual void transform() = 0;
-    virtual void behave(Entity*){}
+    virtual TransformationBehavior *copy() const {return 0;}
 };
 
 class CollisionBehavior : public Behavior {

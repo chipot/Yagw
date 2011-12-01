@@ -1,11 +1,12 @@
 #include "Behaviors/GrowingBehavior.h"
 
 void GrowingBehavior::start() {
-    timer.connect(&timer, SIGNAL(timeout()), this, SLOT(changeSize()));
-    timer.start(growingDuration);
 }
 
 void GrowingBehavior::transform() {
+    if (!timer.isActive()) {
+        timer.start(growingDuration);
+    }
     if (entity) {
         if (growingUp == true) {
             entity->setScale(actualSize+scale);
@@ -19,4 +20,8 @@ void GrowingBehavior::transform() {
 
 void GrowingBehavior::changeSize() {
     growingUp = !growingUp;
+}
+
+GrowingBehavior *GrowingBehavior::copy() const {
+    return new GrowingBehavior(growingDuration, maxSize);
 }

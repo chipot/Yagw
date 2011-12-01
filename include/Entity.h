@@ -22,7 +22,6 @@ class YagwScene;
 class Entity : public QGraphicsItem
 {
 protected :
-
     Profile *profile;
     QPainterPath path;
     YagwScene *parentScene;
@@ -36,10 +35,11 @@ protected :
     int lives;
     QTime time;
     int orientation;
+    QString index;
 
 public:
 
-    Entity(Profile *profile = 0);
+    Entity(Profile *profile = 0, const char* name="");
     virtual ~Entity();
     Entity(YagwScene*);
     virtual QRectF boundingRect() const;
@@ -51,6 +51,8 @@ public:
     YagwScene *getScene() const;
     float getSpeed() const;
     int getRotationSpeed() const;
+    int getOrientation() const;
+    const QString &getIndex() const;
 
     void setMove(QPointF);
     void setRotation(int);
@@ -58,6 +60,7 @@ public:
     void setSpeed(float);
     void setProfile(Profile*);
     void setRotationSpeed(int speed);
+    void setIndex(const char *);
 
     QPointF calcMove();
     int timeSinceSpawn() const;

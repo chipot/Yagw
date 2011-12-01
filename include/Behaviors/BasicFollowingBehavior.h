@@ -8,15 +8,12 @@
 
 class BasicFollowingBehavior : public MoveBehavior
 {
-private :
 
 public :
-    BasicFollowingBehavior(Entity *ent = 0){ entity = ent;}
+    BasicFollowingBehavior(Entity *ent = 0, Entity *t = 0) : MoveBehavior(ent, t) {}
     void move();
     void init();
-    static QPointF calcDirection(QPointF, QPointF);
-
-protected :
+    BasicFollowingBehavior *copy() const;
 };
 
 #endif // BASICFOLLOWINGBEHAVIOR_H

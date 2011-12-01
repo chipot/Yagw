@@ -29,6 +29,13 @@ public :
 
         return alpha;
     }
+
+    static QPointF calcMovement(QPointF direction, int speed, int timeElapsed) {
+        float dist = speed * (float)(timeElapsed/1000.0);
+        QVector2D vector(direction);
+        vector.normalize();
+        return (vector.toPointF()* dist);
+}
 };
 
 #endif // CALCULATOR_H

@@ -6,15 +6,13 @@
 
 class FollowingRotationBehavior : public RotationBehavior
 {
-public :
-    FollowingRotationBehavior(Entity *ent = 0, int angle = 0) : angle(angle) {entity = ent;}
-    void rotate();
-    void init();
-    static qreal calcAngle(QVector2D, QVector2D);
-
 protected :
     int angle;
-
+public :
+    FollowingRotationBehavior(Entity *ent = 0, Entity *t = 0, int a = 0) : RotationBehavior(ent, t), angle(a) {}
+    void rotate();
+    void init();
+    FollowingRotationBehavior *copy() const;
 };
 
 #endif // FOLLOWINGROTATIONBEHAVIOR_H

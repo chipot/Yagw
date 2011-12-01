@@ -11,6 +11,9 @@
 #ifndef GAMEIA_H_
 # define GAMEIA_H_
 
+
+class ProfileFactory;
+class Profile;
 class GameProcessor;
 
 class GameIA
@@ -19,11 +22,14 @@ class GameIA
     GameIA(GameProcessor &, int, int, Entity *&);
     virtual ~GameIA(){}
     void advance(const int turn, const int score);
+    void setProfile(const char*, Profile*);
+    void designProfiles();
   private:
     QPointF randomDirection();
     QPointF randomPosition();
     void calcLevel(const  int);
     GameProcessor &game;
+    ProfileFactory *profileFactory;
     int width;
     int height;
     Entity  *&player;
