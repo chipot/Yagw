@@ -20,7 +20,8 @@ GameProcessor::GameProcessor(YagwScene &ygws)
     player(0),
     disclaimer(0),
     gia(*this, ygws.width(), ygws.height(), player),
-    cfg(ConfManager("config.cfg"))
+    cfg(ConfManager("config.cfg")),
+    playerFire(0)
 {
     QObject::connect(&scene, SIGNAL(newEntity(Entity*)), this, SLOT(loadEntity(Entity*)));
     QObject::connect(&scene, SIGNAL(newFire(Entity*)), this, SLOT(loadFire(Entity*)));
@@ -99,7 +100,7 @@ void GameProcessor::setPlayer()
 
     KeyboardMoveBehavior *playerMoveBehavior = new KeyboardMoveBehavior();
     KeyboardMultipleFireBehavior *playerShootBehavior = 
-        new KeyboardMultipleFireBehavior(150, 3, 16);
+        new KeyboardMultipleFireBehavior(150, 1, 7);
     KeyboardRotationBehavior *playerRotationBehavior = 
         new KeyboardRotationBehavior();
 
@@ -117,7 +118,6 @@ void GameProcessor::setPlayer()
                      playerShootBehavior, SLOT(keyReleaseEvent(QKeyEvent*)));
 
     Profile *playerProfile = new Profile(playerMoveBehavior, playerRotationBehavior, playerShootBehavior);
-
     player = EntityFactory::getEntity("spaceship");
     qDebug() << "Player addr:" << (void*)player;
     if (player != NULL) {
@@ -127,7 +127,7 @@ void GameProcessor::setPlayer()
         player->setFlag(QGraphicsItem::ItemIsFocusable, true);
         scene.setFocusItem(player);
     }
-
+    playerFire = playerShootBehavior;
  }
 
 
@@ -220,7 +220,6 @@ void GameProcessor::playerDead() {
   scene.removeItem(this->player);
   delete this->player;
   if (--playerLifes > 0) {
-  {
     this->setPlayer();
     this->gia.designProfiles();
   }
@@ -390,4 +389,8 @@ void GameProcessor::affGrid()
 
 ConfManager *GameProcessor::getConfig() {
     return &cfg;
+}
+
+KeyboardMultipleFireBehavior *GameProcessor::getPlayerFire() {
+    return playerFire;
 }

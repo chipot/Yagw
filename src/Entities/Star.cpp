@@ -8,6 +8,8 @@ Star::Star() {
     speed = 1;
     initPath();
     this->_boundindrect = path.boundingRect();
+    this->_pen = QPen(QColor("White"));
+
 }
 
 void Star::initPath() {
@@ -17,14 +19,14 @@ void Star::initPath() {
                     50 + 40 * sin(0.8 * i * Pi));
   }
   path.closeSubpath();
-  score = 12;
+  score = 100;
 }
 
 void Star::paint(QPainter *painter,
                         QStyleOptionGraphicsItem const * option,
                         QWidget *widget = 0)
 {
-    painter->setPen(QColor("yellow"));
+    painter->setPen(this->_pen);
     painter->drawPath(this->path);
 }
 

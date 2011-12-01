@@ -17,6 +17,7 @@
 #include "GameIA.h"
 
 class GameIA;
+class KeyboardMultipleFireBehavior;
 
 class GameProcessor : public QObject
 {
@@ -42,6 +43,7 @@ class GameProcessor : public QObject
     QGraphicsSimpleTextItem * score;
     GameIA      gia;
     ConfManager  cfg;
+    KeyboardMultipleFireBehavior *playerFire;
 
  public :
     GameProcessor(YagwScene &ygwscene);
@@ -52,6 +54,8 @@ class GameProcessor : public QObject
     void affDelimiters();
     void affGrid();
     ConfManager *getConfig();
+    KeyboardMultipleFireBehavior *getPlayerFire();
+
   private :
 
     void displayLifes();

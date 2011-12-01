@@ -4,6 +4,7 @@
 #include "GameIA.h"
 #include "Behaviors/BasicFollowingBehavior.h"
 #include "Behaviors/KeyboardFireBehavior.h"
+#include "Behaviors/KeyboardMultipleFireBehavior.h"
 #include "Behaviors/KeyboardMoveBehavior.h"
 #include "Behaviors/KeyboardRotationBehavior.h"
 #include "Behaviors/GrowingBehavior.h"
@@ -39,11 +40,13 @@ QPointF GameIA::randomPosition() {
 void  GameIA::calcLevel(const  int i)
 {
   this->level = (i / 100 > 10 ? 10 : i / 100);
+  game.getPlayerFire()->setNumber(this->level+1);
 }
 
 void GameIA::advance(const  int turn, const  int score)
 {
-  int freq = (120 - (score / 40) + 1 <= 0 ? 1 : 120 - (score / 40) + 1);
+  int freq = (70 - (score / 40) + 1 <= 0 ? 1 : 70 - (score / 40) + 1);
+
   this->calcLevel(score);
 
   if (!(turn % freq))
@@ -81,7 +84,7 @@ void GameIA::designProfiles() {
     setProfile(QString("followingGrowing"), new Profile(following->copy(), 0, 0, new GrowingBehavior()));
 
     // Profile : "followingRotating"
-    setProfile(QString("followingRotating"), new Profile(new BasicFollowingBehavior(0, this->player, 250), new FollowingRotationBehavior(0, this->player, 270)));
+    setProfile(QString("followingRotating"), new Profile(new BasicFollowingBehavior(0, this->player, 200), new FollowingRotationBehavior(0, this->player, 270)));
 
     // Profile : "immobileFiring"
     setProfile(QString("immobileFiring"), new Profile(0, 0, 0, 0));
@@ -90,6 +93,9 @@ void GameIA::designProfiles() {
     setProfile(QString("charging"), new Profile(new ChargingBehavior(0, this->player, 400)));
 
     // Profile : "followingGrowing2"
-    setProfile(QString("followingGrowing2"), new Profile(new BasicFollowingBehavior(0, this->player, 180), new BasicRotationBehavior(0, 10), 0, new GrowingBehavior(1000, 1.5)));
+    setProfile(QString("followingGrowing2"), new Profile(new BasicFollowingBehavior(0, this->player, 130), new BasicRotationBehavior(0, 10), 0, new GrowingBehavior(1000, 0.6)));
+
+    // Profile : "expanding"
+    setProfile(QString("expanding"), new Profile(0, 0, 0, new GrowingBehavior(2500, 10)));
 }
 

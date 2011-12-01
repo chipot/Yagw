@@ -15,6 +15,7 @@ public :
     KeyboardMultipleFireBehavior(int fireFrequency = 150, int n = 2, int angle = 7) : KeyboardFireBehavior(fireFrequency), number(n), spacing(angle) {}
     virtual ~KeyboardMultipleFireBehavior(){}
     void fire();
+    void setNumber(int n);
 };
 
 #endif // KEYBOARDMULTIPLEFIREBEHAVIOR_H

@@ -6,7 +6,7 @@ GreenCrossSquare::GreenCrossSquare() {
     speed = 2;
     initPath();
     this->_boundindrect = path.boundingRect();
-    score = 22;
+    score = 40;
     this->_pen = QPen(QColor("magenta"));
     _pen.setWidth(1);
 }

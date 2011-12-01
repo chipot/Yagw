@@ -30,7 +30,6 @@ HEADERS += \
     include/EntityFactory.h \
     include/ProfileFactory.h \
     include/Registry.h \
-    include/Entities/Ship.h \
     include/Entities/Shuriken.h \
     include/Entities/GreenSquare.h \
     include/Entities/GreenCrossSquare.h \
@@ -59,7 +58,8 @@ HEADERS += \
     include/ConfManager.h\
     include/Behaviors/ChargingBehavior.h \
     include/Behaviors/FiringBehavior.h \
-    include/Behaviors/BasicRotationBehavior.h
+    include/Behaviors/BasicRotationBehavior.h \
+    include/Entities/BlueCircle.h
 
 
 
@@ -74,7 +74,6 @@ SOURCES += src/main.cpp \
     src/ProfileFactory.cpp \
     src/Entities/Spaceship.cpp \
     src/Entities/Shuriken.cpp \
-    src/Entities/Ship.cpp \
     src/Entities/GreenSquare.cpp \
     src/Entities/GreenCrossSquare.cpp \
     src/Entities/Star.cpp \
@@ -98,7 +97,12 @@ SOURCES += src/main.cpp \
     src/Behaviors/SimpleRotationBehavior.cpp\
     src/ConfManager.cpp\
     src/Behaviors/ChargingBehavior.cpp\
-    src/Behaviors/BasicRotationBehavior.cpp
+    src/Behaviors/BasicRotationBehavior.cpp \
+    src/Entities/BlueCircle.cpp
+
+
+
+
 
 
 

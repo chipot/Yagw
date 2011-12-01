@@ -3,14 +3,6 @@
 #include "SoundCenter.h"
 
 
-int exactMiddle(int number) {
-    int middle = floor(number/2);
-    if (middle < number/2) {
-        middle++;
-    }
-    return middle;
-}
-
 void KeyboardMultipleFireBehavior::fire() {
     using namespace std;
     QRectF brect = this->entity->boundingRect();
@@ -40,4 +32,8 @@ void KeyboardMultipleFireBehavior::fire() {
         fire->moveBy(entity->pos().x() + direction.x()*s, entity->pos().y()+direction.y()*s);
     }
     SoundCenter::get_instance()->play("shoot");
+}
+
+void KeyboardMultipleFireBehavior::setNumber(int n) {
+    number = n;
 }

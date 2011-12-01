@@ -1,7 +1,6 @@
 #ifndef ENTITYFACTORY_H
 #define ENTITYFACTORY_H
 
-#include "Entities/Ship.h"
 #include "Entities/Shuriken.h"
 #include "Entities/GreenSquare.h"
 #include "Entities/Spaceship.h"

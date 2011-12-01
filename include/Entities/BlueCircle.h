@@ -1,21 +1,19 @@
-#ifndef SHIP_H
-#define SHIP_H
+#ifndef BLUECIRCLE_H
+#define BLUECIRCLE_H
 
 #include "Entity.h"
 
-class Ship : public Entity
+class BlueCircle : public Entity
 {
-
-
 private :
     // private methods
     void initPath();
 
 public :
-    Ship();
-    virtual ~Ship();
+    BlueCircle();
 //    QRectF boundingRect() const;
     void paint(QPainter*, const QStyleOptionGraphicsItem*, QWidget*);
- };
+    virtual ~BlueCircle();
+};
 
-#endif // SHIP_H
+#endif // BLUECIRCLE_H
