@@ -2,8 +2,9 @@
 #include "Registry.h"
 
 Shuriken::Shuriken():Entity(){
-  speed = 5;
+    speed = 5;
     initPath();
+    this->_boundindrect = path.boundingRect();
 }
 
 void Shuriken::initPath() {

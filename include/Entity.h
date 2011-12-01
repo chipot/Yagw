@@ -21,6 +21,8 @@ class YagwScene;
 
 class Entity : public QGraphicsItem
 {
+ public:
+    enum kind {bullet, unknow};
 protected :
     Profile *profile;
     QPainterPath path;
@@ -36,9 +38,10 @@ protected :
     QTime time;
     int orientation;
     QString index;
+    kind type;
+    QRectF _boundindrect;
 
 public:
-    enum kind {bullet, unknow};
     Entity(Profile *profile = 0, const char* name="");
     Entity::kind getType(){return this->type;}
     void setType(kind k){this->type = k;}
@@ -69,8 +72,6 @@ public:
     bool shielded();
     bool die();
     void setLives(const int);
-private:
-    kind type;
 };
 
 
