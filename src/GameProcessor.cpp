@@ -76,17 +76,21 @@ void GameProcessor::createDisclaimer(const QString &s)
 
 void GameProcessor::advance()
 {
+  QGraphicsView *ptr = 0x0;
   this->gia.advance(++(this->turn), Score::get_instance()->getScore());
   this->checkCollidings();
   this->displayLifes();
   QString str("Score:\n");
-    str += QString::number(Score::get_instance()->getScore()) + QString::fromAscii("\nMax:\n") + QString::number(Score::get_instance()->getMax());
-    this->score->setText(str);
+  Score *scoreptr = Score::get_instance();
+  str += QString::number(scoreptr->getScore())
+      + QString::fromAscii("\nMax:\n")
+      + QString::number(scoreptr->getMax());
+  //this->score->setText(str);
   QList<QGraphicsView*> views = this->scene.views();
-  QGraphicsView *ptr = 0x0;
   foreach(ptr, views)
   {
-    ptr->centerOn(this->player);
+    if (this->player != 0)
+      ptr->centerOn(this->player);
   }
 }
 
