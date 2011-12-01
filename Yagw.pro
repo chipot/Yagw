@@ -55,6 +55,8 @@ HEADERS += \
     include/Behaviors/GrowingBehavior.h \
     include/Behaviors/ImplodingBehavior.h \
     include/Behaviors/SimpleRotationBehavior.h\
+    include/ConfManager.h \
+    include/Bloom.h \
     include/ConfManager.h\
     include/Behaviors/ChargingBehavior.h \
     include/Behaviors/FiringBehavior.h \
@@ -94,68 +96,12 @@ SOURCES += src/main.cpp \
     src/Behaviors/KeyboardMultipleFireBehavior.cpp \
     src/Behaviors/GrowingBehavior.cpp \
     src/Behaviors/ImplodingBehavior.cpp \
-    src/Behaviors/SimpleRotationBehavior.cpp\
-    src/ConfManager.cpp\
-    src/Behaviors/ChargingBehavior.cpp\
+    src/Behaviors/SimpleRotationBehavior.cpp \
+    src/Bloom.cpp \
+    src/ConfManager.cpp \
+    src/Behaviors/ChargingBehavior.cpp \
     src/Behaviors/BasicRotationBehavior.cpp \
     src/Entities/BlueCircle.cpp
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
