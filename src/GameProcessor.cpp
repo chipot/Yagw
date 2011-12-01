@@ -85,7 +85,7 @@ void GameProcessor::advance()
   str += QString::number(scoreptr->getScore())
       + QString::fromAscii("\nMax:\n")
       + QString::number(scoreptr->getMax());
-  //this->score->setText(str);
+  this->score->setText(str);
   QList<QGraphicsView*> views = this->scene.views();
   foreach(ptr, views)
   {
