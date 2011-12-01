@@ -22,7 +22,7 @@ void Entity::explode()
 {
   this->is_exploding = true;
   delete this->profile;
-  this->setProfile(new Profile(MoveBehaviorFactory::getMoveBehavior("SimpleMoveBehavior"),
+  this->setProfile(new Profile(0,//MoveBehaviorFactory::getMoveBehavior("SimpleMoveBehavior"),
                                RotationBehaviorFactory::getRotationBehavior("SimpleRotationBehavior"),
                                0,
                                TransformationBehaviorFactory::getTransformationBehavior("ImplodingBehavior")));
