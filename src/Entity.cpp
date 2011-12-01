@@ -7,7 +7,7 @@ Entity::Entity(Profile *_profile, const char *name) :
     parentScene(0), move(QPointF(0,0)), spawnTime(new QTime()),
     spawnShield(true), rotation(0), speed(100), score(0),
     rotationSpeed(0), lives(1), time(QTime()),  orientation(90),
-    type(Entity::unknow), index(QString(name))
+    index(QString(name)), type(Entity::unknow)
 {
     spawnTime->start();
     time.start();
