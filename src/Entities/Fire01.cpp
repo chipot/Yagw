@@ -4,15 +4,16 @@
 Fire01::Fire01() {
     speed = 300;
     initPath();
+    this->_boundindrect = this->path.boundingRect();
+}
+
+Fire01::~Fire01()
+{
 }
 
 void Fire01::initPath() {
     path.addEllipse(-4, -4, 4, 4);
     path.closeSubpath();
-}
-
-QRectF Fire01::boundingRect() const {
-    return this->path.boundingRect();
 }
 
 void Fire01::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0) {

@@ -5,6 +5,7 @@
 Spaceship::Spaceship() {
     speed = 200;
     initPath();
+    this->_boundindrect = path.boundingRect();
 }
 
 void Spaceship::initPath() {

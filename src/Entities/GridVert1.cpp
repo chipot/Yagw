@@ -3,6 +3,7 @@
 
 GridVert1::GridVert1() {
     initPath();
+    score = 15;
 }
 
 void GridVert1::initPath() {

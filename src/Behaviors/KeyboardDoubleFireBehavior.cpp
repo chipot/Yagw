@@ -19,6 +19,5 @@ void KeyboardDoubleFireBehavior::fire() {
     fire1->moveBy(entity->pos().x() + d1.x()*s, entity->pos().y()+d1.y()*s);
     fire2->moveBy(entity->pos().x() + d2.x()*s, entity->pos().y()+d2.y()*s);
     SoundCenter::get_instance()->play("shoot");
-    SoundCenter::get_instance()->play("shoot");
 }
 

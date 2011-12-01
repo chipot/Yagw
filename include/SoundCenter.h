@@ -7,6 +7,7 @@
 #include <QObject>
 #include <QSignalMapper>
 #include <QThread>
+#include <QMutex>
 #include "singleton.hpp"
 #include <Phonon>
 #include <Phonon/MediaSource>
@@ -45,7 +46,7 @@ class SoundPair : public QObject
   Phonon::MediaSource source;
 };
 
-class SoundCenter: public QThread, public moost::singleton<SoundCenter>
+class SoundCenter: public QObject, public moost::singleton<SoundCenter>
 {
     Q_OBJECT
     friend class moost::singleton<SoundCenter>;
@@ -62,6 +63,7 @@ class SoundCenter: public QThread, public moost::singleton<SoundCenter>
     SoundRelationMap data;
     Phonon::MediaObject *music;
     QString     to_play;
+//    QMutex    _mut;
 };
 
 #endif /* !SOUNDCENTER_H_ */

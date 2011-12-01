@@ -1,3 +1,4 @@
+#include "Registry.h"
 #include "Behaviors/GrowingBehavior.h"
 
 void GrowingBehavior::start() {
@@ -25,3 +26,5 @@ void GrowingBehavior::changeSize() {
 GrowingBehavior *GrowingBehavior::copy() {
     return new GrowingBehavior(growingDuration, maxSize);
 }
+
+Registry<TransformationBehavior>::Add<GrowingBehavior> GrowingBehavior("GrowingBehavior", "5: une meilleur expliquation est bienvenue");

@@ -5,6 +5,7 @@
 Ship::Ship() {
     speed = 3;
     initPath();
+    this->_boundindrect = path.boundingRect();
 }
 
 void Ship::initPath() {

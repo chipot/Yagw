@@ -7,6 +7,7 @@ static const float Pi = 3.14159f;
 Star::Star() {
     speed = 1;
     initPath();
+    this->_boundindrect = path.boundingRect();
 }
 
 void Star::initPath() {
@@ -16,6 +17,7 @@ void Star::initPath() {
                     50 + 40 * sin(0.8 * i * Pi));
   }
   path.closeSubpath();
+  score = 12;
 }
 
 void Star::paint(QPainter *painter,

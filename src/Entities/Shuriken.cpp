@@ -2,8 +2,9 @@
 #include "Registry.h"
 
 Shuriken::Shuriken():Entity(){
-  speed = 5;
+    speed = 5;
     initPath();
+    this->_boundindrect = path.boundingRect();
 }
 
 void Shuriken::initPath() {
@@ -11,6 +12,7 @@ void Shuriken::initPath() {
           path.lineTo(-5 + 8 * cos(0.8 * i * PI), -5 + 8 * sin(0.8 * i * PI));
       }
       path.closeSubpath();
+      score = 13;
 }
 
 QRectF Shuriken::boundingRect() const {

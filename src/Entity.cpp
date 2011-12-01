@@ -7,7 +7,7 @@ Entity::Entity(Profile *_profile, const char *name) :
     parentScene(0), move(QPointF(0,0)), spawnTime(new QTime()),
     spawnShield(true), rotation(0), speed(100), score(0),
     rotationSpeed(0), lives(1), time(QTime()),  orientation(90),
-    index(QString(name)), type(Entity::unknow)
+    index(QString(name)), type(Entity::unknow), _boundindrect(0, 0, 0,0)
 {
     spawnTime->start();
     time.start();
@@ -33,6 +33,7 @@ Entity::~Entity()
 {
   Score::get_instance()->inc(this->score);
   delete profile;
+  delete spawnTime;
 }
 
 bool    Entity::die()
@@ -41,7 +42,7 @@ bool    Entity::die()
   return lives == 0;
 }
 QRectF Entity::boundingRect() const {
-    return this->path.boundingRect();
+  return this->_boundindrect;
 }
 
 void Entity::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0 ) {

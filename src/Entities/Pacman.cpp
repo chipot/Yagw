@@ -8,13 +8,15 @@ Pacman::Pacman() {
     speed = 1;
     orientation = 270;
     initPath();
+    this->_boundindrect = path.boundingRect();
+    score = 42;
 }
 
 void Pacman::initPath() {
   //this->setTransformOriginPoint(50.0, 50.0);
  // path.moveTo(50.0, 50.0);
 
-    path.arcTo(QRectF(-30, -30, 60, 60), 30, 270);
+  path.arcTo(QRectF(-30, -30, 60, 60), 30, 270);
   path.closeSubpath();
 }
 
