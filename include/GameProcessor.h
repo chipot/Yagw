@@ -56,6 +56,7 @@ public :
     bool isWall(const Entity *);
     void stop();
     void checkCollidings();
+    void setBloom();
 
 public slots:
     void keyPressEvent( QKeyEvent * );

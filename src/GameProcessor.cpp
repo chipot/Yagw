@@ -359,3 +359,33 @@ void GameProcessor::affGrid()
     }
 
 }
+
+void GameProcessor::setBloom()
+{
+//    static int i = 0;
+//    i++;
+//    if (i == 300) {
+//        QString fileName("test.png");
+//        //QString fileName2("test2.png");
+//        QPainter *pngPainter = new QPainter();
+//        QImage *image = new QImage(QSize(1500, 1500), QImage::Format_ARGB32);
+//        // Resolution of the image is 600 dpi by default
+//        image->setDotsPerMeterX(600*254);
+//        image->setDotsPerMeterY(600*254);
+
+//        pngPainter->begin(image);
+//        scene.render(pngPainter);
+
+//        QRect rectangle(0, 0, 80, 80);
+//        pngPainter->drawEllipse(rectangle);
+
+//        Bloom *bloom = new Bloom();
+//        pngPainter->drawImage(0, 0, bloom->bloomed(*image, 19, 49, 254, QPainter::CompositionMode_Overlay));
+//        pngPainter->end();
+
+//        image->save(fileName);
+//        delete pngPainter;
+//        delete image;
+//        exit(1);
+//    }
+}
