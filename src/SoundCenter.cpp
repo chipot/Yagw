@@ -38,6 +38,7 @@ SoundCenter::~SoundCenter()
 
 void SoundCenter::run()
 {
+  this->_mut.lock();
   QString name = this->to_play;
   QList<SoundRelationMap::mapped_type> l = data.values(name);
   SoundRelationMap::mapped_type v;
@@ -51,12 +52,15 @@ void SoundCenter::run()
           break;
         }
     }
+  this->_mut.unlock();
 }
 
 void SoundCenter::play(const QString &name)
 {
+  this->_mut.lock();
   this->to_play = name;
   this->start();
+  this->_mut.unlock();
 }
 
 void    SoundCenter::loop()
