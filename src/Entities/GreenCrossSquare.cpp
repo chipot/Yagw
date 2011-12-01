@@ -6,6 +6,7 @@ GreenCrossSquare::GreenCrossSquare() {
     speed = 2;
     initPath();
     this->_boundindrect = path.boundingRect();
+    score = 22;
 }
 
 void GreenCrossSquare::initPath() {

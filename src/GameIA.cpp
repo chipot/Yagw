@@ -39,7 +39,7 @@ void  GameIA::calcLevel(const  int i)
 
 void GameIA::advance(const  int turn, const  int score)
 {
-  int freq = (120 - (score / 40) + 1 <= 0 ? 1 : 120 - (score / 40) + 1);
+  int freq = (10 - (score / 40) + 1 <= 0 ? 1 : 10 - (score / 40) + 1);
   this->calcLevel(score);
 
   if (!(turn % freq))
