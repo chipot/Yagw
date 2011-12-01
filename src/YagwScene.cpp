@@ -44,12 +44,17 @@ void YagwScene::setBackgroundImage() {
 //    QBrush backgroundColor(Qt::black, Qt::SolidPattern);
 //    this->setBackgroundBrush(backgroundColor);
 
+//    QRect backGround(-500,-500,1000,1000);
+
+
     QImage *img = new QImage("grid.png");
     if (img->isNull())
         qDebug() << "grid image can not be loaded";
     else {
+        QRect rect();
+
         QBrush *brush = new QBrush(*img);
         brush->setTextureImage(*img);
-        setBackgroundBrush (*brush);
+        this->setBackgroundBrush(*brush);
     }
 }

@@ -18,10 +18,10 @@ void Spaceship::initPath() {
 //    path.lineTo(5, -10);
 //    path.lineTo(20, 0);
 
-    path.moveTo(10, 0);
-    path.lineTo(-10, 7);
-    path.lineTo(-10, -7);
-    path.lineTo(10, 0);
+    path.moveTo(12, 0);
+    path.lineTo(-12, 8);
+    path.lineTo(-12, -8);
+    path.lineTo(12, 0);
     path.closeSubpath();
 }
 
@@ -30,8 +30,8 @@ QRectF Spaceship::boundingRect() const {
 }
 
 void Spaceship::paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = 0) {
-    QPen pen(QColor("red"));
-    pen.setWidth(2);
+    QPen pen(QColor(200, 0, 0));
+    pen.setWidth(3);
     painter->setPen(pen);
     painter->drawPath(this->path);
 }

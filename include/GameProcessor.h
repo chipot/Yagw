@@ -46,6 +46,7 @@ public :
     void spawnEntity(Entity*, QPointF);
     void affDelimiters();
     void affGrid();
+    void setBackgroundImage();
 
   private :
 
