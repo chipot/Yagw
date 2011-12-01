@@ -6,6 +6,10 @@
 #include "Behaviors/KeyboardFireBehavior.h"
 #include "Behaviors/KeyboardMoveBehavior.h"
 #include "Behaviors/KeyboardRotationBehavior.h"
+#include "Behaviors/GrowingBehavior.h"
+#include "Behaviors/FollowingRotationBehavior.h"
+#include "Behaviors/SimpleMoveBehavior.h"
+#include "Behaviors/ChargingBehavior.h"
 #include "Profile.h"
 #include "GameProcessor.h"
 
@@ -13,7 +17,6 @@
 GameIA::GameIA(GameProcessor &g, int w, int h, Entity *&p)
     :game(g), profileFactory(new ProfileFactory()), width(w), height(h), player(p), level(0)
 {
-
 }
 
 QPointF GameIA::randomDirection() {
@@ -48,19 +51,43 @@ void GameIA::advance(const  int turn, const  int score)
       if (!entity)
         return;
       entity->setProfile(
-        new Profile(MoveBehaviorFactory::getRandom(this->level, this->player),
+                  profileFactory->getCopy(
+                      game.getConfig()->getProfileIndex(
+                          entity->getIndex()
+                          )
+                      )
+                  );
+
+              /*        new Profile(MoveBehaviorFactory::getRandom(this->level, this->player),
                     RotationBehaviorFactory::getRandom(this->level, this->player),
                     ShootBehaviorFactory::getRandom(this->level),
                     TransformationBehaviorFactory::getRandom(this->level)));
+                            */
       this->game.spawnEntity(entity, randomPosition());
     }
 }
 
-void GameIA::setProfile(const char *name, Profile *profile) {
+void GameIA::setProfile(QString name, Profile *profile) {
     profileFactory->StoreProfile(name, profile);
 }
 
 void GameIA::designProfiles() {
+    // Profile : "following"
 
+    BasicFollowingBehavior *following = new BasicFollowingBehavior(0, this->player);
+    setProfile(QString("following"), new Profile(following->copy()));
+
+    // Profile : "followingGrowing"
+
+    setProfile(QString("followingGrowing"), new Profile(following->copy(), 0, 0, new GrowingBehavior()));
+
+    // Profile : "followingRotating"
+    setProfile(QString("followingRotating"), new Profile(new BasicFollowingBehavior(0, this->player, 250), new FollowingRotationBehavior(0, this->player, 270)));
+
+    // Profile : "immobileFiring"
+    setProfile(QString("immobileFiring"), new Profile(0, 0, 0, 0));
+
+    // Profile : "charging"
+    setProfile(QString("charging"), new Profile(new ChargingBehavior(0, this->player, 400)));
 }
 

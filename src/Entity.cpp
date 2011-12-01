@@ -116,7 +116,7 @@ float Entity::getSpeed() const {
 bool Entity::shielded() {
     if (spawnShield == false)
         return false;
-    if (spawnTime->elapsed() >= 2000) {
+    if (spawnTime->elapsed() >= 750) {
         spawnShield = false;
         delete spawnTime;
         spawnTime = 0;
@@ -129,7 +129,10 @@ int Entity::getOrientation() const {
     return orientation;
 }
 
+void Entity::setIndex(QString name) {
+    index = name;
+}
 
-void Entity::setIndex(const char *name) {
-    index = QString(name);
+QString Entity::getIndex() const {
+    return index;
 }

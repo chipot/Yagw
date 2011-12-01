@@ -1,16 +1,17 @@
 #include "ProfileFactory.h"
 #include "Behaviors.h"
 
-void ProfileFactory::StoreProfile(const char *name, Profile *profile) {
+void ProfileFactory::StoreProfile(QString name, Profile *profile) {
     profiles.insert(name, profile);
+    qDebug() << "Profile added : " << name;
 }
 
-Profile *ProfileFactory::getCopy(const char *name) const {
-    if (profiles.contains(name))
+Profile *ProfileFactory::getCopy(QString name) {
+    if (profiles.contains(name)) {
         return profiles[name]->copy();
+    }
     return 0;
 }
-
 
 MoveBehaviorFactory moveBehaviorFactory;
 

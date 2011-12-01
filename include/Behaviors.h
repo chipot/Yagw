@@ -16,8 +16,8 @@ public :
     virtual ~MoveBehavior(){}
     virtual void move() = 0;
     void setTarget(Entity *t) {target = t;}
-    virtual MoveBehavior *copy(){return 0;}
-
+    virtual MoveBehavior *copy(){qDebug() << "move behavior copy";  return 0;}
+    virtual void print(){}
 };
 
 class ShootBehavior : public Behavior {
@@ -25,7 +25,7 @@ public :
     ShootBehavior(){}
     virtual ~ShootBehavior(){}
     virtual void shoot() = 0;
-    virtual ShootBehavior *copy() const  {return 0;}
+    virtual ShootBehavior *copy()  {return 0;}
 };
 
 class RotationBehavior : public Behavior {
@@ -37,7 +37,8 @@ public :
     virtual ~RotationBehavior(){}
     virtual void rotate() = 0;
     void setTarget(Entity *t) {target = t;}
-    virtual RotationBehavior *copy() const {return 0;}
+    virtual RotationBehavior *copy() {    qDebug() << "rotation behavior";
+return 0;}
 };
 
 class TransformationBehavior : public Behavior {
@@ -45,7 +46,7 @@ public :
     TransformationBehavior(){}
     virtual ~TransformationBehavior(){}
     virtual void transform() = 0;
-    virtual TransformationBehavior *copy() const {return 0;}
+    virtual TransformationBehavior *copy() {qDebug() << "transformation behavior.";return 0; }
 };
 
 class CollisionBehavior : public Behavior {

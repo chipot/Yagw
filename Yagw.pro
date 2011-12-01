@@ -54,7 +54,8 @@ HEADERS += \
     include/Behaviors/KeyboardMultipleFireBehavior.h \
     include/Behaviors/FireCollisionBehavior.h \
     include/Behaviors/GrowingBehavior.h \
-    include/ConfManager.h
+    include/ConfManager.h \
+    include/Behaviors/ChargingBehavior.h
 
 
 SOURCES += src/main.cpp \
@@ -92,7 +93,10 @@ SOURCES += src/main.cpp \
     src/Behaviors/KeyboardDoubleFireBehavior.cpp \
     src/Behaviors/KeyboardMultipleFireBehavior.cpp \
     src/Behaviors/GrowingBehavior.cpp \
-    src/ConfManager.cpp
+    src/ConfManager.cpp \
+    src/Behaviors/ChargingBehavior.cpp
+
+
 
 
 

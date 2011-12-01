@@ -46,7 +46,7 @@ public :
     void spawnEntity(Entity*, QPointF);
     void affDelimiters();
     void affGrid();
-
+    ConfManager *getConfig();
   private :
 
     void displayLifes();

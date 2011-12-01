@@ -22,6 +22,6 @@ void GrowingBehavior::changeSize() {
     growingUp = !growingUp;
 }
 
-GrowingBehavior *GrowingBehavior::copy() const {
+GrowingBehavior *GrowingBehavior::copy() {
     return new GrowingBehavior(growingDuration, maxSize);
 }

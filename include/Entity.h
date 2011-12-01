@@ -54,7 +54,7 @@ public:
     float getSpeed() const;
     int getRotationSpeed() const;
     int getOrientation() const;
-    const QString &getIndex() const;
+    QString getIndex() const;
 
     void setMove(QPointF);
     void setRotation(int);
@@ -62,7 +62,7 @@ public:
     void setSpeed(float);
     void setProfile(Profile*);
     void setRotationSpeed(int speed);
-    void setIndex(const char *);
+    void setIndex(QString);
 
     QPointF calcMove();
     int timeSinceSpawn() const;

@@ -9,10 +9,11 @@
 class ConfManager {
 private :
     const char *fileName;
+    QMap<QString, QString> map;
 public:
     ConfManager(const char *name) : fileName(name) {setDefault();}
     void parseFile();
-    QMap<const char*, const char*> map;
+    QString getProfileIndex(QString) const;
 private :
     void parseLine(QString);
     void setDefault();

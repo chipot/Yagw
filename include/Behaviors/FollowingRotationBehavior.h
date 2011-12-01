@@ -12,7 +12,7 @@ public :
     FollowingRotationBehavior(Entity *ent = 0, Entity *t = 0, int a = 0) : RotationBehavior(ent, t), angle(a) {}
     void rotate();
     void init();
-    FollowingRotationBehavior *copy() const;
+    FollowingRotationBehavior *copy();
 };
 
 #endif // FOLLOWINGROTATIONBEHAVIOR_H
